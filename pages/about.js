@@ -3,13 +3,12 @@ import Layout from "../components/Layout";
 export default function About() {
   return (
     <Layout>
-      <h1 className="text-3xl font-bold mb-6">About CS Teaching Tool</h1>
+      <h1 className="text-3xl font-bold mb-6">About AlgoQuest</h1>
       <div className="max-w-3xl">
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
           <p className="text-gray-700 mb-4">
-            We aim to make Computer Science education accessible and engaging through
-            interactive lessons and practical exercises.
+              AlgoQuest: An Interactive Web-Based Teaching Tool for Learning Data Structures and Algorithms through Visualisation and Gamification
           </p>
         </section>
 
