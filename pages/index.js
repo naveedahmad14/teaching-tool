@@ -12,6 +12,8 @@ export default function Home() {
         <Card title="Bubble Sort" description="Introduction to Artificial Intelligence." link="/lesson/bubble" />
         <Card title="Merge Sort" description="Learn how to analyze and visualize data." link="/lesson/merge" />
         <Card title="Quick Sort" description="Problem solving with algorithms and efficiency." link="/lesson/quick" />
+        <Card title="Linear Search" description="Problem solving with algorithms and efficiency." link="/lesson/linear" />
+        <Card title="Binary Search" description="Problem solving with algorithms and efficiency." link="/lesson/binary" />
       </div>
     </Layout>
   );
