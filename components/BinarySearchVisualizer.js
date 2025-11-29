@@ -134,7 +134,7 @@ export default function BinarySearchVisualizer() {
 
   return (
     <div className="w-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl shadow-lg p-8 mb-8">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Binary Search Visualizer</h2>
+      <h2 className="text-2xl font-bold mb-6 text-gray-800">Binary Search Visualiser</h2>
       
       {/* Search Input */}
       <div className="bg-white rounded-lg p-4 mb-6 shadow-inner">

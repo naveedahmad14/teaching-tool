@@ -115,7 +115,7 @@ export default function QuickSortVisualizer() {
 
   return (
     <div className="w-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl shadow-lg p-8 mb-8">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Quick Sort Visualizer</h2>
+      <h2 className="text-2xl font-bold mb-6 text-gray-800">Quick Sort Visualiser</h2>
       
       {/* Visualization Area */}
       <div className="bg-white rounded-lg p-6 mb-6 shadow-inner">

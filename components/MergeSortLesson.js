@@ -182,12 +182,12 @@ export default function MergeSortLesson() {
       <div className="bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First!</h2>
         <p className="text-gray-700 mb-6">
-          Before diving into the details, play with this visualizer to get an intuitive feel for how merge sort works:
+          Before diving into the details, play with this visualiser to get an intuitive feel for how merge sort works:
         </p>
         <MergeSortVisualizer />
         <div className="bg-blue-50 rounded-lg p-4 border-2 border-blue-200">
           <p className="text-blue-800 text-center italic">
-            Note: The standalone visualizer from your components can be placed here, or you can use the integrated one below in the Interactive Visualization section.
+            Note: The standalone visualiser from your components can be placed here, or you can use the integrated one below in the Interactive Visualisation section.
           </p>
         </div>
       </div>
@@ -255,7 +255,7 @@ export default function MergeSortLesson() {
 
       {/* Interactive Visualization */}
       <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800">Interactive Visualization</h2>
+        <h2 className="text-3xl font-bold mb-6 text-gray-800">Interactive Visualisation</h2>
         
         {/* Controls */}
         <div className="flex flex-wrap gap-4 mb-6">
@@ -264,7 +264,7 @@ export default function MergeSortLesson() {
             disabled={sorting}
             className="px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md"
           >
-            {sorting ? 'Sorting...' : 'Start Visualization'}
+            {sorting ? 'Sorting...' : 'Start Visualisation'}
           </button>
           <button
             onClick={handleReset}
