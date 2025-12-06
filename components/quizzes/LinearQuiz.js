@@ -336,8 +336,8 @@ export default function LinearSearchQuiz() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="bg-white rounded-xl shadow-lg p-8">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-8">
+      <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-2xl p-8">
         {/* Header */}
         <div className="mb-6">
           <div className="flex justify-between items-center mb-4">
