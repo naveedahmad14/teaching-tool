@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 export default function MergeSortVisualizer() {
   const [array, setArray] = useState([]);
   const [sorting, setSorting] = useState(false);
+  const [paused, setPaused] = useState(false);
   const [sorted, setSorted] = useState(false);
   const [comparing, setComparing] = useState([]);
   const [merging, setMerging] = useState([]);
@@ -11,6 +12,10 @@ export default function MergeSortVisualizer() {
   const [rightSubarray, setRightSubarray] = useState([]);
   const [sortedIndices, setSortedIndices] = useState([]);
   const [speed, setSpeed] = useState(500);
+  
+  const cancelledRef = useRef(false);
+  const pausedRef = useRef(false);
+  const pauseResumeRef = useRef(null);
 
   // Initialize array with random values
   const generateArray = () => {
@@ -30,18 +35,69 @@ export default function MergeSortVisualizer() {
     generateArray();
   }, []);
 
-  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  const sleep = async (ms) => {
+    if (cancelledRef.current) return;
+    
+    return new Promise(resolve => {
+      const startTime = Date.now();
+      let remaining = ms;
+      let timeoutId = null;
+      
+      const tick = () => {
+        if (cancelledRef.current) {
+          if (timeoutId) clearTimeout(timeoutId);
+          resolve();
+          return;
+        }
+        
+        if (pausedRef.current) {
+          pauseResumeRef.current = { 
+            resolve: () => {
+              const elapsed = Date.now() - startTime;
+              remaining = ms - elapsed;
+              if (remaining > 0 && !cancelledRef.current && !pausedRef.current) {
+                timeoutId = setTimeout(() => {
+                  if (!cancelledRef.current) resolve();
+                }, remaining);
+              } else if (!pausedRef.current) {
+                resolve();
+              }
+            },
+            startTime,
+            remaining
+          };
+          return;
+        }
+        
+        const elapsed = Date.now() - startTime;
+        remaining = ms - elapsed;
+        
+        if (remaining <= 0) {
+          resolve();
+        } else {
+          timeoutId = setTimeout(tick, Math.min(remaining, 50));
+        }
+      };
+      
+      timeoutId = setTimeout(tick, Math.min(ms, 50));
+      pauseResumeRef.current = { resolve, timeoutId, startTime, remaining: ms };
+    });
+  };
 
   const mergeSort = async () => {
+    cancelledRef.current = false;
+    pausedRef.current = false;
     setSorting(true);
+    setPaused(false);
     setSorted(false);
     const arr = [...array];
 
     const merge = async (arr, left, mid, right) => {
+      if (cancelledRef.current) return;
+      
       const leftArr = arr.slice(left, mid + 1);
       const rightArr = arr.slice(mid + 1, right + 1);
 
-      // Highlight the subarrays being merged
       const leftIndices = Array.from({ length: mid - left + 1 }, (_, i) => left + i);
       const rightIndices = Array.from({ length: right - mid }, (_, i) => mid + 1 + i);
       
@@ -49,12 +105,18 @@ export default function MergeSortVisualizer() {
       setRightSubarray(rightIndices);
       setMerging([left, right]);
       await sleep(speed);
+      if (cancelledRef.current) return;
 
       let i = 0, j = 0, k = left;
 
       while (i < leftArr.length && j < rightArr.length) {
+        if (cancelledRef.current) break;
+        
+        if (cancelledRef.current) break;
+
         setComparing([left + i, mid + 1 + j]);
         await sleep(speed);
+        if (cancelledRef.current) break;
 
         if (leftArr[i] <= rightArr[j]) {
           arr[k] = leftArr[i];
@@ -65,64 +127,115 @@ export default function MergeSortVisualizer() {
         }
         setArray([...arr]);
         await sleep(speed);
+        if (cancelledRef.current) break;
         k++;
       }
 
-      while (i < leftArr.length) {
+      while (i < leftArr.length && !cancelledRef.current) {
         setComparing([left + i]);
         arr[k] = leftArr[i];
         setArray([...arr]);
         await sleep(speed);
+        if (cancelledRef.current) break;
         i++;
         k++;
       }
 
-      while (j < rightArr.length) {
+      while (j < rightArr.length && !cancelledRef.current) {
         setComparing([mid + 1 + j]);
         arr[k] = rightArr[j];
         setArray([...arr]);
         await sleep(speed);
+        if (cancelledRef.current) break;
         j++;
         k++;
       }
+
+      if (cancelledRef.current) return;
 
       setComparing([]);
       setLeftSubarray([]);
       setRightSubarray([]);
       
-      // Mark this merged section as sorted
       const newSorted = Array.from({ length: right - left + 1 }, (_, i) => left + i);
       setSortedIndices(prev => [...new Set([...prev, ...newSorted])]);
       await sleep(speed);
+      if (cancelledRef.current) return;
       setMerging([]);
     };
 
     const sort = async (arr, left, right) => {
+      if (cancelledRef.current) return;
+      
       if (left < right) {
         const mid = Math.floor((left + right) / 2);
         
         await sort(arr, left, mid);
+        if (cancelledRef.current) return;
         await sort(arr, mid + 1, right);
+        if (cancelledRef.current) return;
         await merge(arr, left, mid, right);
       }
     };
 
-    await sort(arr, 0, arr.length - 1);
-    
-    // Mark all as sorted
-    setSortedIndices(Array.from({ length: arr.length }, (_, i) => i));
-    setSorted(true);
-    setSorting(false);
+    try {
+      await sort(arr, 0, arr.length - 1);
+      
+      if (!cancelledRef.current) {
+        setSortedIndices(Array.from({ length: arr.length }, (_, i) => i));
+        setSorted(true);
+      }
+    } finally {
+      setSorting(false);
+      setPaused(false);
+      setComparing([]);
+      setMerging([]);
+      setLeftSubarray([]);
+      setRightSubarray([]);
+      if (pauseResumeRef.current?.timeoutId) {
+        clearTimeout(pauseResumeRef.current.timeoutId);
+      }
+    }
   };
 
   const handleStart = () => {
-    if (!sorting && !sorted) {
+    if (pausedRef.current) {
+      pausedRef.current = false;
+      setPaused(false);
+      if (pauseResumeRef.current?.resolve) {
+        pauseResumeRef.current.resolve();
+        pauseResumeRef.current = null;
+      }
+    } else if (!sorting && !sorted) {
       mergeSort();
     }
   };
 
+  const handlePause = () => {
+    if (sorting && !pausedRef.current) {
+      pausedRef.current = true;
+      setPaused(true);
+    }
+  };
+
   const handleReset = () => {
+    cancelledRef.current = true;
+    pausedRef.current = false;
     setSorting(false);
+    setPaused(false);
+    setComparing([]);
+    setMerging([]);
+    setLeftSubarray([]);
+    setRightSubarray([]);
+    
+    if (pauseResumeRef.current?.timeoutId) {
+      clearTimeout(pauseResumeRef.current.timeoutId);
+    }
+    if (pauseResumeRef.current?.resolve) {
+      pauseResumeRef.current.resolve();
+    }
+    pauseResumeRef.current = null;
+    
     generateArray();
   };
 
@@ -208,11 +321,20 @@ export default function MergeSortVisualizer() {
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
         <button
           onClick={handleStart}
-          disabled={sorting || sorted}
+          disabled={sorted && !paused}
           className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md"
         >
-          {sorting ? 'Sorting...' : sorted ? 'Completed' : 'Start Sort'}
+          {paused ? 'Resume' : sorting ? 'Sorting...' : sorted ? 'Completed' : 'Start Sort'}
         </button>
+        
+        {sorting && !paused && (
+          <button
+            onClick={handlePause}
+            className="px-6 py-2 bg-yellow-600 text-white rounded-lg font-semibold hover:bg-yellow-700 transition-colors shadow-md"
+          >
+            ⏸ Pause
+          </button>
+        )}
         
         <button
           onClick={handleReset}

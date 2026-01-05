@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import Layout from "../components/Layout";
+import GameButton from "../components/GameButton";
 
 export default function Signup() {
   const router = useRouter();
@@ -78,29 +79,37 @@ export default function Signup() {
 
   return (
     <Layout>
-      <div className="min-h-[calc(100vh-200px)] flex items-center justify-center">
+      <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-8 px-4">
         <div className="w-full max-w-md">
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <h1 className="text-3xl font-bold text-center mb-6 text-[#625EC6]">
-              Create Account
-            </h1>
-            <p className="text-center text-gray-600 mb-8">
-              Join AlgoQuest and start your learning journey
-            </p>
+          <div className="game-card p-8">
+            <div className="text-center mb-6">
+              <h1 className="text-lg mb-3 text-[#FFD700]">
+                🎮 Begin Your Quest!
+              </h1>
+              <p className="text-[10px] text-[#B0B0B0] leading-relaxed">
+                Create your account and embark on an epic journey to master algorithms
+              </p>
+            </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
-                {error}
+              <div 
+                className="game-card bg-[#1A1A2E] border-[#F44336] p-4 mb-6"
+                role="alert"
+                aria-live="assertive"
+              >
+                <p className="text-[10px] text-[#F44336] flex items-center gap-2">
+                  <span>⚠️</span> {error}
+                </p>
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6" aria-label="Sign up form">
               <div>
                 <label
                   htmlFor="username"
-                  className="block text-sm font-medium text-gray-700 mb-2"
+                  className="block text-[10px] text-[#E8E8E8] mb-2"
                 >
-                  Username
+                  👤 Username (min 3 characters)
                 </label>
                 <input
                   id="username"
@@ -111,17 +120,18 @@ export default function Signup() {
                   }
                   required
                   minLength={3}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#625EC6] focus:border-transparent outline-none"
-                  placeholder="Choose a username (min 3 characters)"
+                  className="game-input w-full"
+                  placeholder="Choose your adventurer name"
+                  aria-required="true"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-gray-700 mb-2"
+                  className="block text-[10px] text-[#E8E8E8] mb-2"
                 >
-                  Password
+                  🔒 Password (min 6 characters)
                 </label>
                 <input
                   id="password"
@@ -132,17 +142,18 @@ export default function Signup() {
                   }
                   required
                   minLength={6}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#625EC6] focus:border-transparent outline-none"
-                  placeholder="Create a password (min 6 characters)"
+                  className="game-input w-full"
+                  placeholder="Create a strong password"
+                  aria-required="true"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="confirmPassword"
-                  className="block text-sm font-medium text-gray-700 mb-2"
+                  className="block text-[10px] text-[#E8E8E8] mb-2"
                 >
-                  Confirm Password
+                  🔒 Confirm Password
                 </label>
                 <input
                   id="confirmPassword"
@@ -153,27 +164,31 @@ export default function Signup() {
                   }
                   required
                   minLength={6}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#625EC6] focus:border-transparent outline-none"
+                  className="game-input w-full"
                   placeholder="Confirm your password"
+                  aria-required="true"
                 />
               </div>
 
-              <button
+              <GameButton
                 type="submit"
                 disabled={loading}
-                className="w-full bg-[#625EC6] text-white py-3 rounded-lg font-semibold hover:bg-[#524DB8] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                variant="gold"
+                className="w-full"
+                aria-label={loading ? "Creating account..." : "Create account"}
               >
-                {loading ? "Creating account..." : "Sign Up"}
-              </button>
+                {loading ? "Creating..." : "Start Quest"}
+              </GameButton>
             </form>
 
-            <p className="mt-6 text-center text-gray-600">
+            <p className="mt-6 text-center text-[10px] text-[#B0B0B0]">
               Already have an account?{" "}
               <Link
                 href="/login"
-                className="text-[#625EC6] font-semibold hover:underline"
+                className="text-[#FFD700] hover:text-[#FFE55C] transition-colors focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
+                aria-label="Sign in to existing account"
               >
-                Sign in
+                Sign In →
               </Link>
             </p>
           </div>

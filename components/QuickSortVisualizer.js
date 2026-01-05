@@ -1,15 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 export default function QuickSortVisualizer() {
   const [array, setArray] = useState([]);
   const [sorting, setSorting] = useState(false);
+  const [paused, setPaused] = useState(false);
   const [sorted, setSorted] = useState(false);
   const [comparing, setComparing] = useState([]);
   const [pivot, setPivot] = useState(null);
   const [partitioning, setPartitioning] = useState([]);
   const [sortedIndices, setSortedIndices] = useState([]);
   const [speed, setSpeed] = useState(500);
+  
+  const cancelledRef = useRef(false);
+  const pausedRef = useRef(false);
+  const pauseResumeRef = useRef(null);
 
   // Initialize array with random values
   const generateArray = () => {
@@ -28,42 +33,108 @@ export default function QuickSortVisualizer() {
     generateArray();
   }, []);
 
-  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  const sleep = async (ms) => {
+    if (cancelledRef.current) return;
+    
+    return new Promise(resolve => {
+      const startTime = Date.now();
+      let remaining = ms;
+      let timeoutId = null;
+      
+      const tick = () => {
+        if (cancelledRef.current) {
+          if (timeoutId) clearTimeout(timeoutId);
+          resolve();
+          return;
+        }
+        
+        if (pausedRef.current) {
+          pauseResumeRef.current = { 
+            resolve: () => {
+              const elapsed = Date.now() - startTime;
+              remaining = ms - elapsed;
+              if (remaining > 0 && !cancelledRef.current && !pausedRef.current) {
+                timeoutId = setTimeout(() => {
+                  if (!cancelledRef.current) resolve();
+                }, remaining);
+              } else if (!pausedRef.current) {
+                resolve();
+              }
+            },
+            startTime,
+            remaining
+          };
+          return;
+        }
+        
+        const elapsed = Date.now() - startTime;
+        remaining = ms - elapsed;
+        
+        if (remaining <= 0) {
+          resolve();
+        } else {
+          timeoutId = setTimeout(tick, Math.min(remaining, 50));
+        }
+      };
+      
+      timeoutId = setTimeout(tick, Math.min(ms, 50));
+      pauseResumeRef.current = { resolve, timeoutId, startTime, remaining: ms };
+    });
+  };
+
+  const waitForResume = async () => {
+    return new Promise(resolve => {
+      pauseResumeRef.current = { ...pauseResumeRef.current, resolve };
+    });
+  };
 
   const quickSort = async () => {
+    cancelledRef.current = false;
+    pausedRef.current = false;
     setSorting(true);
+    setPaused(false);
     setSorted(false);
     const arr = [...array];
     const newSortedIndices = [];
 
     const partition = async (low, high) => {
+      if (cancelledRef.current) return null;
+      
       const pivotValue = arr[high];
       setPivot(high);
       setPartitioning([low, high]);
       await sleep(speed);
+      if (cancelledRef.current) return null;
 
       let i = low - 1;
 
       for (let j = low; j < high; j++) {
+        if (cancelledRef.current) break;
+        
+        if (cancelledRef.current) break;
+
         setComparing([j, high]);
         await sleep(speed);
+        if (cancelledRef.current) break;
 
         if (arr[j] < pivotValue) {
           i++;
           if (i !== j) {
-            // Swap
             [arr[i], arr[j]] = [arr[j], arr[i]];
             setArray([...arr]);
             await sleep(speed);
+            if (cancelledRef.current) break;
           }
         }
         setComparing([]);
       }
 
-      // Place pivot in correct position
+      if (cancelledRef.current) return null;
+
       [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
       setArray([...arr]);
       await sleep(speed);
+      if (cancelledRef.current) return null;
 
       newSortedIndices.push(i + 1);
       setSortedIndices([...newSortedIndices]);
@@ -74,9 +145,13 @@ export default function QuickSortVisualizer() {
     };
 
     const sort = async (low, high) => {
+      if (cancelledRef.current) return;
+      
       if (low < high) {
         const pi = await partition(low, high);
+        if (cancelledRef.current || pi === null) return;
         await sort(low, pi - 1);
+        if (cancelledRef.current) return;
         await sort(pi + 1, high);
       } else if (low === high) {
         newSortedIndices.push(low);
@@ -84,22 +159,62 @@ export default function QuickSortVisualizer() {
       }
     };
 
-    await sort(0, arr.length - 1);
-    
-    // Mark all as sorted
-    setSortedIndices(Array.from({ length: arr.length }, (_, i) => i));
-    setSorted(true);
-    setSorting(false);
+    try {
+      await sort(0, arr.length - 1);
+      
+      if (!cancelledRef.current) {
+        setSortedIndices(Array.from({ length: arr.length }, (_, i) => i));
+        setSorted(true);
+      }
+    } finally {
+      setSorting(false);
+      setPaused(false);
+      setComparing([]);
+      setPivot(null);
+      setPartitioning([]);
+      if (pauseResumeRef.current?.timeoutId) {
+        clearTimeout(pauseResumeRef.current.timeoutId);
+      }
+    }
   };
 
   const handleStart = () => {
-    if (!sorting && !sorted) {
+    if (pausedRef.current) {
+      pausedRef.current = false;
+      setPaused(false);
+      if (pauseResumeRef.current?.resolve) {
+        pauseResumeRef.current.resolve();
+        pauseResumeRef.current = null;
+      }
+    } else if (!sorting && !sorted) {
       quickSort();
     }
   };
 
+  const handlePause = () => {
+    if (sorting && !pausedRef.current) {
+      pausedRef.current = true;
+      setPaused(true);
+    }
+  };
+
   const handleReset = () => {
+    cancelledRef.current = true;
+    pausedRef.current = false;
     setSorting(false);
+    setPaused(false);
+    setComparing([]);
+    setPivot(null);
+    setPartitioning([]);
+    
+    if (pauseResumeRef.current?.timeoutId) {
+      clearTimeout(pauseResumeRef.current.timeoutId);
+    }
+    if (pauseResumeRef.current?.resolve) {
+      pauseResumeRef.current.resolve();
+    }
+    pauseResumeRef.current = null;
+    
     generateArray();
   };
 
@@ -177,11 +292,20 @@ export default function QuickSortVisualizer() {
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
         <button
           onClick={handleStart}
-          disabled={sorting || sorted}
+          disabled={sorted && !paused}
           className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md"
         >
-          {sorting ? 'Sorting...' : sorted ? 'Completed' : 'Start Sort'}
+          {paused ? 'Resume' : sorting ? 'Sorting...' : sorted ? 'Completed' : 'Start Sort'}
         </button>
+        
+        {sorting && !paused && (
+          <button
+            onClick={handlePause}
+            className="px-6 py-2 bg-yellow-600 text-white rounded-lg font-semibold hover:bg-yellow-700 transition-colors shadow-md"
+          >
+            ⏸ Pause
+          </button>
+        )}
         
         <button
           onClick={handleReset}

@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import Link from "next/link";
+import GameBadge from "../components/GameBadge";
 
 const lessonNames = {
   bubble: "Bubble Sort",
@@ -48,8 +49,8 @@ export default function Progress() {
       <Layout>
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#625EC6] mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading your progress...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-[#625EC6] border-t-transparent mx-auto mb-4"></div>
+            <p className="text-[10px] text-[#B0B0B0]">Loading your quest progress...</p>
           </div>
         </div>
       </Layout>
@@ -74,23 +75,30 @@ export default function Progress() {
 
   return (
     <Layout>
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">Your Progress</h1>
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="text-center mb-8">
+          <h1 className="text-lg mb-2 text-[#FFD700]">
+            📊 Quest Progress
+          </h1>
+          <p className="text-[10px] text-[#B0B0B0]">
+            Track your journey to algorithmic mastery
+          </p>
+        </div>
 
         {/* User Stats Card */}
-        <div className="bg-gradient-to-r from-[#625EC6] to-[#524DB8] text-white rounded-lg shadow-lg p-6 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-              <p className="text-white/80 text-sm mb-1">Level</p>
-              <p className="text-4xl font-bold">{currentLevel}</p>
+        <div className="game-card game-border-gold p-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="text-center">
+              <p className="text-[10px] text-[#B0B0B0] mb-2">⚔️ Level</p>
+              <p className="text-2xl text-[#FFD700]">{currentLevel}</p>
             </div>
-            <div>
-              <p className="text-white/80 text-sm mb-1">Total XP</p>
-              <p className="text-4xl font-bold">{totalXP}</p>
+            <div className="text-center">
+              <p className="text-[10px] text-[#B0B0B0] mb-2">⭐ Total XP</p>
+              <p className="text-2xl text-[#FFD700]">{totalXP}</p>
             </div>
-            <div>
-              <p className="text-white/80 text-sm mb-1">Lessons Completed</p>
-              <p className="text-4xl font-bold">
+            <div className="text-center">
+              <p className="text-[10px] text-[#B0B0B0] mb-2">✅ Completed</p>
+              <p className="text-2xl text-[#FFD700]">
                 {completedLessons}/{totalLessons}
               </p>
             </div>
@@ -98,16 +106,21 @@ export default function Progress() {
 
           {/* XP Progress Bar */}
           <div className="mt-6">
-            <div className="flex justify-between text-sm mb-2">
-              <span>XP to Level {currentLevel + 1}</span>
+            <div className="flex justify-between text-[10px] mb-2 text-[#E8E8E8]">
+              <span>🎯 XP to Level {currentLevel + 1}</span>
               <span>
                 {xpProgress}/500 ({Math.round(xpPercentage)}%)
               </span>
             </div>
-            <div className="w-full bg-white/20 rounded-full h-3">
+            <div className="game-progress-bar">
               <div
-                className="bg-white rounded-full h-3 transition-all duration-300"
+                className="game-progress-fill"
                 style={{ width: `${xpPercentage}%` }}
+                role="progressbar"
+                aria-valuenow={xpProgress}
+                aria-valuemin={0}
+                aria-valuemax={500}
+                aria-label={`${xpProgress} out of 500 XP to next level`}
               ></div>
             </div>
           </div>
@@ -115,7 +128,9 @@ export default function Progress() {
 
         {/* Lessons Progress */}
         <div className="mb-6">
-          <h2 className="text-2xl font-bold mb-4">Lessons Progress</h2>
+          <h2 className="text-sm mb-4 text-[#FFD700] text-center">
+            📚 Quest Log
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {Object.entries(lessonNames).map(([lessonId, lessonName]) => {
               const lessonProgress = progress.find((p) => p.lessonId === lessonId);
@@ -127,45 +142,48 @@ export default function Progress() {
               return (
                 <div
                   key={lessonId}
-                  className="bg-white rounded-lg shadow-md p-6 border-2 border-gray-100 hover:border-[#625EC6] transition-colors"
+                  className={`game-card p-6 ${isCompleted ? 'game-border-gold' : ''}`}
+                  role="article"
+                  aria-label={`${lessonName} lesson progress`}
                 >
                   <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 className="text-xl font-semibold mb-1">{lessonName}</h3>
+                    <div className="flex-1">
+                      <h3 className="text-xs mb-2 text-[#E8E8E8]">{lessonName}</h3>
                       <Link
                         href={`/lesson/${lessonId}`}
-                        className="text-[#625EC6] hover:underline text-sm"
+                        className="text-[10px] text-[#625EC6] hover:text-[#FFD700] transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
+                        aria-label={`View ${lessonName} lesson`}
                       >
-                        View Lesson →
+                        Enter Quest →
                       </Link>
                     </div>
                     {isCompleted && (
-                      <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
-                        ✓ Completed
-                      </span>
+                      <GameBadge variant="success" className="text-[8px] flex-shrink-0 ml-2">
+                        ✓
+                      </GameBadge>
                     )}
                   </div>
 
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm text-gray-600">
-                      <span>Status:</span>
-                      <span className={isCompleted ? "text-green-600 font-semibold" : "text-gray-500"}>
-                        {isCompleted ? "Completed" : "Not Started"}
+                  <div className="space-y-2 mt-4 pt-4 border-t-2 border-[#625EC6]">
+                    <div className="flex justify-between text-[10px]">
+                      <span className="text-[#B0B0B0]">Status:</span>
+                      <span className={isCompleted ? "text-[#4CAF50] font-bold" : "text-[#B0B0B0]"}>
+                        {isCompleted ? "✅ Completed" : "⏳ Not Started"}
                       </span>
                     </div>
                     {attempts > 0 && (
                       <>
-                        <div className="flex justify-between text-sm text-gray-600">
-                          <span>Best Score:</span>
-                          <span className="font-semibold">{score}%</span>
+                        <div className="flex justify-between text-[10px]">
+                          <span className="text-[#B0B0B0]">🏆 Best Score:</span>
+                          <span className="text-[#FFD700] font-bold">{score}%</span>
                         </div>
-                        <div className="flex justify-between text-sm text-gray-600">
-                          <span>Attempts:</span>
-                          <span>{attempts}</span>
+                        <div className="flex justify-between text-[10px]">
+                          <span className="text-[#B0B0B0]">🔄 Attempts:</span>
+                          <span className="text-[#E8E8E8]">{attempts}</span>
                         </div>
-                        <div className="flex justify-between text-sm text-gray-600">
-                          <span>Time Spent:</span>
-                          <span>
+                        <div className="flex justify-between text-[10px]">
+                          <span className="text-[#B0B0B0]">⏱️ Time:</span>
+                          <span className="text-[#E8E8E8]">
                             {Math.floor(timeSpent / 60)}m {timeSpent % 60}s
                           </span>
                         </div>
@@ -174,9 +192,9 @@ export default function Progress() {
                   </div>
 
                   {!isCompleted && attempts === 0 && (
-                    <div className="mt-4 pt-4 border-t border-gray-200">
-                      <p className="text-sm text-gray-500 text-center">
-                        Start learning to track your progress
+                    <div className="mt-4 pt-4 border-t-2 border-[#625EC6]">
+                      <p className="text-[10px] text-[#B0B0B0] text-center">
+                        Begin this quest to track progress
                       </p>
                     </div>
                   )}

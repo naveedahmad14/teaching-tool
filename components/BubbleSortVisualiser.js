@@ -1,14 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 export default function BubbleSortVisualizer() {
   const [array, setArray] = useState([]);
   const [sorting, setSorting] = useState(false);
+  const [paused, setPaused] = useState(false);
   const [sorted, setSorted] = useState(false);
   const [comparing, setComparing] = useState([]);
   const [swapping, setSwapping] = useState([]);
   const [sortedIndices, setSortedIndices] = useState([]);
   const [speed, setSpeed] = useState(500);
+  
+  // Refs to control algorithm execution
+  const cancelledRef = useRef(false);
+  const pausedRef = useRef(false);
+  const pauseResumeRef = useRef(null);
 
   // Initialize array with random values
   const generateArray = () => {
@@ -26,52 +32,159 @@ export default function BubbleSortVisualizer() {
     generateArray();
   }, []);
 
-  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  const sleep = async (ms) => {
+    if (cancelledRef.current) return;
+    
+    return new Promise(resolve => {
+      const startTime = Date.now();
+      let remaining = ms;
+      let timeoutId = null;
+      
+      const tick = () => {
+        if (cancelledRef.current) {
+          if (timeoutId) clearTimeout(timeoutId);
+          resolve();
+          return;
+        }
+        
+        if (pausedRef.current) {
+          // Store the resolve function so resume can call it
+          pauseResumeRef.current = { 
+            resolve: () => {
+              // Continue with remaining time after resume
+              const elapsed = Date.now() - startTime;
+              remaining = ms - elapsed;
+              if (remaining > 0 && !cancelledRef.current && !pausedRef.current) {
+                timeoutId = setTimeout(() => {
+                  if (!cancelledRef.current) resolve();
+                }, remaining);
+              } else if (!pausedRef.current) {
+                resolve();
+              }
+            },
+            startTime,
+            remaining
+          };
+          // Don't resolve - wait for resume
+          return;
+        }
+        
+        const elapsed = Date.now() - startTime;
+        remaining = ms - elapsed;
+        
+        if (remaining <= 0) {
+          resolve();
+        } else {
+          // Check again in smaller increments to be responsive to pause
+          timeoutId = setTimeout(tick, Math.min(remaining, 50));
+        }
+      };
+      
+      timeoutId = setTimeout(tick, Math.min(ms, 50));
+      pauseResumeRef.current = { resolve, timeoutId, startTime, remaining: ms };
+    });
+  };
 
   const bubbleSort = async () => {
+    cancelledRef.current = false;
+    pausedRef.current = false;
     setSorting(true);
+    setPaused(false);
     setSorted(false);
     const arr = [...array];
     const n = arr.length;
     const newSortedIndices = [];
 
-    for (let i = 0; i < n - 1; i++) {
-      for (let j = 0; j < n - i - 1; j++) {
-        setComparing([j, j + 1]);
-        await sleep(speed);
-
-        if (arr[j] > arr[j + 1]) {
-          setSwapping([j, j + 1]);
-          await sleep(speed);
-          
-          // Swap
-          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
-          setArray([...arr]);
-          
-          await sleep(speed);
-          setSwapping([]);
-        }
+    try {
+      for (let i = 0; i < n - 1; i++) {
+        if (cancelledRef.current) break;
         
-        setComparing([]);
+        for (let j = 0; j < n - i - 1; j++) {
+          if (cancelledRef.current) break;
+          
+          if (cancelledRef.current) break;
+
+          setComparing([j, j + 1]);
+          await sleep(speed);
+          if (cancelledRef.current) break;
+
+          if (arr[j] > arr[j + 1]) {
+            setSwapping([j, j + 1]);
+            await sleep(speed);
+            if (cancelledRef.current) break;
+            
+            // Swap
+            [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+            setArray([...arr]);
+            
+            await sleep(speed);
+            if (cancelledRef.current) break;
+            setSwapping([]);
+          }
+          
+          setComparing([]);
+        }
+        if (cancelledRef.current) break;
+        
+        newSortedIndices.push(n - i - 1);
+        setSortedIndices([...newSortedIndices]);
       }
-      newSortedIndices.push(n - i - 1);
-      setSortedIndices([...newSortedIndices]);
+      
+      if (!cancelledRef.current) {
+        newSortedIndices.push(0);
+        setSortedIndices([...newSortedIndices]);
+        setSorted(true);
+      }
+    } finally {
+      setSorting(false);
+      setPaused(false);
+      setComparing([]);
+      setSwapping([]);
+      if (pauseResumeRef.current?.timeoutId) {
+        clearTimeout(pauseResumeRef.current.timeoutId);
+      }
     }
-    
-    newSortedIndices.push(0);
-    setSortedIndices([...newSortedIndices]);
-    setSorted(true);
-    setSorting(false);
   };
 
   const handleStart = () => {
-    if (!sorting && !sorted) {
+    if (pausedRef.current) {
+      // Resume
+      pausedRef.current = false;
+      setPaused(false);
+      // Resume the sleep function
+      if (pauseResumeRef.current?.resolve) {
+        pauseResumeRef.current.resolve();
+        pauseResumeRef.current = null;
+      }
+    } else if (!sorting && !sorted) {
       bubbleSort();
     }
   };
 
+  const handlePause = () => {
+    if (sorting && !pausedRef.current) {
+      pausedRef.current = true;
+      setPaused(true);
+    }
+  };
+
   const handleReset = () => {
+    cancelledRef.current = true;
+    pausedRef.current = false;
     setSorting(false);
+    setPaused(false);
+    setComparing([]);
+    setSwapping([]);
+    
+    // Clear any pending timeouts
+    if (pauseResumeRef.current?.timeoutId) {
+      clearTimeout(pauseResumeRef.current.timeoutId);
+    }
+    if (pauseResumeRef.current?.resolve) {
+      pauseResumeRef.current.resolve();
+    }
+    pauseResumeRef.current = null;
+    
     generateArray();
   };
 
@@ -142,15 +255,24 @@ export default function BubbleSortVisualizer() {
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
         <button
           onClick={handleStart}
-          disabled={sorting || sorted}
+          disabled={sorted && !paused}
           className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md"
         >
-          {sorting ? 'Sorting...' : sorted ? 'Completed' : 'Start Sort'}
+          {paused ? 'Resume' : sorting ? 'Sorting...' : sorted ? 'Completed' : 'Start Sort'}
         </button>
+        
+        {sorting && !paused && (
+          <button
+            onClick={handlePause}
+            className="px-6 py-2 bg-yellow-600 text-white rounded-lg font-semibold hover:bg-yellow-700 transition-colors shadow-md"
+          >
+            ⏸ Pause
+          </button>
+        )}
         
         <button
           onClick={handleReset}
-          className="px-6 py-2 bg-gray-600 text-white rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-md"
+          className="px-6 py-2 bg-gray-600 text-white rounded-lg font-semibold hover:bg-gray-700 transition-colors shadow-md"
         >
           Reset
         </button>

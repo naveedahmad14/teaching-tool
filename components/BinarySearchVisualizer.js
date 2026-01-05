@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 export default function BinarySearchVisualizer() {
   const [array, setArray] = useState([]);
   const [searching, setSearching] = useState(false);
+  const [paused, setPaused] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(null);
   const [foundIndex, setFoundIndex] = useState(null);
   const [target, setTarget] = useState('');
@@ -13,6 +14,10 @@ export default function BinarySearchVisualizer() {
   const [eliminated, setEliminated] = useState([]);
   const [speed, setSpeed] = useState(500);
   const [comparisonCount, setComparisonCount] = useState(0);
+  
+  const cancelledRef = useRef(false);
+  const pausedRef = useRef(false);
+  const pauseResumeRef = useRef(null);
 
   // Initialize array with sorted random values
   const generateArray = () => {
@@ -37,7 +42,60 @@ export default function BinarySearchVisualizer() {
     generateArray();
   }, []);
 
-  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  const sleep = async (ms) => {
+    if (cancelledRef.current) return;
+    
+    return new Promise(resolve => {
+      const startTime = Date.now();
+      let remaining = ms;
+      let timeoutId = null;
+      
+      const tick = () => {
+        if (cancelledRef.current) {
+          if (timeoutId) clearTimeout(timeoutId);
+          resolve();
+          return;
+        }
+        
+        if (pausedRef.current) {
+          pauseResumeRef.current = { 
+            resolve: () => {
+              const elapsed = Date.now() - startTime;
+              remaining = ms - elapsed;
+              if (remaining > 0 && !cancelledRef.current && !pausedRef.current) {
+                timeoutId = setTimeout(() => {
+                  if (!cancelledRef.current) resolve();
+                }, remaining);
+              } else if (!pausedRef.current) {
+                resolve();
+              }
+            },
+            startTime,
+            remaining
+          };
+          return;
+        }
+        
+        const elapsed = Date.now() - startTime;
+        remaining = ms - elapsed;
+        
+        if (remaining <= 0) {
+          resolve();
+        } else {
+          timeoutId = setTimeout(tick, Math.min(remaining, 50));
+        }
+      };
+      
+      timeoutId = setTimeout(tick, Math.min(ms, 50));
+      pauseResumeRef.current = { resolve, timeoutId, startTime, remaining: ms };
+    });
+  };
+
+  const waitForResume = async () => {
+    return new Promise(resolve => {
+      pauseResumeRef.current = { ...pauseResumeRef.current, resolve };
+    });
+  };
 
   const binarySearch = async () => {
     const targetNum = parseInt(target);
@@ -46,7 +104,10 @@ export default function BinarySearchVisualizer() {
       return;
     }
 
+    cancelledRef.current = false;
+    pausedRef.current = false;
     setSearching(true);
+    setPaused(false);
     setSearchComplete(false);
     setFoundIndex(null);
     setEliminated([]);
@@ -57,59 +118,108 @@ export default function BinarySearchVisualizer() {
     let found = false;
     let comparisons = 0;
 
-    while (l <= r) {
-      setLeft(l);
-      setRight(r);
-      await sleep(speed);
+    try {
+      while (l <= r) {
+        if (cancelledRef.current) break;
+        
+        if (cancelledRef.current) break;
 
-      const mid = Math.floor((l + r) / 2);
-      setCurrentIndex(mid);
-      comparisons++;
-      setComparisonCount(comparisons);
-      await sleep(speed * 1.5);
+        setLeft(l);
+        setRight(r);
+        await sleep(speed);
+        if (cancelledRef.current) break;
 
-      if (array[mid] === targetNum) {
-        setFoundIndex(mid);
-        found = true;
-        await sleep(speed * 2);
-        break;
-      } else if (array[mid] < targetNum) {
-        // Eliminate left half
-        const newEliminated = Array.from({ length: mid - l + 1 }, (_, i) => l + i);
-        setEliminated(prev => [...prev, ...newEliminated]);
-        l = mid + 1;
-        await sleep(speed);
-      } else {
-        // Eliminate right half
-        const newEliminated = Array.from({ length: r - mid + 1 }, (_, i) => mid + i);
-        setEliminated(prev => [...prev, ...newEliminated]);
-        r = mid - 1;
-        await sleep(speed);
+        const mid = Math.floor((l + r) / 2);
+        setCurrentIndex(mid);
+        comparisons++;
+        setComparisonCount(comparisons);
+        await sleep(speed * 1.5);
+        if (cancelledRef.current) break;
+
+        if (array[mid] === targetNum) {
+          setFoundIndex(mid);
+          found = true;
+          await sleep(speed * 2);
+          break;
+        } else if (array[mid] < targetNum) {
+          const newEliminated = Array.from({ length: mid - l + 1 }, (_, i) => l + i);
+          setEliminated(prev => [...prev, ...newEliminated]);
+          l = mid + 1;
+          await sleep(speed);
+          if (cancelledRef.current) break;
+        } else {
+          const newEliminated = Array.from({ length: r - mid + 1 }, (_, i) => mid + i);
+          setEliminated(prev => [...prev, ...newEliminated]);
+          r = mid - 1;
+          await sleep(speed);
+          if (cancelledRef.current) break;
+        }
+        
+        setCurrentIndex(null);
+        await sleep(speed / 2);
+        if (cancelledRef.current) break;
       }
-      
+
+      if (!cancelledRef.current) {
+        setLeft(null);
+        setRight(null);
+        setCurrentIndex(null);
+        setSearchComplete(true);
+        if (!found) {
+          await sleep(speed);
+        }
+      }
+    } finally {
+      setSearching(false);
+      setPaused(false);
+      setLeft(null);
+      setRight(null);
       setCurrentIndex(null);
-      await sleep(speed / 2);
-    }
-
-    setLeft(null);
-    setRight(null);
-    setCurrentIndex(null);
-    setSearchComplete(true);
-    setSearching(false);
-
-    if (!found) {
-      await sleep(speed);
+      if (pauseResumeRef.current?.timeoutId) {
+        clearTimeout(pauseResumeRef.current.timeoutId);
+      }
     }
   };
 
   const handleStart = () => {
-    if (!searching && target) {
+    if (pausedRef.current) {
+      pausedRef.current = false;
+      setPaused(false);
+      if (pauseResumeRef.current?.resolve) {
+        pauseResumeRef.current.resolve();
+        pauseResumeRef.current = null;
+      }
+    } else if (!searching && target) {
       binarySearch();
     }
   };
 
+  const handlePause = () => {
+    if (searching && !pausedRef.current) {
+      pausedRef.current = true;
+      setPaused(true);
+    }
+  };
+
   const handleReset = () => {
+    cancelledRef.current = true;
+    pausedRef.current = false;
     setSearching(false);
+    setPaused(false);
+    setCurrentIndex(null);
+    setFoundIndex(null);
+    setLeft(null);
+    setRight(null);
+    setEliminated([]);
+    
+    if (pauseResumeRef.current?.timeoutId) {
+      clearTimeout(pauseResumeRef.current.timeoutId);
+    }
+    if (pauseResumeRef.current?.resolve) {
+      pauseResumeRef.current.resolve();
+    }
+    pauseResumeRef.current = null;
+    
     generateArray();
     setTarget('');
   };
@@ -150,11 +260,19 @@ export default function BinarySearchVisualizer() {
           />
           <button
             onClick={handleStart}
-            disabled={searching || !target}
+            disabled={(!target && !paused) || (searchComplete && !paused)}
             className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md"
           >
-            {searching ? 'Searching...' : 'Start Search'}
+            {paused ? 'Resume' : searching ? 'Searching...' : 'Start Search'}
           </button>
+          {searching && !paused && (
+            <button
+              onClick={handlePause}
+              className="px-6 py-2 bg-yellow-600 text-white rounded-lg font-semibold hover:bg-yellow-700 transition-colors shadow-md"
+            >
+              ⏸ Pause
+            </button>
+          )}
         </div>
 
         {searchComplete && (
