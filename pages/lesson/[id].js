@@ -3,6 +3,7 @@
 // ==========================================
 import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
+import ProgressTracker from "../../components/ProgressTracker";
 
 // Import consolidated lesson components
 import BubbleSortLesson from "../../components/lessons/BubbleSort";
@@ -37,6 +38,7 @@ export default function Lesson() {
 
   return (
     <Layout>
+      <ProgressTracker lessonId={id} />
       <LessonComponent />
     </Layout>
   );

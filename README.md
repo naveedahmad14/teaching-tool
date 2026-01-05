@@ -1,8 +1,63 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
 
+## Features
+
+- **User Authentication**: Secure login and signup with username and password
+- **Progress Tracking**: Track your progress through lessons, including completion status, scores, and time spent
+- **Level System**: Gain XP and level up as you complete lessons
+- **Interactive Lessons**: Learn algorithms through visualizations
+- **Progress Dashboard**: View your overall progress and statistics
+
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ installed
+- npm, yarn, pnpm, or bun
+
+### Setup
+
+1. **Install dependencies:**
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+2. **Set up environment variables:**
+
+Create a `.env.local` file in the root directory:
+
+```env
+DATABASE_URL="file:./dev.db"
+NEXTAUTH_SECRET="your-secret-key-here-change-this-in-production"
+NEXTAUTH_URL="http://localhost:3000"
+```
+
+**Important:** Generate a secure random string for `NEXTAUTH_SECRET`. You can use:
+```bash
+openssl rand -base64 32
+```
+
+3. **Set up the database:**
+
+Run Prisma migrations to create the database schema:
+
+```bash
+npx prisma migrate dev
+```
+
+This will create the database and apply all migrations.
+
+4. **Generate Prisma Client:**
+
+```bash
+npx prisma generate
+```
+
+5. **Run the development server:**
 
 ```bash
 npm run dev
@@ -16,13 +71,39 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### First Steps
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+1. Create an account by clicking "Sign Up" in the navigation bar
+2. Log in with your credentials
+3. Start exploring lessons and track your progress
+4. View your progress dashboard to see your level, XP, and lesson completion status
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## Authentication
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The app uses NextAuth.js for authentication with:
+- Secure password hashing using bcryptjs
+- JWT-based sessions
+- Protected API routes
+- Automatic session management
+
+## Progress Tracking
+
+Progress is automatically tracked when you:
+- View a lesson (tracks time spent)
+- Complete a lesson (marks as completed and awards XP)
+- Take quizzes (tracks scores and attempts)
+
+Users gain 100 XP for completing each lesson and level up every 500 XP.
+
+## Project Structure
+
+- `pages/` - Next.js pages and API routes
+- `components/` - React components
+- `prisma/` - Database schema and migrations
+- `hooks/` - Custom React hooks
+- `styles/` - Global styles
+
+[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/*](http://localhost:3000/api/*). Files in the `pages/api` directory are treated as API routes.
 
 ## Learn More
 

@@ -150,6 +150,20 @@ export default function QuickSortLesson() {
         <p className="text-xl opacity-90">Master one of the fastest sorting algorithms</p>
       </div>
 
+      {/* Quick Visualizer Section */}
+      <div className="bg-white rounded-xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First!</h2>
+        <p className="text-gray-700 mb-6">
+          Before diving into the details, play with this visualiser to get an intuitive feel for how merge sort works:
+        </p>
+        <QuickSortVisualizer />
+        <div className="bg-blue-50 rounded-lg p-4 border-2 border-blue-200">
+          <p className="text-blue-800 text-center italic">
+            Note: The standalone visualiser from your components can be placed here, or you can use the integrated one below in the Interactive Visualisation section.
+          </p>
+        </div>
+      </div>
+
       {/* Introduction */}
       <div className="bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">What is Quick Sort?</h2>

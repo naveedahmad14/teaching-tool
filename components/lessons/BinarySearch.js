@@ -140,6 +140,21 @@ export default function BinarySearchLesson() {
         <p className="text-xl opacity-90">Master the efficient search algorithm for sorted data</p>
       </div>
 
+      {/* Quick Visualizer Section */}
+      <div className="bg-white rounded-xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First!</h2>
+        <p className="text-gray-700 mb-6">
+          Before diving into the details, play with this visualiser to get an intuitive feel for how merge sort works:
+        </p>
+        <BinarySearchVisualizer />
+        <div className="bg-blue-50 rounded-lg p-4 border-2 border-blue-200">
+          <p className="text-blue-800 text-center italic">
+            Note: The standalone visualiser from your components can be placed here, or you can use the integrated one below in the Interactive Visualisation section.
+          </p>
+        </div>
+      </div>
+
+
       {/* Introduction */}
       <div className="bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">What is Binary Search?</h2>
