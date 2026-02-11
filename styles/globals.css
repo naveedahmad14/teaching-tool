@@ -77,8 +77,8 @@ p, span, div, label, input, textarea, select {
 /* Pixelated button style */
 .game-button {
   font-family: 'Press Start 2P', 'Courier New', monospace;
-  font-size: 10px;
-  padding: 12px 24px;
+  font-size: 12px;
+  padding: 10px 20px;
   border: 3px solid var(--quest-purple);
   background: linear-gradient(135deg, var(--quest-purple), var(--quest-purple-dark));
   color: var(--text-primary);
@@ -155,12 +155,12 @@ p, span, div, label, input, textarea, select {
 /* Badge style */
 .game-badge {
   display: inline-block;
-  padding: 6px 12px;
+  padding: 4px 10px;
   background: var(--quest-purple);
   border: 2px solid var(--quest-gold);
   color: var(--text-primary);
   font-family: 'Press Start 2P', 'Courier New', monospace;
-  font-size: 8px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
   box-shadow: 0 2px 0 var(--quest-gold-dark);

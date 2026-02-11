@@ -11,16 +11,36 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  username  String   @unique
-  password  String
-  level     Int      @default(1)
-  xp        Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  progress  LessonProgress[]
+  id         String       @id @default(cuid())
+  username   String       @unique
+  password   String
+  level      Int          @default(1)
+  xp         Int          @default(0)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  progress   LessonProgress[]
+  reviewCards ReviewCard[]
 
   @@map("users")
+}
+
+model ReviewCard {
+  id             String    @id @default(cuid())
+  userId         String
+  lessonId       String
+  repetitions    Int       @default(0)
+  easiness       Float     @default(2.5)
+  interval       Int       @default(1)
+  nextReviewDate DateTime  @default(now())
+  lastReviewed   DateTime?
+  qualityHistory String   @default("[]") // JSON: [{ quality, date }]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+  @@index([userId, nextReviewDate])
+  @@map("review_cards")
 }
 
 model LessonProgress {

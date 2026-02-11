@@ -253,11 +253,11 @@ export default function MergeSortVisualizer() {
   };
 
   return (
-    <div className="w-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl shadow-lg p-8 mb-8">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Merge Sort Visualizer</h2>
+    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-8 mb-8 border-2 border-[#625EC6]/50">
+      <h2 className="text-2xl font-bold mb-6 text-gray-200">Merge Sort Visualizer</h2>
       
       {/* Visualization Area */}
-      <div className="bg-white rounded-lg p-6 mb-6 shadow-inner">
+      <div className="bg-gray-900 rounded-lg p-6 mb-6 shadow-inner">
         <div className="flex items-end justify-center gap-2 h-64">
           {array.map((value, index) => (
             <motion.div
@@ -280,7 +280,7 @@ export default function MergeSortVisualizer() {
                 }}
                 transition={{ duration: 0.2 }}
               >
-                <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-sm font-semibold text-gray-700">
+                <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-sm font-semibold text-gray-100">
                   {value}
                 </span>
               </motion.div>
@@ -292,28 +292,28 @@ export default function MergeSortVisualizer() {
       {/* Legend */}
       <div className="flex flex-wrap gap-4 mb-6 justify-center text-sm">
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-blue-500 rounded"></div>
-          <span className="text-gray-700">Unsorted</span>
+          <div className="w-4 h-4 bg-blue-500 rounded" aria-hidden></div>
+          <span className="text-gray-100">Unsorted</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-indigo-400 rounded"></div>
-          <span className="text-gray-700">Merge Range</span>
+          <div className="w-4 h-4 bg-indigo-400 rounded" aria-hidden></div>
+          <span className="text-gray-100">Merge Range</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-cyan-500 rounded"></div>
-          <span className="text-gray-700">Left Subarray</span>
+          <div className="w-4 h-4 bg-cyan-500 rounded" aria-hidden></div>
+          <span className="text-gray-100">Left Subarray</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-pink-500 rounded"></div>
-          <span className="text-gray-700">Right Subarray</span>
+          <div className="w-4 h-4 bg-pink-500 rounded" aria-hidden></div>
+          <span className="text-gray-100">Right Subarray</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-yellow-500 rounded"></div>
-          <span className="text-gray-700">Comparing</span>
+          <div className="w-4 h-4 bg-yellow-500 rounded" aria-hidden></div>
+          <span className="text-gray-100">Comparing</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-green-500 rounded"></div>
-          <span className="text-gray-700">Sorted</span>
+          <div className="w-4 h-4 bg-green-500 rounded" aria-hidden></div>
+          <span className="text-gray-100">Sorted</span>
         </div>
       </div>
 
@@ -344,7 +344,7 @@ export default function MergeSortVisualizer() {
         </button>
 
         <div className="flex items-center gap-3">
-          <label className="text-gray-700 font-medium">Speed:</label>
+          <label className="text-gray-100 font-medium">Speed:</label>
           <input
             type="range"
             min="100"
@@ -355,14 +355,14 @@ export default function MergeSortVisualizer() {
             disabled={sorting}
             className="w-32"
           />
-          <span className="text-gray-600 text-sm w-12">{speed}ms</span>
+          <span className="text-gray-100 text-sm w-12">{speed}ms</span>
         </div>
       </div>
 
       {/* Algorithm Explanation */}
-      <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-        <h3 className="font-semibold text-blue-900 mb-2">How Merge Sort Works:</h3>
-        <p className="text-blue-800 text-sm">
+      <div className="mt-6 p-4 bg-[#16213E] rounded-lg border border-[#625EC6]/50">
+        <h3 className="font-semibold text-[#FFD700] mb-2">How Merge Sort Works:</h3>
+        <p className="text-gray-200 text-sm">
           Merge Sort divides the array into two halves, recursively sorts each half, and then merges the 
           sorted halves back together. It uses a divide-and-conquer approach for consistent performance. 
           Time complexity: O(n log n) in all cases.

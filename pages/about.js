@@ -3,18 +3,18 @@ import Layout from "../components/Layout";
 export default function About() {
   return (
     <Layout>
-      <h1 className="text-3xl font-bold mb-6">About AlgoQuest</h1>
+      <h1 className="text-2xl font-bold mb-6 text-[#FFD700]">About AlgoQuest</h1>
       <div className="max-w-3xl">
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
-          <p className="text-gray-700 mb-4">
+          <h2 className="text-xl font-semibold mb-4 text-[#E8E8E8]">Our Mission</h2>
+          <p className="text-[#B0B0B0] mb-4 text-base">
               AlgoQuest: An Interactive Web-Based Teaching Tool for Learning Data Structures and Algorithms through Visualisation and Gamification
           </p>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">What We Offer</h2>
-          <ul className="list-disc list-inside text-gray-700 space-y-2">
+          <h2 className="text-xl font-semibold mb-4 text-[#E8E8E8]">What We Offer</h2>
+          <ul className="list-disc list-inside text-[#B0B0B0] space-y-2 text-base">
             <li>Interactive coding lessons</li>
             <li>Practice exercises and quizzes</li>
             <li>Real-world programming examples</li>
@@ -23,12 +23,12 @@ export default function About() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
-          <p className="text-gray-700">
+          <h2 className="text-xl font-semibold mb-4 text-[#E8E8E8]">Contact Us</h2>
+          <p className="text-[#B0B0B0] text-base">
             Have questions or suggestions? Email us at{" "}
             <a
               href="mailto:contact@csteachingtool.com"
-              className="text-blue-600 hover:underline"
+              className="text-[#7B77E8] hover:text-[#FFD700] underline"
             >
               contact@csteachingtool.com
             </a>

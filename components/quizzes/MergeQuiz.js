@@ -270,11 +270,11 @@ export default function MergeSortQuiz() {
     const percentage = (score / currentQuestions.length) * 100;
     
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-8">
+      <div className="min-h-screen bg-[#1A1A2E] p-8 pt-20">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl p-8"
+          className="max-w-4xl mx-auto bg-[#0F3460] border-2 border-[#625EC6] rounded-2xl shadow-2xl p-8"
         >
           <h2 className="text-4xl font-bold text-center mb-6 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
             Quiz Complete! 🎉
@@ -349,12 +349,12 @@ export default function MergeSortQuiz() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-8">
+    <div className="min-h-screen bg-[#1A1A2E] p-8 pt-20">
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl shadow-2xl p-8 mb-8"
+          className="bg-[#0F3460] border-2 border-[#625EC6] rounded-2xl shadow-2xl p-8 mb-8"
         >
           {/* Header */}
           <div className="mb-8">

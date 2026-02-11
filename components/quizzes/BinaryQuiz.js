@@ -274,7 +274,7 @@ export default function BinarySearchQuiz() {
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white rounded-xl shadow-lg p-8"
+          className="bg-[#0F3460] border-2 border-[#625EC6] rounded-xl shadow-lg p-8"
         >
           <h2 className="text-3xl font-bold text-center mb-6">Quiz Complete! 🎉</h2>
           
@@ -336,8 +336,8 @@ export default function BinarySearchQuiz() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-8">
-      <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-2xl p-8">
+    <div className="min-h-screen bg-[#1A1A2E] p-8 pt-20">
+      <div className="max-w-5xl mx-auto bg-[#0F3460] border-2 border-[#625EC6] rounded-2xl shadow-2xl p-8">
         {/* Header */}
         <div className="mb-6">
           <div className="flex justify-between items-center mb-4">

@@ -1,5 +1,4 @@
 import Layout from "../components/Layout";
-import Card from "../components/Card";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import GameButton from "../components/GameButton";
@@ -9,15 +8,15 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="text-center mb-8">
-        <h1 className="text-lg mb-3 text-[#FFD700]">
-          ⚔️ Welcome to AlgoQuest ⚔️
+      <div className="text-center mb-12">
+        <h1 className="text-2xl font-bold mb-4 text-[#FFD700]">
+          Welcome to AlgoQuest
         </h1>
-        <p className="text-[10px] text-[#B0B0B0] leading-relaxed max-w-2xl mx-auto mb-6">
-          An Interactive Web-Based Teaching Tool for Learning Data Structures and Algorithms through Visualisation and Gamification
+        <p className="text-base text-[#E8E8E8] leading-relaxed max-w-2xl mx-auto mb-8">
+          An interactive teaching tool for learning data structures and algorithms through visualisation and gamification.
         </p>
         {!session && (
-          <div className="flex gap-4 justify-center">
+          <div className="flex gap-4 justify-center flex-wrap">
             <Link href="/signup">
               <GameButton variant="gold" aria-label="Start your quest">
                 Begin Quest
@@ -30,38 +29,14 @@ export default function Home() {
             </Link>
           </div>
         )}
-      </div>
-      
-      <div className="mb-6">
-        <h2 className="text-sm mb-4 text-[#FFD700] text-center">
-          📚 Available Quests
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card 
-            title="Bubble Sort" 
-            description="Master the art of bubble sorting through interactive visualization." 
-            link="/lesson/bubble" 
-          />
-          <Card 
-            title="Merge Sort" 
-            description="Learn divide and conquer with merge sort algorithm." 
-            link="/lesson/merge" 
-          />
-          <Card 
-            title="Quick Sort" 
-            description="Conquer quick sort, one of the fastest sorting algorithms." 
-            link="/lesson/quick" 
-          />
-          <Card 
-            title="Linear Search" 
-            description="Start your search journey with linear search technique." 
-            link="/lesson/linear" 
-          />
-          <Card 
-            title="Binary Search" 
-            description="Master efficient searching with binary search algorithm." 
-            link="/lesson/binary" 
-          />
+        <div className="mt-10">
+          <Link
+            href="/lessons"
+            className="inline-block text-base text-[#625EC6] hover:text-[#FFD700] transition-colors focus:outline-none focus:ring-2 focus:ring-[#FFD700] focus:ring-offset-2 focus:ring-offset-[#1A1A2E] rounded px-4 py-2"
+            aria-label="View all lessons and quests"
+          >
+            View all quests →
+          </Link>
         </div>
       </div>
     </Layout>

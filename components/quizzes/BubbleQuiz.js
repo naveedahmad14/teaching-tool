@@ -261,31 +261,31 @@ export default function BubbleSortQuiz() {
 
   const getScoreColor = () => {
     const percentage = (score / currentQuestions.length) * 100;
-    if (percentage >= 80) return 'text-green-600';
-    if (percentage >= 60) return 'text-yellow-600';
-    return 'text-red-600';
+    if (percentage >= 80) return 'text-[#4CAF50]';
+    if (percentage >= 60) return 'text-[#FFD700]';
+    return 'text-[#F44336]';
   };
 
   if (quizComplete) {
     const percentage = (score / currentQuestions.length) * 100;
     
     return (
-      <div className="max-w-4xl mx-auto p-6">
+      <div className="max-w-4xl mx-auto p-8 pt-20">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white rounded-xl shadow-lg p-8"
+          className="bg-[#0F3460] border-2 border-[#625EC6] rounded-xl shadow-lg p-8"
         >
-          <h2 className="text-3xl font-bold text-center mb-6">Quiz Complete! 🎉</h2>
+          <h2 className="text-2xl font-bold text-center mb-6 text-[#FFD700]">Quiz Complete! 🎉</h2>
           
           <div className="text-center mb-8">
-            <div className={`text-6xl font-bold mb-4 ${getScoreColor()}`}>
+            <div className={`text-4xl font-bold mb-4 ${getScoreColor()}`}>
               {score}/{currentQuestions.length}
             </div>
-            <div className="text-2xl text-gray-700 mb-2">
+            <div className="text-xl text-[#E8E8E8] mb-2">
               {percentage.toFixed(0)}%
             </div>
-            <div className="text-lg text-gray-600">
+            <div className="text-base text-[#B0B0B0]">
               {percentage >= 80 ? '🌟 Excellent! You\'ve mastered Bubble Sort!' :
                percentage >= 60 ? '👍 Good job! Review the concepts you missed.' :
                '📚 Keep practicing! Review the lesson and try again.'}
@@ -293,12 +293,12 @@ export default function BubbleSortQuiz() {
           </div>
 
           <div className="mb-8">
-            <h3 className="text-xl font-bold mb-4">Performance Breakdown:</h3>
+            <h3 className="text-lg font-bold mb-4 text-[#E8E8E8]">Performance Breakdown:</h3>
             <div className="space-y-2">
               {answeredQuestions.map((q, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <span className="text-gray-700">Question {index + 1}</span>
-                  <span className={`font-semibold ${q.correct ? 'text-green-600' : 'text-red-600'}`}>
+                <div key={index} className="flex items-center justify-between p-3 bg-[#16213E] rounded-lg border border-[#625EC6]/50">
+                  <span className="text-[#E8E8E8] text-sm">Question {index + 1}</span>
+                  <span className={`font-semibold text-sm ${q.correct ? 'text-[#4CAF50]' : 'text-[#F44336]'}`}>
                     {q.correct ? '✓ Correct' : '✗ Incorrect'}
                   </span>
                 </div>
@@ -309,14 +309,14 @@ export default function BubbleSortQuiz() {
           <div className="flex flex-wrap gap-4 justify-center">
             <button
               onClick={resetQuiz}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-md"
+              className="px-6 py-3 bg-[#625EC6] text-white rounded-lg font-semibold hover:bg-[#4A46A8] transition-colors border-2 border-[#7B77E8]"
             >
               Try Again ({difficulty})
             </button>
             {difficulty !== 'medium' && (
               <button
                 onClick={() => changeDifficulty('medium')}
-                className="px-6 py-3 bg-yellow-600 text-white rounded-lg font-semibold hover:bg-yellow-700 transition-colors shadow-md"
+                className="px-6 py-3 bg-[#FFD700] text-[#1A1A2E] rounded-lg font-semibold hover:bg-[#D4AF37] transition-colors"
               >
                 Try Medium
               </button>
@@ -324,7 +324,7 @@ export default function BubbleSortQuiz() {
             {difficulty !== 'hard' && (
               <button
                 onClick={() => changeDifficulty('hard')}
-                className="px-6 py-3 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition-colors shadow-md"
+                className="px-6 py-3 bg-[#F44336] text-white rounded-lg font-semibold hover:bg-[#D32F2F] transition-colors"
               >
                 Try Hard
               </button>
@@ -336,64 +336,60 @@ export default function BubbleSortQuiz() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-8">
-      <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-2xl p-8">
-        {/* Header */}
+    <div className="min-h-screen bg-[#1A1A2E] p-8 pt-20">
+      <div className="max-w-5xl mx-auto bg-[#0F3460] border-2 border-[#625EC6] rounded-2xl shadow-2xl p-8">
         <div className="mb-6">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-3xl font-bold text-gray-800">Bubble Sort Quiz</h2>
-            <div className="text-lg font-semibold text-gray-600">
+            <h2 className="text-xl font-bold text-[#FFD700]">Bubble Sort Quiz</h2>
+            <div className="text-base font-semibold text-[#B0B0B0]">
               Score: {score}/{currentQuestions.length}
             </div>
           </div>
           
-          {/* Difficulty Selector */}
           <div className="flex gap-2 mb-4">
             <button
               onClick={() => changeDifficulty('easy')}
-              className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+              className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
                 difficulty === 'easy'
-                  ? 'bg-green-600 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  ? 'bg-[#4CAF50] text-white border-2 border-[#4CAF50]'
+                  : 'bg-[#16213E] text-[#B0B0B0] border-2 border-[#625EC6]/50 hover:border-[#625EC6]'
               }`}
             >
               Easy
             </button>
             <button
               onClick={() => changeDifficulty('medium')}
-              className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+              className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
                 difficulty === 'medium'
-                  ? 'bg-yellow-600 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  ? 'bg-[#FFD700] text-[#1A1A2E] border-2 border-[#FFD700]'
+                  : 'bg-[#16213E] text-[#B0B0B0] border-2 border-[#625EC6]/50 hover:border-[#625EC6]'
               }`}
             >
               Medium
             </button>
             <button
               onClick={() => changeDifficulty('hard')}
-              className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+              className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
                 difficulty === 'hard'
-                  ? 'bg-red-600 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  ? 'bg-[#F44336] text-white border-2 border-[#F44336]'
+                  : 'bg-[#16213E] text-[#B0B0B0] border-2 border-[#625EC6]/50 hover:border-[#625EC6]'
               }`}
             >
               Hard
             </button>
           </div>
 
-          {/* Progress Bar */}
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="w-full bg-[#16213E] rounded-full h-2 border border-[#625EC6]/50">
             <div
-              className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+              className="bg-[#625EC6] h-2 rounded-full transition-all duration-300"
               style={{ width: `${((currentQuestion + 1) / currentQuestions.length) * 100}%` }}
             />
           </div>
-          <div className="text-sm text-gray-600 mt-1">
+          <div className="text-sm text-[#B0B0B0] mt-1">
             Question {currentQuestion + 1} of {currentQuestions.length}
           </div>
         </div>
 
-        {/* Question */}
         <AnimatePresence mode="wait">
           <motion.div
             key={currentQuestion}
@@ -403,7 +399,7 @@ export default function BubbleSortQuiz() {
             transition={{ duration: 0.3 }}
           >
             <div className="mb-6">
-              <h3 className="text-xl font-bold text-gray-800 mb-4">
+              <h3 className="text-lg font-bold text-[#E8E8E8] mb-4">
                 {currentQ.question}
               </h3>
 
@@ -413,23 +409,23 @@ export default function BubbleSortQuiz() {
                     key={index}
                     onClick={() => handleAnswer(index)}
                     disabled={showExplanation}
-                    className={`w-full p-4 text-left rounded-lg border-2 transition-all ${
+                    className={`w-full p-4 text-left rounded-lg border-2 transition-all text-sm ${
                       showExplanation
                         ? index === currentQ.correct
-                          ? 'border-green-500 bg-green-50'
+                          ? 'border-[#4CAF50] bg-[#4CAF50]/20'
                           : index === selectedAnswer
-                          ? 'border-red-500 bg-red-50'
-                          : 'border-gray-200 bg-gray-50'
-                        : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50 cursor-pointer'
-                    } ${selectedAnswer === index && !showExplanation ? 'border-blue-500 bg-blue-50' : ''}`}
+                          ? 'border-[#F44336] bg-[#F44336]/20'
+                          : 'border-[#625EC6]/30 bg-[#16213E]'
+                        : 'border-[#625EC6]/50 bg-[#16213E] hover:border-[#625EC6] hover:bg-[#16213E]/80 cursor-pointer'
+                    } ${selectedAnswer === index && !showExplanation ? 'border-[#625EC6] bg-[#625EC6]/20' : ''}`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-medium">{option}</span>
+                      <span className="font-medium text-[#E8E8E8]">{option}</span>
                       {showExplanation && index === currentQ.correct && (
-                        <span className="text-green-600 font-bold">✓</span>
+                        <span className="text-[#4CAF50] font-bold">✓</span>
                       )}
                       {showExplanation && index === selectedAnswer && index !== currentQ.correct && (
-                        <span className="text-red-600 font-bold">✗</span>
+                        <span className="text-[#F44336] font-bold">✗</span>
                       )}
                     </div>
                   </button>
@@ -437,7 +433,6 @@ export default function BubbleSortQuiz() {
               </div>
             </div>
 
-            {/* Explanation */}
             {showExplanation && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -446,25 +441,25 @@ export default function BubbleSortQuiz() {
               >
                 <div className={`p-4 rounded-lg ${
                   selectedAnswer === currentQ.correct
-                    ? 'bg-green-50 border-2 border-green-200'
-                    : 'bg-red-50 border-2 border-red-200'
+                    ? 'bg-[#4CAF50]/20 border-2 border-[#4CAF50]'
+                    : 'bg-[#F44336]/20 border-2 border-[#F44336]'
                 }`}>
-                  <h4 className={`font-bold mb-2 ${
-                    selectedAnswer === currentQ.correct ? 'text-green-800' : 'text-red-800'
+                  <h4 className={`font-bold mb-2 text-sm ${
+                    selectedAnswer === currentQ.correct ? 'text-[#4CAF50]' : 'text-[#F44336]'
                   }`}>
                     {selectedAnswer === currentQ.correct ? '🎉 Correct!' : '❌ Incorrect'}
                   </h4>
-                  <p className="text-gray-700">{currentQ.explanation}</p>
+                  <p className="text-[#E8E8E8] text-sm">{currentQ.explanation}</p>
                 </div>
 
-                <div className="p-4 rounded-lg bg-blue-50 border-2 border-blue-200">
-                  <h4 className="font-bold text-blue-800 mb-2">💡 Active Recall Tip:</h4>
-                  <p className="text-gray-700">{currentQ.activeRecall}</p>
+                <div className="p-4 rounded-lg bg-[#625EC6]/20 border-2 border-[#625EC6]">
+                  <h4 className="font-bold text-[#7B77E8] mb-2 text-sm">💡 Active Recall Tip:</h4>
+                  <p className="text-[#E8E8E8] text-sm">{currentQ.activeRecall}</p>
                 </div>
 
                 <button
                   onClick={nextQuestion}
-                  className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-md"
+                  className="w-full px-6 py-3 bg-[#625EC6] text-white rounded-lg font-semibold hover:bg-[#4A46A8] transition-colors border-2 border-[#7B77E8]"
                 >
                   {currentQuestion < currentQuestions.length - 1 ? 'Next Question →' : 'Complete Quiz'}
                 </button>

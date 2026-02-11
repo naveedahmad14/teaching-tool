@@ -61,10 +61,10 @@ export default function Quiz() {
   if (selectedQuiz) {
     const QuizComponent = selectedQuiz.component;
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-[#1A1A2E]">
         <button
           onClick={() => setSelectedQuiz(null)}
-          className="fixed top-4 left-4 z-50 px-6 py-3 bg-white text-gray-800 rounded-lg font-semibold hover:bg-gray-100 transition-all shadow-lg flex items-center gap-2"
+          className="fixed top-4 left-4 z-50 px-6 py-3 bg-[#0F3460] text-[#E8E8E8] border-2 border-[#625EC6] rounded-lg font-semibold hover:bg-[#16213E] hover:text-[#FFD700] transition-all shadow-lg flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
         >
           ← Back to Quizzes
         </button>
@@ -75,23 +75,21 @@ export default function Quiz() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 py-12">
+      <div className="min-h-screen py-12">
         <div className="max-w-7xl mx-auto px-4">
-          {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <h1 className="text-2xl font-bold mb-4 text-[#FFD700]">
               Algorithm Quizzes
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Test your knowledge with comprehensive quizzes covering Easy, Medium, and Hard difficulty levels
+            <p className="text-base text-[#B0B0B0] max-w-2xl mx-auto">
+              Test your knowledge with comprehensive quizzes covering Easy, Medium, and Hard difficulty levels.
             </p>
           </motion.div>
 
-          {/* Quiz Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {quizzes.map((quiz, index) => (
               <motion.div
@@ -99,38 +97,34 @@ export default function Quiz() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setSelectedQuiz(quiz)}
                 className="cursor-pointer group"
               >
-                <div className="h-full bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all overflow-hidden">
-                  {/* Quiz Icon/Header */}
+                <div className="h-full bg-[#0F3460] border-2 border-[#625EC6] rounded-2xl shadow-lg hover:shadow-[#625EC6]/30 hover:border-[#FFD700]/50 transition-all overflow-hidden">
                   <div className={`p-8 bg-gradient-to-br ${quiz.color} text-white`}>
-                    <div className="text-6xl mb-4">{quiz.icon}</div>
-                    <h3 className="text-2xl font-bold mb-2">{quiz.name}</h3>
-                    <p className="text-white/90">{quiz.description}</p>
+                    <div className="text-4xl mb-3">{quiz.icon}</div>
+                    <h3 className="text-xl font-bold mb-2">{quiz.name}</h3>
+                    <p className="text-white/90 text-sm">{quiz.description}</p>
                   </div>
-
-                  {/* Quiz Details */}
                   <div className="p-6">
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
-                        <span className="text-gray-600 font-medium">Questions:</span>
-                        <span className="text-gray-800 font-bold">15</span>
+                        <span className="text-[#B0B0B0] text-sm">Questions:</span>
+                        <span className="text-[#E8E8E8] font-bold">15</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-gray-600 font-medium">Difficulty Levels:</span>
-                        <span className="text-gray-800 font-bold">3</span>
+                        <span className="text-[#B0B0B0] text-sm">Difficulty Levels:</span>
+                        <span className="text-[#E8E8E8] font-bold">3</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-gray-600 font-medium">Time:</span>
-                        <span className="text-gray-800 font-bold">~10 min</span>
+                        <span className="text-[#B0B0B0] text-sm">Time:</span>
+                        <span className="text-[#E8E8E8] font-bold">~10 min</span>
                       </div>
                     </div>
-
                     <div className="mt-6">
-                      <div className={`px-4 py-3 rounded-lg bg-gradient-to-r ${quiz.color} text-white font-bold text-center group-hover:shadow-lg transition-all`}>
+                      <div className={`px-4 py-3 rounded-lg bg-gradient-to-r ${quiz.color} text-white font-bold text-center text-sm group-hover:shadow-lg transition-all`}>
                         Start Quiz →
                       </div>
                     </div>
@@ -140,54 +134,49 @@ export default function Quiz() {
             ))}
           </div>
 
-          {/* Info Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="mt-16 bg-white rounded-2xl shadow-lg p-8"
+            className="mt-16 bg-[#0F3460] border-2 border-[#625EC6] rounded-2xl shadow-lg p-8"
           >
-            <h2 className="text-3xl font-bold mb-6 text-gray-800">How to Excel in These Quizzes</h2>
-            
+            <h2 className="text-xl font-bold mb-6 text-[#FFD700]">How to Excel in These Quizzes</h2>
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-xl border-2 border-green-200">
-                <div className="text-4xl mb-3">📚</div>
-                <h3 className="text-xl font-bold text-green-800 mb-2">Study First</h3>
-                <p className="text-green-700">
-                  Review the lesson materials before attempting the quiz. Understanding concepts is key!
+              <div className="p-6 bg-[#16213E] rounded-xl border-2 border-[#4CAF50]/50">
+                <div className="text-3xl mb-2">📚</div>
+                <h3 className="text-base font-bold text-[#4CAF50] mb-2">Study First</h3>
+                <p className="text-sm text-[#B0B0B0]">
+                  Review the lesson materials before attempting the quiz.
                 </p>
               </div>
-
-              <div className="p-6 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl border-2 border-yellow-200">
-                <div className="text-4xl mb-3">🧠</div>
-                <h3 className="text-xl font-bold text-yellow-800 mb-2">Use Active Recall</h3>
-                <p className="text-yellow-700">
-                  Try to answer without looking back. Each question includes memory tips to help you learn!
+              <div className="p-6 bg-[#16213E] rounded-xl border-2 border-[#FFD700]/50">
+                <div className="text-3xl mb-2">🧠</div>
+                <h3 className="text-base font-bold text-[#FFD700] mb-2">Use Active Recall</h3>
+                <p className="text-sm text-[#B0B0B0]">
+                  Try to answer without looking back. Each question includes memory tips!
                 </p>
               </div>
-
-              <div className="p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl border-2 border-purple-200">
-                <div className="text-4xl mb-3">🔄</div>
-                <h3 className="text-xl font-bold text-purple-800 mb-2">Practice Regularly</h3>
-                <p className="text-purple-700">
-                  Retake quizzes to improve retention through spaced repetition. Progress through difficulty levels!
+              <div className="p-6 bg-[#16213E] rounded-xl border-2 border-[#625EC6]">
+                <div className="text-3xl mb-2">🔄</div>
+                <h3 className="text-base font-bold text-[#7B77E8] mb-2">Practice Regularly</h3>
+                <p className="text-sm text-[#B0B0B0]">
+                  Retake quizzes to improve retention through spaced repetition.
                 </p>
               </div>
             </div>
-
-            <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border-2 border-blue-200">
-              <h3 className="text-xl font-bold text-gray-800 mb-3">Scoring Guide:</h3>
-              <div className="space-y-2 text-gray-700">
+            <div className="mt-8 p-6 bg-[#16213E] rounded-xl border-2 border-[#625EC6]/50">
+              <h3 className="text-base font-bold text-[#E8E8E8] mb-3">Scoring Guide:</h3>
+              <div className="space-y-2 text-sm text-[#B0B0B0]">
                 <div className="flex items-center gap-3">
-                  <span className="font-bold text-green-600">80-100%:</span>
-                  <span>Excellent! You've mastered this algorithm.</span>
+                  <span className="font-bold text-[#4CAF50]">80-100%:</span>
+                  <span>Excellent! You&apos;ve mastered this algorithm.</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="font-bold text-yellow-600">60-79%:</span>
+                  <span className="font-bold text-[#FFD700]">60-79%:</span>
                   <span>Good understanding. Review missed concepts.</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="font-bold text-red-600">Below 60%:</span>
+                  <span className="font-bold text-[#F44336]">Below 60%:</span>
                   <span>Keep practicing! Review the lesson and try again.</span>
                 </div>
               </div>

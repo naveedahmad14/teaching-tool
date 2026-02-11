@@ -76,6 +76,24 @@ export default async function handler(req, res) {
           level: newLevel,
         },
       });
+
+      // Add to spaced repetition: create or reset review card so it's due for review
+      await prisma.reviewCard.upsert({
+        where: {
+          userId_lessonId: { userId: session.user.id, lessonId: String(lessonId) },
+        },
+        create: {
+          userId: session.user.id,
+          lessonId: String(lessonId),
+          repetitions: 0,
+          easiness: 2.5,
+          interval: 1,
+          nextReviewDate: new Date(),
+        },
+        update: {
+          nextReviewDate: new Date(),
+        },
+      });
     }
 
     return res.status(200).json({ progress });
