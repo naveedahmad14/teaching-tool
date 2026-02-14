@@ -1,4 +1,4 @@
-import LinkedListVisualizer from "../LinkedListVisualizer";
+import LinkedListVisualizer from "../visualizers/LinkedListVisualizer";
 
 export default function LinkedListsLesson() {
   return (

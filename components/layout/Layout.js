@@ -1,7 +1,7 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Link from "next/link";
-import AnimatedBackground from "./common/AnimatedBackground";
+import AnimatedBackground from "../common/AnimatedBackground";
 
 export default function Layout({ children }) {
   return (

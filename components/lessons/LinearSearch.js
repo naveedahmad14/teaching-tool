@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import LinearSearchVisualizer from '../LinearSearchVisualizer';
+import LinearSearchVisualizer from '../visualizers/LinearSearchVisualizer';
 
 export default function LinearSearchLesson() {
   const [array] = useState([23, 45, 12, 67, 34, 89, 56, 78, 91]);

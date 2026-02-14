@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import QuickSortVisualizer from '../QuickSortVisualizer';
+import QuickSortVisualizer from '../visualizers/QuickSortVisualizer';
 
 export default function QuickSortLesson() {
   const [array, setArray] = useState([10, 80, 30, 90, 40, 50, 70]);

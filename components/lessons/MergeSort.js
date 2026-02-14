@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import MergeSortVisualizer from '../MergeSortVisualizer';
+import MergeSortVisualizer from '../visualizers/MergeSortVisualizer';
 
 export default function MergeSortLesson() {
   const [array, setArray] = useState([38, 27, 43, 3, 9, 82, 10]);

@@ -1,5 +1,5 @@
-import Layout from "../components/Layout";
-import Card from "../components/Card";
+import Layout from "@/components/layout/Layout";
+import Card from "@/components/ui/Card";
 
 const QUESTS = [
   { title: "Bubble Sort", description: "Master the art of bubble sorting through interactive visualization.", link: "/lesson/bubble", icon: "○" },

@@ -1,7 +1,7 @@
-import Layout from "../components/Layout";
+import Layout from "@/components/layout/Layout";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import GameButton from "../components/GameButton";
+import GameButton from "@/components/ui/GameButton";
 
 export default function Home() {
   const { data: session } = useSession();

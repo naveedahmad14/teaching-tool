@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import TwoPointersVisualizer from "../TwoPointersVisualizer";
+import TwoPointersVisualizer from "../visualizers/TwoPointersVisualizer";
 
 const INITIAL_ARRAY = [1, 1, 2, 2, 2, 3, 4, 4, 5];
 

@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout";
+import Layout from "@/components/layout/Layout";
 import ReviewSession from "@/components/features/SpacedRepetition/ReviewSession";
 
 export default function ReviewPage() {

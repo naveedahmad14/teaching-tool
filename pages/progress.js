@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import Layout from "../components/Layout";
+import Layout from "@/components/layout/Layout";
 import Link from "next/link";
-import GameBadge from "../components/GameBadge";
+import GameBadge from "@/components/ui/GameBadge";
 
 const lessonNames = {
   bubble: "Bubble Sort",

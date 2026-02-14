@@ -1,5 +1,5 @@
-import StackVisualizer from "../StackVisualizer";
-import BasicStackDemo from "../BasicStackDemo";
+import StackVisualizer from "../visualizers/StackVisualizer";
+import BasicStackDemo from "../visualizers/BasicStackDemo";
 
 export default function StacksLesson() {
   return (

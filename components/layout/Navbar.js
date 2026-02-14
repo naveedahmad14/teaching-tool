@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import GameButton from "./GameButton";
-import GameBadge from "./GameBadge";
+import GameButton from "../ui/GameButton";
+import GameBadge from "../ui/GameBadge";
 
 export default function Navbar() {
   const { data: session, status } = useSession();

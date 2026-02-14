@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import SlidingWindowVisualizer from "../SlidingWindowVisualizer";
+import SlidingWindowVisualizer from "../visualizers/SlidingWindowVisualizer";
 
 const INITIAL_ARRAY = [2, 1, 5, 1, 3, 2];
 const INITIAL_K = 3;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import BinarySearchVisualizer from '../BinarySearchVisualizer';
+import BinarySearchVisualizer from '../visualizers/BinarySearchVisualizer';
 
 export default function BinarySearchLesson() {
   const [array] = useState([12, 23, 34, 45, 56, 67, 78, 89, 91]);

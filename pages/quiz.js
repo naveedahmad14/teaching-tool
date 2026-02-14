@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Layout from "../components/Layout";
+import Layout from "@/components/layout/Layout";
 import BubbleQuiz from "../components/quizzes/BubbleQuiz";
 import QuickQuiz from "../components/quizzes/QuickQuiz";
 import MergeQuiz from "../components/quizzes/MergeQuiz";

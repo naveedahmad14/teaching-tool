@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import Layout from "../components/Layout";
-import GameButton from "../components/GameButton";
+import Layout from "@/components/layout/Layout";
+import GameButton from "@/components/ui/GameButton";
 
 export default function Signup() {
   const router = useRouter();

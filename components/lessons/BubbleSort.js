@@ -3,7 +3,7 @@
 // ==========================================
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import BubbleSortVisualizer from '../BubbleSortVisualizer';
+import BubbleSortVisualizer from '../visualizers/BubbleSortVisualizer';
 
 export default function BubbleSortLesson() {
   const [array, setArray] = useState([64, 34, 25, 12, 22, 11, 90]);

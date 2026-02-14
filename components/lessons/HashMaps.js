@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import HashMapVisualizer from "../HashMapVisualizer";
-import FrequencyCounterVisualizer from "../FrequencyCounterVisualizer";
-import HashMapTable from "../HashMapTable";
+import HashMapVisualizer from "../visualizers/HashMapVisualizer";
+import FrequencyCounterVisualizer from "../visualizers/FrequencyCounterVisualizer";
+import HashMapTable from "../visualizers/HashMapTable";
 
 const TWO_SUM_ARRAY = [2, 7, 11, 15];
 const TWO_SUM_TARGET = 9;

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useProgress } from "../hooks/useProgress";
+import { useProgress } from "../../hooks/useProgress";
 
 export default function ProgressTracker({ lessonId }) {
   const {
