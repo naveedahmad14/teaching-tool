@@ -9,91 +9,106 @@ export default async function handler(req, res) {
 
   const session = await getServerSession(req, res, authOptions);
 
-  if (!session || !session.user) {
+  if (!session || !session.user || !session.user.id) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
-  const { lessonId, completed, score, timeSpent } = req.body;
+  const userId = session.user.id;
+  const { lessonId, completed, score, timeSpent, incrementAttempts, difficulty } = req.body;
 
   if (!lessonId) {
     return res.status(400).json({ error: "Lesson ID is required" });
   }
 
+  const lessonIdStr = String(lessonId);
+
   try {
-    // Get or create lesson progress
     const existingProgress = await prisma.lessonProgress.findUnique({
       where: {
         userId_lessonId: {
-          userId: session.user.id,
-          lessonId: lessonId,
+          userId,
+          lessonId: lessonIdStr,
         },
       },
     });
 
+    const shouldIncrementAttempts =
+      Boolean(completed) ||
+      Boolean(incrementAttempts) ||
+      (score !== undefined && Number(score) > 0);
+
     let progress;
     if (existingProgress) {
-      // Update existing progress
       progress = await prisma.lessonProgress.update({
-        where: {
-          id: existingProgress.id,
-        },
+        where: { id: existingProgress.id },
         data: {
-          completed: completed !== undefined ? completed : existingProgress.completed,
-          score: score !== undefined ? Math.max(score, existingProgress.score) : existingProgress.score,
-          timeSpent: existingProgress.timeSpent + (timeSpent || 0),
-          attempts: existingProgress.attempts + 1,
+          completed: completed !== undefined ? Boolean(completed) : existingProgress.completed,
+          score:
+            score !== undefined
+              ? Math.max(Number(score), existingProgress.score)
+              : existingProgress.score,
+          timeSpent: existingProgress.timeSpent + (Number(timeSpent) || 0),
+          attempts: existingProgress.attempts + (shouldIncrementAttempts ? 1 : 0),
           lastAccessed: new Date(),
         },
       });
     } else {
-      // Create new progress
       progress = await prisma.lessonProgress.create({
         data: {
-          userId: session.user.id,
-          lessonId: lessonId,
-          completed: completed || false,
-          score: score || 0,
-          timeSpent: timeSpent || 0,
-          attempts: 1,
+          userId,
+          lessonId: lessonIdStr,
+          completed: Boolean(completed),
+          score: Math.max(0, Number(score) || 0),
+          timeSpent: Number(timeSpent) || 0,
+          attempts: shouldIncrementAttempts ? 1 : 0,
         },
       });
     }
 
-    // Update user XP and level if lesson was completed
     if (completed && !existingProgress?.completed) {
-      const xpGain = 100; // Base XP for completing a lesson
       const user = await prisma.user.findUnique({
-        where: { id: session.user.id },
+        where: { id: userId },
       });
 
-      const newXP = user.xp + xpGain;
-      const newLevel = Math.floor(newXP / 500) + 1; // Level up every 500 XP
+      if (user) {
+        const scorePct = Math.max(0, Math.min(100, Number(score) ?? 0));
+        const baseXP = 50 + scorePct;
+        const difficultyMultipliers = { easy: 1, medium: 1.25, hard: 1.5 };
+        const difficultyKey = String(difficulty || "easy").toLowerCase();
+        const difficultyMultiplier = difficultyMultipliers[difficultyKey] ?? 1;
+        const xpGain = Math.round(baseXP * difficultyMultiplier);
+        const newXP = (user.xp || 0) + xpGain;
+        const newLevel = Math.floor(newXP / 500) + 1;
 
-      await prisma.user.update({
-        where: { id: session.user.id },
-        data: {
-          xp: newXP,
-          level: newLevel,
-        },
-      });
+        await prisma.user.update({
+          where: { id: userId },
+          data: {
+            xp: newXP,
+            level: newLevel,
+          },
+        });
+      }
 
-      // Add to spaced repetition: create or reset review card so it's due for review
-      await prisma.reviewCard.upsert({
-        where: {
-          userId_lessonId: { userId: session.user.id, lessonId: String(lessonId) },
-        },
-        create: {
-          userId: session.user.id,
-          lessonId: String(lessonId),
-          repetitions: 0,
-          easiness: 2.5,
-          interval: 1,
-          nextReviewDate: new Date(),
-        },
-        update: {
-          nextReviewDate: new Date(),
-        },
-      });
+      try {
+        await prisma.reviewCard.upsert({
+          where: {
+            userId_lessonId: { userId, lessonId: lessonIdStr },
+          },
+          create: {
+            userId,
+            lessonId: lessonIdStr,
+            repetitions: 0,
+            easiness: 2.5,
+            interval: 1,
+            nextReviewDate: new Date(),
+          },
+          update: {
+            nextReviewDate: new Date(),
+          },
+        });
+      } catch (reviewError) {
+        console.error("Progress update: review card upsert error", reviewError);
+      }
     }
 
     return res.status(200).json({ progress });
@@ -102,4 +117,3 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Internal server error" });
   }
 }
-

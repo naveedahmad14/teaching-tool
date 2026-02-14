@@ -11,6 +11,11 @@ import QuickSortLesson from "../../components/lessons/QuickSort";
 import MergeSortLesson from "../../components/lessons/MergeSort";
 import LinearSearchLesson from "../../components/lessons/LinearSearch";
 import BinarySearchLesson from "../../components/lessons/BinarySearch";
+import TwoPointersLesson from "../../components/lessons/TwoPointers";
+import SlidingWindowLesson from "../../components/lessons/SlidingWindow";
+import HashMapsLesson from "../../components/lessons/HashMaps";
+import LinkedListsLesson from "../../components/lessons/LinkedLists";
+import StacksLesson from "../../components/lessons/Stacks";
 
 export default function Lesson() {
   const router = useRouter();
@@ -22,6 +27,11 @@ export default function Lesson() {
     merge: { component: MergeSortLesson },
     linear: { component: LinearSearchLesson },
     binary: { component: BinarySearchLesson },
+    twopointers: { component: TwoPointersLesson },
+    slidingwindow: { component: SlidingWindowLesson },
+    hashmaps: { component: HashMapsLesson },
+    linkedlists: { component: LinkedListsLesson },
+    stacks: { component: StacksLesson },
   };
 
   const lesson = lessons[id];

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function BubbleSortQuiz() {
+export default function BubbleSortQuiz({ lessonId, onQuizComplete }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [showExplanation, setShowExplanation] = useState(false);
@@ -242,6 +242,8 @@ export default function BubbleSortQuiz() {
       setShowExplanation(false);
     } else {
       setQuizComplete(true);
+      const percentage = currentQuestions.length ? (score / currentQuestions.length) * 100 : 0;
+      onQuizComplete?.(percentage, difficulty);
     }
   };
 
@@ -276,7 +278,7 @@ export default function BubbleSortQuiz() {
           animate={{ opacity: 1, scale: 1 }}
           className="bg-[#0F3460] border-2 border-[#625EC6] rounded-xl shadow-lg p-8"
         >
-          <h2 className="text-2xl font-bold text-center mb-6 text-[#FFD700]">Quiz Complete! 🎉</h2>
+          <h2 className="text-2xl font-bold text-center mb-6 text-[#FFD700]">Quiz Complete!</h2>
           
           <div className="text-center mb-8">
             <div className={`text-4xl font-bold mb-4 ${getScoreColor()}`}>
@@ -285,10 +287,10 @@ export default function BubbleSortQuiz() {
             <div className="text-xl text-[#E8E8E8] mb-2">
               {percentage.toFixed(0)}%
             </div>
-            <div className="text-base text-[#B0B0B0]">
-              {percentage >= 80 ? '🌟 Excellent! You\'ve mastered Bubble Sort!' :
-               percentage >= 60 ? '👍 Good job! Review the concepts you missed.' :
-               '📚 Keep practicing! Review the lesson and try again.'}
+            <div className="text-base text-[#C0C0C0]">
+              {percentage >= 80 ? 'Excellent! You\'ve mastered Bubble Sort!' :
+               percentage >= 60 ? 'Good job! Review the concepts you missed.' :
+               'Keep practicing! Review the lesson and try again.'}
             </div>
           </div>
 
@@ -341,7 +343,7 @@ export default function BubbleSortQuiz() {
         <div className="mb-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold text-[#FFD700]">Bubble Sort Quiz</h2>
-            <div className="text-base font-semibold text-[#B0B0B0]">
+            <div className="text-base font-semibold text-[#C0C0C0]">
               Score: {score}/{currentQuestions.length}
             </div>
           </div>
@@ -352,7 +354,7 @@ export default function BubbleSortQuiz() {
               className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
                 difficulty === 'easy'
                   ? 'bg-[#4CAF50] text-white border-2 border-[#4CAF50]'
-                  : 'bg-[#16213E] text-[#B0B0B0] border-2 border-[#625EC6]/50 hover:border-[#625EC6]'
+                  : 'bg-[#16213E] text-[#C0C0C0] border-2 border-[#625EC6]/50 hover:border-[#625EC6]'
               }`}
             >
               Easy
@@ -362,7 +364,7 @@ export default function BubbleSortQuiz() {
               className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
                 difficulty === 'medium'
                   ? 'bg-[#FFD700] text-[#1A1A2E] border-2 border-[#FFD700]'
-                  : 'bg-[#16213E] text-[#B0B0B0] border-2 border-[#625EC6]/50 hover:border-[#625EC6]'
+                  : 'bg-[#16213E] text-[#C0C0C0] border-2 border-[#625EC6]/50 hover:border-[#625EC6]'
               }`}
             >
               Medium
@@ -372,7 +374,7 @@ export default function BubbleSortQuiz() {
               className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
                 difficulty === 'hard'
                   ? 'bg-[#F44336] text-white border-2 border-[#F44336]'
-                  : 'bg-[#16213E] text-[#B0B0B0] border-2 border-[#625EC6]/50 hover:border-[#625EC6]'
+                  : 'bg-[#16213E] text-[#C0C0C0] border-2 border-[#625EC6]/50 hover:border-[#625EC6]'
               }`}
             >
               Hard
@@ -385,7 +387,7 @@ export default function BubbleSortQuiz() {
               style={{ width: `${((currentQuestion + 1) / currentQuestions.length) * 100}%` }}
             />
           </div>
-          <div className="text-sm text-[#B0B0B0] mt-1">
+          <div className="text-sm text-[#C0C0C0] mt-1">
             Question {currentQuestion + 1} of {currentQuestions.length}
           </div>
         </div>
@@ -447,13 +449,13 @@ export default function BubbleSortQuiz() {
                   <h4 className={`font-bold mb-2 text-sm ${
                     selectedAnswer === currentQ.correct ? 'text-[#4CAF50]' : 'text-[#F44336]'
                   }`}>
-                    {selectedAnswer === currentQ.correct ? '🎉 Correct!' : '❌ Incorrect'}
+                    {selectedAnswer === currentQ.correct ? 'Correct!' : 'Incorrect'}
                   </h4>
                   <p className="text-[#E8E8E8] text-sm">{currentQ.explanation}</p>
                 </div>
 
                 <div className="p-4 rounded-lg bg-[#625EC6]/20 border-2 border-[#625EC6]">
-                  <h4 className="font-bold text-[#7B77E8] mb-2 text-sm">💡 Active Recall Tip:</h4>
+                  <h4 className="font-bold text-[#7B77E8] mb-2 text-sm">Active Recall Tip:</h4>
                   <p className="text-[#E8E8E8] text-sm">{currentQ.activeRecall}</p>
                 </div>
 

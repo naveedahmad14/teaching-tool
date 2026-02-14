@@ -102,27 +102,30 @@ export default function BubbleSortLesson() {
   };
 
   return (
-    <div className="w-full space-y-8">
-      {/* Quick Practice Section */}
-      <div>
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Quick Practice</h2>
-        <p className="text-gray-700 mb-4">
-          Get a feel for bubble sort with this interactive visualizer:
-        </p>
-        <BubbleSortVisualizer />
+    <div className="w-full max-w-7xl mx-auto p-6 space-y-8">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl p-8 text-white shadow-xl">
+        <h1 className="text-4xl font-bold mb-4">Bubble Sort: The Foundation</h1>
+        <p className="text-xl opacity-90">Master the simplest sorting algorithm</p>
       </div>
 
-      {/* Main Lesson Content */}
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl p-8 text-white shadow-xl">
-          <h1 className="text-4xl font-bold mb-4">Bubble Sort: The Foundation</h1>
-          <p className="text-xl opacity-90">Master the simplest sorting algorithm</p>
+      {/* Quick Visualizer Section */}
+      <div className="bg-white rounded-xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First!</h2>
+        <p className="text-gray-700 mb-6">
+          Before diving into the details, play with this visualiser to get an intuitive feel for how bubble sort works:
+        </p>
+        <BubbleSortVisualizer />
+        <div className="bg-blue-50 rounded-lg p-4 border-2 border-blue-200">
+          <p className="text-blue-800 text-center italic">
+            Note: The standalone visualiser from your components can be placed here, or you can use the integrated one below in the Interactive Visualisation section.
+          </p>
         </div>
+      </div>
 
-        {/* Introduction */}
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          <h2 className="text-3xl font-bold mb-4 text-gray-800">What is Bubble Sort?</h2>
+      {/* Introduction */}
+      <div className="bg-white rounded-xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">What is Bubble Sort?</h2>
           <p className="text-lg text-gray-700 mb-4">
             Bubble Sort is the simplest sorting algorithm that works by <strong>repeatedly comparing adjacent elements</strong> and 
             swapping them if they're in the wrong order. The name comes from the way larger elements "bubble up" to the end 
@@ -131,7 +134,7 @@ export default function BubbleSortLesson() {
 
           <div className="grid md:grid-cols-3 gap-4 mt-6">
             <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-              <h3 className="font-bold text-blue-900 mb-2">⏱️ Time Complexity</h3>
+              <h3 className="font-bold text-blue-900 mb-2">Time Complexity</h3>
               <p className="text-blue-800 text-sm">Best: O(n) - already sorted</p>
               <p className="text-blue-800 text-sm">Average: O(n²)</p>
               <p className="text-blue-800 text-sm">Worst: O(n²)</p>
@@ -397,7 +400,6 @@ export default function BubbleSortLesson() {
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 }

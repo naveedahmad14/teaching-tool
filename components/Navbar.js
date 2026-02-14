@@ -26,7 +26,7 @@ export default function Navbar() {
             className="text-base font-bold text-[#FFD700] hover:text-[#FFE55C] transition-colors focus:outline-none focus:ring-4 focus:ring-[#FFD700] py-1"
             aria-label="AlgoQuest Home"
           >
-            ⚔️ AlgoQuest
+            AlgoQuest
           </Link>
           
           <div className="flex items-center gap-5">
@@ -35,25 +35,25 @@ export default function Navbar() {
               className="text-sm text-[#E8E8E8] hover:text-[#FFD700] transition-colors px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#FFD700] rounded"
               aria-label="Lessons"
             >
-              📚 Lessons
+              Lessons
             </Link>
             <Link 
               href="/quiz" 
               className="text-sm text-[#E8E8E8] hover:text-[#FFD700] transition-colors px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#FFD700] rounded"
               aria-label="Quiz"
             >
-              🎯 Quiz
+              Quiz
             </Link>
             <Link 
               href="/about" 
               className="text-sm text-[#E8E8E8] hover:text-[#FFD700] transition-colors px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#FFD700] rounded"
               aria-label="About"
             >
-              ℹ️ About
+              About
             </Link>
             
             {status === "loading" ? (
-              <span className="text-sm text-[#B0B0B0]" aria-live="polite">Loading...</span>
+              <span className="text-sm text-[#C0C0C0]" aria-live="polite">Loading...</span>
             ) : session ? (
               <>
                 <Link 
@@ -61,19 +61,19 @@ export default function Navbar() {
                   className="text-sm text-[#E8E8E8] hover:text-[#FFD700] transition-colors px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#FFD700] rounded"
                   aria-label="View Progress"
                 >
-                  📊 Progress
+                  Progress
                 </Link>
                 <Link 
                   href="/review" 
                   className="text-sm text-[#E8E8E8] hover:text-[#FFD700] transition-colors px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#FFD700] rounded"
                   aria-label="Spaced review"
                 >
-                  🔁 Review
+                  Review
                 </Link>
                 <div className="flex items-center gap-3 ml-2 pl-4 border-l-2 border-[#625EC6]">
                   <div className="flex items-center gap-2">
                     <span className="text-sm text-[#E8E8E8]" aria-label={`User: ${session.user.username}`}>
-                      👤 {session.user.username}
+                      {session.user.username}
                     </span>
                     <GameBadge variant="gold" className="text-xs">
                       Lv.{session.user.level}
@@ -85,7 +85,7 @@ export default function Navbar() {
                     className="text-sm py-2 px-3"
                     aria-label="Sign out"
                   >
-                    Exit
+                    Log out
                   </GameButton>
                 </div>
               </>

@@ -11,6 +11,11 @@ const lessonNames = {
   merge: "Merge Sort",
   linear: "Linear Search",
   binary: "Binary Search",
+  twopointers: "Two Pointers",
+  slidingwindow: "Sliding Window",
+  hashmaps: "Hash Maps",
+  linkedlists: "Linked Lists",
+  stacks: "Stacks",
 };
 
 export default function Progress() {
@@ -50,7 +55,7 @@ export default function Progress() {
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-[#625EC6] border-t-transparent mx-auto mb-4"></div>
-            <p className="text-[10px] text-[#B0B0B0]">Loading your quest progress...</p>
+            <p className="text-sm text-[#C0C0C0]">Loading your progress…</p>
           </div>
         </div>
       </Layout>
@@ -77,11 +82,11 @@ export default function Progress() {
     <Layout>
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-8">
-          <h1 className="text-lg mb-2 text-[#FFD700]">
-            📊 Quest Progress
+          <h1 className="text-2xl font-bold mb-2 text-[#FFD700]">
+            Progress
           </h1>
-          <p className="text-[10px] text-[#B0B0B0]">
-            Track your journey to algorithmic mastery
+          <p className="text-sm text-[#C0C0C0]">
+            Track your journey through the lessons
           </p>
         </div>
 
@@ -89,16 +94,16 @@ export default function Progress() {
         <div className="game-card game-border-gold p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <div className="text-center">
-              <p className="text-[10px] text-[#B0B0B0] mb-2">⚔️ Level</p>
-              <p className="text-2xl text-[#FFD700]">{currentLevel}</p>
+              <p className="text-sm text-[#C0C0C0] mb-2">Level</p>
+              <p className="text-2xl font-bold text-[#FFD700]">{currentLevel}</p>
             </div>
             <div className="text-center">
-              <p className="text-[10px] text-[#B0B0B0] mb-2">⭐ Total XP</p>
-              <p className="text-2xl text-[#FFD700]">{totalXP}</p>
+              <p className="text-sm text-[#C0C0C0] mb-2">Total XP</p>
+              <p className="text-2xl font-bold text-[#FFD700]">{totalXP}</p>
             </div>
             <div className="text-center">
-              <p className="text-[10px] text-[#B0B0B0] mb-2">✅ Completed</p>
-              <p className="text-2xl text-[#FFD700]">
+              <p className="text-sm text-[#C0C0C0] mb-2">Completed</p>
+              <p className="text-2xl font-bold text-[#FFD700]">
                 {completedLessons}/{totalLessons}
               </p>
             </div>
@@ -106,8 +111,8 @@ export default function Progress() {
 
           {/* XP Progress Bar */}
           <div className="mt-6">
-            <div className="flex justify-between text-[10px] mb-2 text-[#E8E8E8]">
-              <span>🎯 XP to Level {currentLevel + 1}</span>
+            <div className="flex justify-between text-sm mb-2 text-[#E8E8E8]">
+              <span>XP to Level {currentLevel + 1}</span>
               <span>
                 {xpProgress}/500 ({Math.round(xpPercentage)}%)
               </span>
@@ -128,8 +133,8 @@ export default function Progress() {
 
         {/* Lessons Progress */}
         <div className="mb-6">
-          <h2 className="text-sm mb-4 text-[#FFD700] text-center">
-            📚 Quest Log
+          <h2 className="text-lg font-bold mb-4 text-[#FFD700] text-center">
+            Lesson progress
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {Object.entries(lessonNames).map(([lessonId, lessonName]) => {
@@ -148,41 +153,41 @@ export default function Progress() {
                 >
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex-1">
-                      <h3 className="text-xs mb-2 text-[#E8E8E8]">{lessonName}</h3>
+                      <h3 className="text-base font-semibold mb-2 text-[#E8E8E8]">{lessonName}</h3>
                       <Link
                         href={`/lesson/${lessonId}`}
-                        className="text-[10px] text-[#625EC6] hover:text-[#FFD700] transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
+                        className="text-sm text-[#7B77E8] hover:text-[#FFD700] transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
                         aria-label={`View ${lessonName} lesson`}
                       >
                         Enter Quest →
                       </Link>
                     </div>
                     {isCompleted && (
-                      <GameBadge variant="success" className="text-[8px] flex-shrink-0 ml-2">
-                        ✓
+                      <GameBadge variant="success" className="text-xs flex-shrink-0 ml-2">
+                        Done
                       </GameBadge>
                     )}
                   </div>
 
                   <div className="space-y-2 mt-4 pt-4 border-t-2 border-[#625EC6]">
-                    <div className="flex justify-between text-[10px]">
-                      <span className="text-[#B0B0B0]">Status:</span>
-                      <span className={isCompleted ? "text-[#4CAF50] font-bold" : "text-[#B0B0B0]"}>
-                        {isCompleted ? "✅ Completed" : "⏳ Not Started"}
+                    <div className="flex justify-between text-sm">
+                      <span className="text-[#C0C0C0]">Status</span>
+                      <span className={isCompleted ? "text-[#4CAF50] font-semibold" : "text-[#C0C0C0]"}>
+                        {isCompleted ? "Completed" : "Not started"}
                       </span>
                     </div>
                     {attempts > 0 && (
                       <>
-                        <div className="flex justify-between text-[10px]">
-                          <span className="text-[#B0B0B0]">🏆 Best Score:</span>
-                          <span className="text-[#FFD700] font-bold">{score}%</span>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-[#C0C0C0]">Best score</span>
+                          <span className="text-[#FFD700] font-semibold">{score}%</span>
                         </div>
-                        <div className="flex justify-between text-[10px]">
-                          <span className="text-[#B0B0B0]">🔄 Attempts:</span>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-[#C0C0C0]">Attempts</span>
                           <span className="text-[#E8E8E8]">{attempts}</span>
                         </div>
-                        <div className="flex justify-between text-[10px]">
-                          <span className="text-[#B0B0B0]">⏱️ Time:</span>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-[#C0C0C0]">Time spent</span>
                           <span className="text-[#E8E8E8]">
                             {Math.floor(timeSpent / 60)}m {timeSpent % 60}s
                           </span>
@@ -193,8 +198,8 @@ export default function Progress() {
 
                   {!isCompleted && attempts === 0 && (
                     <div className="mt-4 pt-4 border-t-2 border-[#625EC6]">
-                      <p className="text-[10px] text-[#B0B0B0] text-center">
-                        Begin this quest to track progress
+                      <p className="text-sm text-[#C0C0C0] text-center">
+                        Start the lesson to track progress
                       </p>
                     </div>
                   )}

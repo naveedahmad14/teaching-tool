@@ -202,7 +202,7 @@ export default function MergeSortLesson() {
         
         <div className="grid md:grid-cols-3 gap-4 mt-6">
           <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-            <h3 className="font-bold text-blue-900 mb-2">⏱️ Time Complexity</h3>
+            <h3 className="font-bold text-blue-900 mb-2">Time Complexity</h3>
             <p className="text-blue-800">O(n log n) - Best, Average, and Worst case</p>
           </div>
           <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">

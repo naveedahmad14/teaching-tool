@@ -14,7 +14,7 @@
   --quest-bg-light: #16213E;
   --quest-card: #0F3460;
   --quest-text: #E8E8E8;
-  --quest-text-dim: #B0B0B0;
+  --quest-text-dim: #C0C0C0;
   
   /* Accessibility - High contrast */
   --text-primary: #FFFFFF;
@@ -160,7 +160,7 @@ p, span, div, label, input, textarea, select {
   border: 2px solid var(--quest-gold);
   color: var(--text-primary);
   font-family: 'Press Start 2P', 'Courier New', monospace;
-  font-size: 10px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
   box-shadow: 0 2px 0 var(--quest-gold-dark);
@@ -193,7 +193,7 @@ p, span, div, label, input, textarea, select {
 /* Input style */
 .game-input {
   font-family: 'Press Start 2P', 'Courier New', monospace;
-  font-size: 10px;
+  font-size: 12px;
   padding: 12px 16px;
   background: var(--quest-bg-light);
   border: 3px solid var(--quest-purple);

@@ -44,11 +44,11 @@ export default function Login() {
         <div className="w-full max-w-md">
           <div className="game-card p-8">
             <div className="text-center mb-6">
-              <h1 className="text-lg mb-3 text-[#FFD700]">
-                ⚔️ Welcome Back, Adventurer!
+              <h1 className="text-2xl font-bold mb-3 text-[#FFD700]">
+                Sign in
               </h1>
-              <p className="text-[10px] text-[#B0B0B0] leading-relaxed">
-                Sign in to continue your quest for algorithmic mastery
+              <p className="text-sm text-[#C0C0C0] leading-relaxed">
+                Sign in to continue your progress
               </p>
             </div>
 
@@ -58,8 +58,8 @@ export default function Login() {
                 role="alert"
                 aria-live="assertive"
               >
-                <p className="text-[10px] text-[#F44336] flex items-center gap-2">
-                  <span>⚠️</span> {error}
+                <p className="text-sm text-[#F44336]">
+                  {error}
                 </p>
               </div>
             )}
@@ -68,9 +68,9 @@ export default function Login() {
               <div>
                 <label
                   htmlFor="username"
-                  className="block text-[10px] text-[#E8E8E8] mb-2"
+                  className="block text-sm font-medium text-[#E8E8E8] mb-2"
                 >
-                  👤 Username
+                  Username
                 </label>
                 <input
                   id="username"
@@ -90,9 +90,9 @@ export default function Login() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-[10px] text-[#E8E8E8] mb-2"
+                  className="block text-sm font-medium text-[#E8E8E8] mb-2"
                 >
-                  🔒 Password
+                  Password
                 </label>
                 <input
                   id="password"
@@ -119,7 +119,7 @@ export default function Login() {
               </GameButton>
             </form>
 
-            <p className="mt-6 text-center text-[10px] text-[#B0B0B0]">
+            <p className="mt-6 text-center text-sm text-[#C0C0C0]">
               New to AlgoQuest?{" "}
               <Link
                 href="/signup"

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function MergeSortQuiz() {
+export default function MergeSortQuiz({ lessonId, onQuizComplete }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [showExplanation, setShowExplanation] = useState(false);
@@ -242,6 +242,8 @@ export default function MergeSortQuiz() {
       setShowExplanation(false);
     } else {
       setQuizComplete(true);
+      const percentage = currentQuestions.length ? (score / currentQuestions.length) * 100 : 0;
+      onQuizComplete?.(percentage, difficulty);
     }
   };
 
@@ -261,60 +263,47 @@ export default function MergeSortQuiz() {
 
   const getScoreColor = () => {
     const percentage = (score / currentQuestions.length) * 100;
-    if (percentage >= 80) return 'text-green-600';
-    if (percentage >= 60) return 'text-yellow-600';
-    return 'text-red-600';
+    if (percentage >= 80) return 'text-[#4CAF50]';
+    if (percentage >= 60) return 'text-[#FFD700]';
+    return 'text-[#F44336]';
   };
 
   if (quizComplete) {
     const percentage = (score / currentQuestions.length) * 100;
     
     return (
-      <div className="min-h-screen bg-[#1A1A2E] p-8 pt-20">
+      <div className="max-w-4xl mx-auto p-8 pt-20">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="max-w-4xl mx-auto bg-[#0F3460] border-2 border-[#625EC6] rounded-2xl shadow-2xl p-8"
+          className="bg-[#0F3460] border-2 border-[#625EC6] rounded-xl shadow-lg p-8"
         >
-          <h2 className="text-4xl font-bold text-center mb-6 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Quiz Complete! 🎉
-          </h2>
+          <h2 className="text-2xl font-bold text-center mb-6 text-[#FFD700]">Quiz Complete!</h2>
           
           <div className="text-center mb-8">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", delay: 0.2 }}
-              className={`text-7xl font-bold mb-4 ${getScoreColor()}`}
-            >
+            <div className={`text-4xl font-bold mb-4 ${getScoreColor()}`}>
               {score}/{currentQuestions.length}
-            </motion.div>
-            <div className="text-3xl text-gray-700 mb-2">
+            </div>
+            <div className="text-xl text-[#E8E8E8] mb-2">
               {percentage.toFixed(0)}%
             </div>
-            <div className="text-xl text-gray-600">
-              {percentage >= 80 ? '🌟 Excellent! You\'ve mastered Merge Sort!' :
-               percentage >= 60 ? '👍 Good job! Review the concepts you missed.' :
-               '📚 Keep practicing! Review the lesson and try again.'}
+            <div className="text-base text-[#C0C0C0]">
+              {percentage >= 80 ? 'Excellent! You\'ve mastered Merge Sort!' :
+               percentage >= 60 ? 'Good job! Review the concepts you missed.' :
+               'Keep practicing! Review the lesson and try again.'}
             </div>
           </div>
 
           <div className="mb-8">
-            <h3 className="text-2xl font-bold mb-4">Performance Breakdown:</h3>
+            <h3 className="text-lg font-bold mb-4 text-[#E8E8E8]">Performance Breakdown:</h3>
             <div className="space-y-2">
               {answeredQuestions.map((q, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg"
-                >
-                  <span className="text-gray-700 font-medium">Question {index + 1}</span>
-                  <span className={`font-bold text-lg ${q.correct ? 'text-green-600' : 'text-red-600'}`}>
+                <div key={index} className="flex items-center justify-between p-3 bg-[#16213E] rounded-lg border border-[#625EC6]/50">
+                  <span className="text-[#E8E8E8] text-sm">Question {index + 1}</span>
+                  <span className={`font-semibold text-sm ${q.correct ? 'text-[#4CAF50]' : 'text-[#F44336]'}`}>
                     {q.correct ? '✓ Correct' : '✗ Incorrect'}
                   </span>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -322,14 +311,14 @@ export default function MergeSortQuiz() {
           <div className="flex flex-wrap gap-4 justify-center">
             <button
               onClick={resetQuiz}
-              className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg transform hover:scale-105"
+              className="px-6 py-3 bg-[#625EC6] text-white rounded-lg font-semibold hover:bg-[#4A46A8] transition-colors border-2 border-[#7B77E8]"
             >
               Try Again ({difficulty})
             </button>
             {difficulty !== 'medium' && (
               <button
                 onClick={() => changeDifficulty('medium')}
-                className="px-8 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-lg font-semibold hover:from-yellow-600 hover:to-orange-600 transition-all shadow-lg transform hover:scale-105"
+                className="px-6 py-3 bg-[#FFD700] text-[#1A1A2E] rounded-lg font-semibold hover:bg-[#D4AF37] transition-colors"
               >
                 Try Medium
               </button>
@@ -337,7 +326,7 @@ export default function MergeSortQuiz() {
             {difficulty !== 'hard' && (
               <button
                 onClick={() => changeDifficulty('hard')}
-                className="px-8 py-3 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-lg font-semibold hover:from-red-600 hover:to-pink-600 transition-all shadow-lg transform hover:scale-105"
+                className="px-6 py-3 bg-[#F44336] text-white rounded-lg font-semibold hover:bg-[#D32F2F] transition-colors"
               >
                 Try Hard
               </button>
@@ -350,153 +339,136 @@ export default function MergeSortQuiz() {
 
   return (
     <div className="min-h-screen bg-[#1A1A2E] p-8 pt-20">
-      <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-[#0F3460] border-2 border-[#625EC6] rounded-2xl shadow-2xl p-8 mb-8"
-        >
-          {/* Header */}
-          <div className="mb-8">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                Merge Sort Quiz
-              </h2>
-              <div className="text-2xl font-bold text-gray-700">
-                {score}/{currentQuestions.length}
-              </div>
-            </div>
-            
-            {/* Difficulty Selector */}
-            <div className="flex gap-3 mb-6">
-              <button
-                onClick={() => changeDifficulty('easy')}
-                className={`px-6 py-3 rounded-lg font-bold transition-all transform hover:scale-105 ${
-                  difficulty === 'easy'
-                    ? 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                }`}
-              >
-                Easy
-              </button>
-              <button
-                onClick={() => changeDifficulty('medium')}
-                className={`px-6 py-3 rounded-lg font-bold transition-all transform hover:scale-105 ${
-                  difficulty === 'medium'
-                    ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                }`}
-              >
-                Medium
-              </button>
-              <button
-                onClick={() => changeDifficulty('hard')}
-                className={`px-6 py-3 rounded-lg font-bold transition-all transform hover:scale-105 ${
-                  difficulty === 'hard'
-                    ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-lg'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                }`}
-              >
-                Hard
-              </button>
-            </div>
-
-            {/* Progress Bar */}
-            <div className="relative w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-              <motion.div
-                className="absolute top-0 left-0 h-full bg-gradient-to-r from-indigo-500 to-purple-500"
-                initial={{ width: 0 }}
-                animate={{ width: `${((currentQuestion + 1) / currentQuestions.length) * 100}%` }}
-                transition={{ duration: 0.5 }}
-              />
-            </div>
-            <div className="text-sm text-gray-600 mt-2 font-medium">
-              Question {currentQuestion + 1} of {currentQuestions.length}
+      <div className="max-w-5xl mx-auto bg-[#0F3460] border-2 border-[#625EC6] rounded-2xl shadow-2xl p-8">
+        <div className="mb-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold text-[#FFD700]">Merge Sort Quiz</h2>
+            <div className="text-base font-semibold text-[#C0C0C0]">
+              Score: {score}/{currentQuestions.length}
             </div>
           </div>
-
-          {/* Question */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentQuestion}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.3 }}
+          
+          <div className="flex gap-2 mb-4">
+            <button
+              onClick={() => changeDifficulty('easy')}
+              className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
+                difficulty === 'easy'
+                  ? 'bg-[#4CAF50] text-white border-2 border-[#4CAF50]'
+                  : 'bg-[#16213E] text-[#C0C0C0] border-2 border-[#625EC6]/50 hover:border-[#625EC6]'
+              }`}
             >
-              <div className="mb-8">
-                <h3 className="text-2xl font-bold text-gray-800 mb-6 leading-relaxed">
-                  {currentQ.question}
-                </h3>
+              Easy
+            </button>
+            <button
+              onClick={() => changeDifficulty('medium')}
+              className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
+                difficulty === 'medium'
+                  ? 'bg-[#FFD700] text-[#1A1A2E] border-2 border-[#FFD700]'
+                  : 'bg-[#16213E] text-[#C0C0C0] border-2 border-[#625EC6]/50 hover:border-[#625EC6]'
+              }`}
+            >
+              Medium
+            </button>
+            <button
+              onClick={() => changeDifficulty('hard')}
+              className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
+                difficulty === 'hard'
+                  ? 'bg-[#F44336] text-white border-2 border-[#F44336]'
+                  : 'bg-[#16213E] text-[#C0C0C0] border-2 border-[#625EC6]/50 hover:border-[#625EC6]'
+              }`}
+            >
+              Hard
+            </button>
+          </div>
 
-                <div className="space-y-4">
-                  {currentQ.options.map((option, index) => (
-                    <motion.button
-                      key={index}
-                      onClick={() => handleAnswer(index)}
-                      disabled={showExplanation}
-                      whileHover={{ scale: showExplanation ? 1 : 1.02 }}
-                      whileTap={{ scale: showExplanation ? 1 : 0.98 }}
-                      className={`w-full p-6 text-left rounded-xl border-2 transition-all text-lg ${
-                        showExplanation
-                          ? index === currentQ.correct
-                            ? 'border-green-500 bg-gradient-to-r from-green-50 to-green-100 shadow-lg'
-                            : index === selectedAnswer
-                            ? 'border-red-500 bg-gradient-to-r from-red-50 to-red-100'
-                            : 'border-gray-200 bg-gray-50 opacity-50'
-                          : 'border-gray-300 hover:border-indigo-400 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 cursor-pointer shadow-md hover:shadow-lg'
-                      } ${selectedAnswer === index && !showExplanation ? 'border-indigo-500 bg-gradient-to-r from-indigo-50 to-purple-50 shadow-lg' : ''}`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="font-medium">{option}</span>
-                        {showExplanation && index === currentQ.correct && (
-                          <span className="text-green-600 font-bold text-2xl">✓</span>
-                        )}
-                        {showExplanation && index === selectedAnswer && index !== currentQ.correct && (
-                          <span className="text-red-600 font-bold text-2xl">✗</span>
-                        )}
-                      </div>
-                    </motion.button>
-                  ))}
-                </div>
-              </div>
+          <div className="w-full bg-[#16213E] rounded-full h-2 border border-[#625EC6]/50">
+            <div
+              className="bg-[#625EC6] h-2 rounded-full transition-all duration-300"
+              style={{ width: `${((currentQuestion + 1) / currentQuestions.length) * 100}%` }}
+            />
+          </div>
+          <div className="text-sm text-[#C0C0C0] mt-1">
+            Question {currentQuestion + 1} of {currentQuestions.length}
+          </div>
+        </div>
 
-              {/* Explanation */}
-              {showExplanation && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="space-y-6"
-                >
-                  <div className={`p-6 rounded-xl ${
-                    selectedAnswer === currentQ.correct
-                      ? 'bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-300'
-                      : 'bg-gradient-to-r from-red-50 to-red-100 border-2 border-red-300'
-                  }`}>
-                    <h4 className={`font-bold text-xl mb-3 ${
-                      selectedAnswer === currentQ.correct ? 'text-green-800' : 'text-red-800'
-                    }`}>
-                      {selectedAnswer === currentQ.correct ? '🎉 Correct!' : '❌ Incorrect'}
-                    </h4>
-                    <p className="text-gray-700 text-lg leading-relaxed">{currentQ.explanation}</p>
-                  </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentQuestion}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="mb-6">
+              <h3 className="text-lg font-bold text-[#E8E8E8] mb-4">
+                {currentQ.question}
+              </h3>
 
-                  <div className="p-6 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 border-2 border-indigo-200">
-                    <h4 className="font-bold text-indigo-800 text-xl mb-3">💡 Active Recall Tip:</h4>
-                    <p className="text-gray-700 text-lg leading-relaxed">{currentQ.activeRecall}</p>
-                  </div>
-
+              <div className="space-y-3">
+                {currentQ.options.map((option, index) => (
                   <button
-                    onClick={nextQuestion}
-                    className="w-full px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xl rounded-xl font-bold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg transform hover:scale-105"
+                    key={index}
+                    onClick={() => handleAnswer(index)}
+                    disabled={showExplanation}
+                    className={`w-full p-4 text-left rounded-lg border-2 transition-all text-sm ${
+                      showExplanation
+                        ? index === currentQ.correct
+                          ? 'border-[#4CAF50] bg-[#4CAF50]/20'
+                          : index === selectedAnswer
+                          ? 'border-[#F44336] bg-[#F44336]/20'
+                          : 'border-[#625EC6]/30 bg-[#16213E]'
+                        : 'border-[#625EC6]/50 bg-[#16213E] hover:border-[#625EC6] hover:bg-[#16213E]/80 cursor-pointer'
+                    } ${selectedAnswer === index && !showExplanation ? 'border-[#625EC6] bg-[#625EC6]/20' : ''}`}
                   >
-                    {currentQuestion < currentQuestions.length - 1 ? 'Next Question →' : 'Complete Quiz'}
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium text-[#E8E8E8]">{option}</span>
+                      {showExplanation && index === currentQ.correct && (
+                        <span className="text-[#4CAF50] font-bold">✓</span>
+                      )}
+                      {showExplanation && index === selectedAnswer && index !== currentQ.correct && (
+                        <span className="text-[#F44336] font-bold">✗</span>
+                      )}
+                    </div>
                   </button>
-                </motion.div>
-              )}
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {showExplanation && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="space-y-4"
+              >
+                <div className={`p-4 rounded-lg ${
+                  selectedAnswer === currentQ.correct
+                    ? 'bg-[#4CAF50]/20 border-2 border-[#4CAF50]'
+                    : 'bg-[#F44336]/20 border-2 border-[#F44336]'
+                }`}>
+                  <h4 className={`font-bold mb-2 text-sm ${
+                    selectedAnswer === currentQ.correct ? 'text-[#4CAF50]' : 'text-[#F44336]'
+                  }`}>
+                    {selectedAnswer === currentQ.correct ? 'Correct!' : 'Incorrect'}
+                  </h4>
+                  <p className="text-[#E8E8E8] text-sm">{currentQ.explanation}</p>
+                </div>
+
+                <div className="p-4 rounded-lg bg-[#625EC6]/20 border-2 border-[#625EC6]">
+                  <h4 className="font-bold text-[#7B77E8] mb-2 text-sm">Active Recall Tip:</h4>
+                  <p className="text-[#E8E8E8] text-sm">{currentQ.activeRecall}</p>
+                </div>
+
+                <button
+                  onClick={nextQuestion}
+                  className="w-full px-6 py-3 bg-[#625EC6] text-white rounded-lg font-semibold hover:bg-[#4A46A8] transition-colors border-2 border-[#7B77E8]"
+                >
+                  {currentQuestion < currentQuestions.length - 1 ? 'Next Question →' : 'Complete Quiz'}
+                </button>
+              </motion.div>
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

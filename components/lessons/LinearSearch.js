@@ -117,7 +117,7 @@ export default function LinearSearchLesson() {
 
         <div className="grid md:grid-cols-3 gap-4 mt-6">
           <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-            <h3 className="font-bold text-blue-900 mb-2">⏱️ Time Complexity</h3>
+            <h3 className="font-bold text-blue-900 mb-2">Time Complexity</h3>
             <p className="text-blue-800 text-sm">Best: O(1) - first element</p>
             <p className="text-blue-800 text-sm">Average: O(n/2) ≈ O(n)</p>
             <p className="text-blue-800 text-sm">Worst: O(n) - last or not found</p>

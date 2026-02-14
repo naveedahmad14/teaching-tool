@@ -60,7 +60,7 @@ class ErrorBoundary extends React.Component {
         </p>
         {process.env.NODE_ENV === "development" && this.state.error && (
           <details className="text-left w-full max-w-xl mb-4">
-            <summary className="cursor-pointer text-[#B0B0B0] text-xs">
+            <summary className="cursor-pointer text-[#C0C0C0] text-xs">
               Error details
             </summary>
             <pre className="mt-2 p-3 bg-black/30 rounded text-xs text-red-300 overflow-auto max-h-40">

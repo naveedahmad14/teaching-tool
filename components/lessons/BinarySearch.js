@@ -166,7 +166,7 @@ export default function BinarySearchLesson() {
 
         <div className="grid md:grid-cols-3 gap-4 mt-6">
           <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
-            <h3 className="font-bold text-purple-900 mb-2">⏱️ Time Complexity</h3>
+            <h3 className="font-bold text-purple-900 mb-2">Time Complexity</h3>
             <p className="text-purple-800 text-sm">Best: O(1) - middle element</p>
             <p className="text-purple-800 text-sm">Average: O(log n)</p>
             <p className="text-purple-800 text-sm">Worst: O(log n)</p>
@@ -177,7 +177,7 @@ export default function BinarySearchLesson() {
             <p className="text-indigo-800 text-sm">O(log n) - Recursive version</p>
           </div>
           <div className="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
-            <h3 className="font-bold text-red-900 mb-2">⚠️ Requirement</h3>
+            <h3 className="font-bold text-red-900 mb-2">Requirement</h3>
             <p className="text-red-800">Array MUST be sorted</p>
           </div>
         </div>

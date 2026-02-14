@@ -83,11 +83,11 @@ export default function Signup() {
         <div className="w-full max-w-md">
           <div className="game-card p-8">
             <div className="text-center mb-6">
-              <h1 className="text-lg mb-3 text-[#FFD700]">
-                🎮 Begin Your Quest!
+              <h1 className="text-2xl font-bold mb-3 text-[#FFD700]">
+                Create account
               </h1>
-              <p className="text-[10px] text-[#B0B0B0] leading-relaxed">
-                Create your account and embark on an epic journey to master algorithms
+              <p className="text-sm text-[#C0C0C0] leading-relaxed">
+                Create your account to save progress and track your learning
               </p>
             </div>
 
@@ -97,8 +97,8 @@ export default function Signup() {
                 role="alert"
                 aria-live="assertive"
               >
-                <p className="text-[10px] text-[#F44336] flex items-center gap-2">
-                  <span>⚠️</span> {error}
+                <p className="text-sm text-[#F44336]">
+                  {error}
                 </p>
               </div>
             )}
@@ -107,9 +107,9 @@ export default function Signup() {
               <div>
                 <label
                   htmlFor="username"
-                  className="block text-[10px] text-[#E8E8E8] mb-2"
+                  className="block text-sm font-medium text-[#E8E8E8] mb-2"
                 >
-                  👤 Username (min 3 characters)
+                  Username (min 3 characters)
                 </label>
                 <input
                   id="username"
@@ -129,9 +129,9 @@ export default function Signup() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-[10px] text-[#E8E8E8] mb-2"
+                  className="block text-sm font-medium text-[#E8E8E8] mb-2"
                 >
-                  🔒 Password (min 6 characters)
+                  Password (min 6 characters)
                 </label>
                 <input
                   id="password"
@@ -151,9 +151,9 @@ export default function Signup() {
               <div>
                 <label
                   htmlFor="confirmPassword"
-                  className="block text-[10px] text-[#E8E8E8] mb-2"
+                  className="block text-sm font-medium text-[#E8E8E8] mb-2"
                 >
-                  🔒 Confirm Password
+                  Confirm password
                 </label>
                 <input
                   id="confirmPassword"
@@ -181,7 +181,7 @@ export default function Signup() {
               </GameButton>
             </form>
 
-            <p className="mt-6 text-center text-[10px] text-[#B0B0B0]">
+            <p className="mt-6 text-center text-sm text-[#C0C0C0]">
               Already have an account?{" "}
               <Link
                 href="/login"

@@ -7,14 +7,14 @@ export default function About() {
       <div className="max-w-3xl">
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-4 text-[#E8E8E8]">Our Mission</h2>
-          <p className="text-[#B0B0B0] mb-4 text-base">
+          <p className="text-[#C0C0C0] mb-4 text-base">
               AlgoQuest: An Interactive Web-Based Teaching Tool for Learning Data Structures and Algorithms through Visualisation and Gamification
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-4 text-[#E8E8E8]">What We Offer</h2>
-          <ul className="list-disc list-inside text-[#B0B0B0] space-y-2 text-base">
+          <ul className="list-disc list-inside text-[#C0C0C0] space-y-2 text-base">
             <li>Interactive coding lessons</li>
             <li>Practice exercises and quizzes</li>
             <li>Real-world programming examples</li>
@@ -24,7 +24,7 @@ export default function About() {
 
         <section>
           <h2 className="text-xl font-semibold mb-4 text-[#E8E8E8]">Contact Us</h2>
-          <p className="text-[#B0B0B0] text-base">
+          <p className="text-[#C0C0C0] text-base">
             Have questions or suggestions? Email us at{" "}
             <a
               href="mailto:contact@csteachingtool.com"

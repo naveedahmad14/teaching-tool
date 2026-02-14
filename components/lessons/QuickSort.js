@@ -175,7 +175,7 @@ export default function QuickSortLesson() {
 
         <div className="grid md:grid-cols-3 gap-4 mt-6">
           <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
-            <h3 className="font-bold text-purple-900 mb-2">⏱️ Time Complexity</h3>
+            <h3 className="font-bold text-purple-900 mb-2">Time Complexity</h3>
             <p className="text-purple-800 text-sm">Best: O(n log n)</p>
             <p className="text-purple-800 text-sm">Average: O(n log n)</p>
             <p className="text-purple-800 text-sm">Worst: O(n²) - rare</p>

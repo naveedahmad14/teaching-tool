@@ -9,6 +9,11 @@ const LESSON_NAMES = {
   merge: "Merge Sort",
   linear: "Linear Search",
   binary: "Binary Search",
+  twopointers: "Two Pointers",
+  slidingwindow: "Sliding Window",
+  hashmaps: "Hash Maps",
+  linkedlists: "Linked Lists",
+  stacks: "Stacks",
 };
 
 export default async function handler(req, res) {
