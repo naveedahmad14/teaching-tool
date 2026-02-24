@@ -36,9 +36,9 @@ export default function HashMapTable({
       )}
       <table className="w-full text-left text-sm">
         <thead>
-          <tr className="bg-[#625EC6]/30 text-gray-200">
-            <th className="px-3 py-2 font-semibold">{keyLabel}</th>
-            <th className="px-3 py-2 font-semibold">{valueLabel}</th>
+          <tr className="bg-[#625EC6]/50">
+            <th className="px-3 py-2 font-semibold text-[#FFD700]">{keyLabel}</th>
+            <th className="px-3 py-2 font-semibold text-[#FFD700]">{valueLabel}</th>
           </tr>
         </thead>
         <tbody>

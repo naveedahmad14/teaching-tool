@@ -178,6 +178,18 @@ export default function MergeSortLesson() {
         <p className="text-xl opacity-90">Master the divide-and-conquer sorting algorithm</p>
       </div>
 
+      {/* Learning objectives */}
+      <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-indigo-500">
+        <h2 className="text-2xl font-bold mb-3 text-gray-800">Learning objectives</h2>
+        <p className="text-gray-600 mb-3">By the end of this lesson you will be able to:</p>
+        <ul className="space-y-2 text-gray-700 list-disc list-inside">
+          <li>Explain the divide-and-conquer structure of merge sort (divide, conquer, merge)</li>
+          <li>Describe how the merge step combines two sorted subarrays</li>
+          <li>Explain why merge sort is O(n log n) in all cases and O(n) in space</li>
+          <li>State why merge sort is stable and when it is a good choice</li>
+        </ul>
+      </div>
+
       {/* Quick Visualizer Section */}
       <div className="bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First!</h2>
@@ -467,6 +479,29 @@ export default function MergeSortLesson() {
             </ul>
           </div>
         </div>
+      </div>
+
+      {/* Key takeaways */}
+      <div className="bg-white rounded-xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">Key takeaways</h2>
+        <ul className="space-y-2 text-gray-700">
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>Merge sort divides the array in half, recursively sorts each half, then merges the two sorted halves.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>Time complexity is O(n log n) for best, average, and worst case; space complexity is O(n).</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>Merge sort is stable—equal elements keep their relative order—and is good for linked lists and external sorting.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>Prefer it when you need guaranteed O(n log n) or stability; avoid when memory is very limited.</span>
+          </li>
+        </ul>
       </div>
 
       {/* Practice Exercise */}

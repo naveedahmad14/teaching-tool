@@ -93,6 +93,18 @@ export default function LinearSearchLesson() {
         <p className="text-xl opacity-90">Master the simplest search algorithm</p>
       </div>
 
+      {/* Learning objectives */}
+      <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-blue-500">
+        <h2 className="text-2xl font-bold mb-3 text-gray-800">Learning objectives</h2>
+        <p className="text-gray-600 mb-3">By the end of this lesson you will be able to:</p>
+        <ul className="space-y-2 text-gray-700 list-disc list-inside">
+          <li>Explain what linear search is and when it is used</li>
+          <li>Trace through linear search step-by-step on a given array</li>
+          <li>State the time complexity (best, average, worst) and space complexity</li>
+          <li>Compare linear search with binary search and choose the right one for a scenario</li>
+        </ul>
+      </div>
+
         {/* Quick Visualizer Section */}
         <div className="bg-white rounded-xl shadow-lg p-8">
           <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First!</h2>
@@ -387,42 +399,65 @@ export default function LinearSearchLesson() {
         <h2 className="text-3xl font-bold mb-6 text-gray-800">Linear Search vs Binary Search</h2>
         
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
+          <table className="w-full border-collapse text-gray-900">
             <thead>
-              <tr className="bg-gray-100">
-                <th className="border border-gray-300 p-3 text-left">Aspect</th>
-                <th className="border border-gray-300 p-3 text-left">Linear Search</th>
-                <th className="border border-gray-300 p-3 text-left">Binary Search</th>
+              <tr className="bg-gray-200">
+                <th className="border border-gray-800 p-3 text-left text-gray-900 font-semibold">Aspect</th>
+                <th className="border border-gray-800 p-3 text-left text-gray-900 font-semibold">Linear Search</th>
+                <th className="border border-gray-800 p-3 text-left text-gray-900 font-semibold">Binary Search</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-gray-900">
               <tr>
-                <td className="border border-gray-300 p-3 font-semibold">Time Complexity</td>
-                <td className="border border-gray-300 p-3">O(n)</td>
-                <td className="border border-gray-300 p-3">O(log n)</td>
+                <td className="border border-gray-800 p-3 font-semibold">Time Complexity</td>
+                <td className="border border-gray-800 p-3">O(n)</td>
+                <td className="border border-gray-800 p-3">O(log n)</td>
               </tr>
               <tr className="bg-gray-50">
-                <td className="border border-gray-300 p-3 font-semibold">Data Requirement</td>
-                <td className="border border-gray-300 p-3">Any order</td>
-                <td className="border border-gray-300 p-3">Must be sorted</td>
+                <td className="border border-gray-800 p-3 font-semibold text-gray-900">Data Requirement</td>
+                <td className="border border-gray-800 p-3 text-gray-900">Any order</td>
+                <td className="border border-gray-800 p-3 text-gray-900">Must be sorted</td>
               </tr>
               <tr>
-                <td className="border border-gray-300 p-3 font-semibold">Simplicity</td>
-                <td className="border border-gray-300 p-3">Very simple</td>
-                <td className="border border-gray-300 p-3">Moderate complexity</td>
+                <td className="border border-gray-800 p-3 font-semibold">Simplicity</td>
+                <td className="border border-gray-800 p-3">Very simple</td>
+                <td className="border border-gray-800 p-3">Moderate complexity</td>
               </tr>
               <tr className="bg-gray-50">
-                <td className="border border-gray-300 p-3 font-semibold">Best Use Case</td>
-                <td className="border border-gray-300 p-3">Small or unsorted data</td>
-                <td className="border border-gray-300 p-3">Large sorted data</td>
+                <td className="border border-gray-800 p-3 font-semibold text-gray-900">Best Use Case</td>
+                <td className="border border-gray-800 p-3 text-gray-900">Small or unsorted data</td>
+                <td className="border border-gray-800 p-3 text-gray-900">Large sorted data</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
+      {/* Key takeaways */}
+      <div className="bg-white rounded-xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">Key takeaways</h2>
+        <ul className="space-y-2 text-gray-700">
+          <li className="flex items-start gap-2">
+            <span className="text-blue-500 mt-1">•</span>
+            <span>Linear search checks every element in order until the target is found or the array ends.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-blue-500 mt-1">•</span>
+            <span>Time complexity: O(n) average and worst case; O(1) best case if the target is first.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-blue-500 mt-1">•</span>
+            <span>Space complexity is O(1)—no extra space is needed.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-blue-500 mt-1">•</span>
+            <span>Use linear search for small or unsorted data; prefer binary search for large sorted arrays.</span>
+          </li>
+        </ul>
+      </div>
+
       {/* Practice Exercise */}
-      <div className="bg-gradient-to-br from-blue-50 to-teal-50 rounded-xl shadow-lg p-8 border-2 border-blue-300">
+      <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-8 border-2 border-yellow-300">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">💡 Practice Exercise</h2>
         <p className="text-lg text-gray-700 mb-4">
           Search for the value 42 in: <code className="bg-white px-2 py-1 rounded">[15, 8, 42, 23, 67, 12]</code>

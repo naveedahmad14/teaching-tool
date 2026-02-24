@@ -116,6 +116,18 @@ export default function HashMapsLesson() {
         </p>
       </div>
 
+      {/* Learning objectives */}
+      <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-indigo-500">
+        <h2 className="text-2xl font-bold mb-3 text-gray-800">Learning objectives</h2>
+        <p className="text-gray-600 mb-3">By the end of this lesson you will be able to:</p>
+        <ul className="space-y-2 text-gray-700 list-disc list-inside">
+          <li>Use a hash map for O(1) lookup and store value → index (or frequency) to avoid nested loops</li>
+          <li>Implement the Two Sum pattern: for each element, check if (target - current) exists in the map</li>
+          <li>Implement the frequency counter pattern for anagrams and count-based problems</li>
+          <li>Trace how the map is built and when a pair is found in Two Sum</li>
+        </ul>
+      </div>
+
       {/* Try It First: Two Sum */}
       <div className="bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First: Two Sum</h2>
@@ -316,10 +328,29 @@ export default function HashMapsLesson() {
         <FrequencyCounterVisualizer />
       </div>
 
-      {/* Practice */}
-      <div className="bg-gradient-to-br from-[#625EC6]/10 to-indigo-50 rounded-xl shadow-lg p-8 border-2 border-[#625EC6]/30">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Practice</h2>
-        <p className="text-gray-700 mb-4">
+      {/* Key takeaways */}
+      <div className="bg-white rounded-xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">Key takeaways</h2>
+        <ul className="space-y-2 text-gray-700">
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>Hash maps give O(1) average lookup and insert—trade space for time to turn O(n²) into O(n).</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>Two Sum: store each value with its index; for each element, check if (target - value) is in the map before adding.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>Frequency counter: use a map from element to count for anagrams, duplicates, or &quot;find two that sum&quot; style problems.</span>
+          </li>
+        </ul>
+      </div>
+
+      {/* Practice Exercise */}
+      <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-8 border-2 border-yellow-300">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">💡 Practice Exercise</h2>
+        <p className="text-lg text-gray-700 mb-4">
           For <code className="bg-white px-2 py-1 rounded">arr = [3, 2, 4], target = 6</code>, trace the hash map: what is in the map after each index, and when do we find the answer?
         </p>
         <div className="bg-white rounded-lg p-4">

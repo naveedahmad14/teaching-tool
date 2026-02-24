@@ -11,6 +11,18 @@ export default function LinkedListsLesson() {
         </p>
       </div>
 
+      {/* Learning objectives */}
+      <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-indigo-500">
+        <h2 className="text-2xl font-bold mb-3 text-gray-800">Learning objectives</h2>
+        <p className="text-gray-600 mb-3">By the end of this lesson you will be able to:</p>
+        <ul className="space-y-2 text-gray-700 list-disc list-inside">
+          <li>Reverse a singly linked list in-place using the three-pointer technique (prev, curr, next)</li>
+          <li>Explain the &quot;break, reverse, reconnect&quot; steps at each node</li>
+          <li>Find the middle node using the fast &amp; slow pointer pattern</li>
+          <li>Adapt the patterns for partial reversal (e.g. first k nodes or a segment)</li>
+        </ul>
+      </div>
+
       {/* Try It First */}
       <div className="bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First!</h2>
@@ -69,12 +81,12 @@ export default function LinkedListsLesson() {
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-sm">
             <thead>
-              <tr className="bg-gray-100">
-                <th className="border border-gray-300 p-2 text-left">Step</th>
-                <th className="border border-gray-300 p-2 text-left">prev</th>
-                <th className="border border-gray-300 p-2 text-left">curr</th>
-                <th className="border border-gray-300 p-2 text-left">next</th>
-                <th className="border border-gray-300 p-2 text-left">Action</th>
+              <tr className="bg-gray-200">
+                <th className="border border-gray-300 p-2 text-left text-gray-900 font-semibold">Step</th>
+                <th className="border border-gray-300 p-2 text-left text-gray-900 font-semibold">prev</th>
+                <th className="border border-gray-300 p-2 text-left text-gray-900 font-semibold">curr</th>
+                <th className="border border-gray-300 p-2 text-left text-gray-900 font-semibold">next</th>
+                <th className="border border-gray-300 p-2 text-left text-gray-900 font-semibold">Action</th>
               </tr>
             </thead>
             <tbody className="text-gray-700">
@@ -142,19 +154,41 @@ export default function LinkedListsLesson() {
         </div>
       </div>
 
-      {/* Practice */}
-      <div className="bg-gradient-to-br from-[#625EC6]/10 to-indigo-50 rounded-xl shadow-lg p-8 border-2 border-[#625EC6]/30">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Practice</h2>
-        <p className="text-gray-700 mb-2">
-          <strong>Variations:</strong>
-        </p>
-        <ul className="list-disc list-inside text-gray-700 mb-4 space-y-1">
-          <li>Reverse only the first k nodes (keep the rest attached).</li>
-          <li>Reverse the nodes between position left and right (1-indexed).</li>
+      {/* Key takeaways */}
+      <div className="bg-white rounded-xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">Key takeaways</h2>
+        <ul className="space-y-2 text-gray-700">
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>In-place reversal: use prev, curr, next; at each step save next, point curr to prev, then advance prev and curr.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>Fast &amp; slow: slow moves 1 step, fast moves 2; when fast reaches the end, slow is at the middle.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>Both patterns use O(1) extra space and single-pass O(n) time; reuse them for segments (e.g. reverse between left and right).</span>
+          </li>
         </ul>
-        <p className="text-gray-700 text-sm">
-          Both use the same “break, reverse, reconnect” idea: reverse a segment with the three-pointer technique, then reconnect the segment to the rest of the list.
+      </div>
+
+      {/* Practice Exercise */}
+      <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-8 border-2 border-yellow-300">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">💡 Practice Exercise</h2>
+        <p className="text-lg text-gray-700 mb-4">
+          <strong>Variations:</strong> Try these variations of the reverse pattern.
         </p>
+        <div className="bg-white rounded-lg p-4">
+          <p className="font-semibold mb-2">Steps:</p>
+          <ul className="list-disc list-inside text-gray-700 space-y-1">
+            <li>Reverse only the first k nodes (keep the rest attached).</li>
+            <li>Reverse the nodes between position left and right (1-indexed).</li>
+          </ul>
+          <p className="text-gray-700 text-sm mt-3">
+            Both use the same “break, reverse, reconnect” idea: reverse a segment with the three-pointer technique, then reconnect the segment to the rest of the list.
+          </p>
+        </div>
       </div>
     </div>
   );

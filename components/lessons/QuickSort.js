@@ -150,6 +150,18 @@ export default function QuickSortLesson() {
         <p className="text-xl opacity-90">Master one of the fastest sorting algorithms</p>
       </div>
 
+      {/* Learning objectives */}
+      <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-purple-500">
+        <h2 className="text-2xl font-bold mb-3 text-gray-800">Learning objectives</h2>
+        <p className="text-gray-600 mb-3">By the end of this lesson you will be able to:</p>
+        <ul className="space-y-2 text-gray-700 list-disc list-inside">
+          <li>Explain how Quick Sort uses a pivot and the partition step to divide the array</li>
+          <li>Trace the partition algorithm (Lomuto or last-element pivot) step-by-step</li>
+          <li>State average O(n log n) and worst O(n²) time, and why pivot choice matters</li>
+          <li>Compare Quick Sort with Merge Sort (in-place vs stable, when to use each)</li>
+        </ul>
+      </div>
+
       {/* Quick Visualizer Section */}
       <div className="bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First!</h2>
@@ -427,8 +439,27 @@ export default function QuickSortLesson() {
         </div>
       </div>
 
+      {/* Key takeaways */}
+      <div className="bg-white rounded-xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">Key takeaways</h2>
+        <ul className="space-y-2 text-gray-700">
+          <li className="flex items-start gap-2">
+            <span className="text-purple-500 mt-1">•</span>
+            <span>Quick Sort picks a pivot (e.g. last element), partitions so smaller elements are left and larger right, then recurses on both sides.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-purple-500 mt-1">•</span>
+            <span>Average time is O(n log n); worst case is O(n²) with a bad pivot (e.g. already sorted with last-element pivot). Space: O(log n) for the recursion stack.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-purple-500 mt-1">•</span>
+            <span>Quick Sort is fast in practice and in-place but not stable; use Merge Sort when you need stability or guaranteed O(n log n).</span>
+          </li>
+        </ul>
+      </div>
+
       {/* Practice Exercise */}
-      <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl shadow-lg p-8 border-2 border-purple-300">
+      <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-8 border-2 border-yellow-300">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">💡 Practice Exercise</h2>
         <p className="text-lg text-gray-700 mb-4">
           Manually partition this array with pivot = 5: <code className="bg-white px-2 py-1 rounded">[3, 7, 8, 5, 2, 1, 9]</code>

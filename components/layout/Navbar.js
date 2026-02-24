@@ -45,6 +45,13 @@ export default function Navbar() {
               Quiz
             </Link>
             <Link 
+              href="/flashcards" 
+              className="text-sm text-[#E8E8E8] hover:text-[#FFD700] transition-colors px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#FFD700] rounded"
+              aria-label="Flashcards"
+            >
+              Flashcards
+            </Link>
+            <Link 
               href="/about" 
               className="text-sm text-[#E8E8E8] hover:text-[#FFD700] transition-colors px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#FFD700] rounded"
               aria-label="About"

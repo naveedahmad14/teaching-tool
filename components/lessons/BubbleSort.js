@@ -109,6 +109,18 @@ export default function BubbleSortLesson() {
         <p className="text-xl opacity-90">Master the simplest sorting algorithm</p>
       </div>
 
+      {/* Learning objectives */}
+      <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-blue-500">
+        <h2 className="text-2xl font-bold mb-3 text-gray-800">Learning objectives</h2>
+        <p className="text-gray-600 mb-3">By the end of this lesson you will be able to:</p>
+        <ul className="space-y-2 text-gray-700 list-disc list-inside">
+          <li>Explain how bubble sort works by comparing and swapping adjacent elements</li>
+          <li>Trace one full pass and explain why the largest element ends up in place</li>
+          <li>State the time complexity (O(n²) average/worst, O(n) best) and O(1) space</li>
+          <li>Know when bubble sort is appropriate and when to use a faster algorithm</li>
+        </ul>
+      </div>
+
       {/* Quick Visualizer Section */}
       <div className="bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First!</h2>
@@ -379,8 +391,27 @@ export default function BubbleSortLesson() {
           </div>
         </div>
 
+        {/* Key takeaways */}
+        <div className="bg-white rounded-xl shadow-lg p-8">
+          <h2 className="text-3xl font-bold mb-4 text-gray-800">Key takeaways</h2>
+          <ul className="space-y-2 text-gray-700">
+            <li className="flex items-start gap-2">
+              <span className="text-blue-500 mt-1">•</span>
+              <span>Bubble sort repeatedly compares adjacent elements and swaps them if they are in the wrong order; the largest unsorted element &quot;bubbles&quot; to its position each pass.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-500 mt-1">•</span>
+              <span>Time complexity: O(n²) average and worst case; O(n) best case when the array is already sorted. Space: O(1) in-place.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-500 mt-1">•</span>
+              <span>Bubble sort is stable and simple but slow—use it only for small or nearly sorted data or for teaching; prefer Quick Sort or Merge Sort in practice.</span>
+            </li>
+          </ul>
+        </div>
+
         {/* Practice Exercise */}
-        <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl shadow-lg p-8 border-2 border-blue-300">
+        <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-8 border-2 border-yellow-300">
           <h2 className="text-3xl font-bold mb-4 text-gray-800">💡 Practice Exercise</h2>
           <p className="text-lg text-gray-700 mb-4">
             Manually trace bubble sort on: <code className="bg-white px-2 py-1 rounded">[5, 2, 8, 1]</code>

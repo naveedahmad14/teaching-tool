@@ -12,6 +12,18 @@ export default function StacksLesson() {
         </p>
       </div>
 
+      {/* Learning objectives */}
+      <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-indigo-500">
+        <h2 className="text-2xl font-bold mb-3 text-gray-800">Learning objectives</h2>
+        <p className="text-gray-600 mb-3">By the end of this lesson you will be able to:</p>
+        <ul className="space-y-2 text-gray-700 list-disc list-inside">
+          <li>Explain LIFO and basic stack operations (push, pop, peek)</li>
+          <li>Solve Next Greater Element using a monotonic decreasing stack in O(n) time</li>
+          <li>Explain why we store indices (not values) and pop when the current element is greater than the stack top</li>
+          <li>Recognise when a monotonic stack pattern applies (next/previous greater/smaller)</li>
+        </ul>
+      </div>
+
       {/* Basic Stack Operations */}
       <div className="bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">Basic Stack Operations</h2>
@@ -111,10 +123,10 @@ export default function StacksLesson() {
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-sm">
             <thead>
-              <tr className="bg-gray-100">
-                <th className="border border-gray-300 p-2 text-left">Approach</th>
-                <th className="border border-gray-300 p-2 text-left">Time</th>
-                <th className="border border-gray-300 p-2 text-left">Space</th>
+              <tr className="bg-gray-200">
+                <th className="border border-gray-300 p-2 text-left text-gray-900 font-semibold">Approach</th>
+                <th className="border border-gray-300 p-2 text-left text-gray-900 font-semibold">Time</th>
+                <th className="border border-gray-300 p-2 text-left text-gray-900 font-semibold">Space</th>
               </tr>
             </thead>
             <tbody className="text-gray-700">
@@ -133,10 +145,29 @@ export default function StacksLesson() {
         </div>
       </div>
 
-      {/* Practice */}
-      <div className="bg-gradient-to-br from-[#625EC6]/10 to-indigo-50 rounded-xl shadow-lg p-8 border-2 border-[#625EC6]/30">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Practice</h2>
-        <p className="text-gray-700 mb-4">
+      {/* Key takeaways */}
+      <div className="bg-white rounded-xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">Key takeaways</h2>
+        <ul className="space-y-2 text-gray-700">
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>Stack is LIFO; use it for matching pairs (e.g. valid parentheses) and for &quot;next greater/smaller&quot; problems.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>Next Greater Element: keep a monotonic decreasing stack of indices; when current is greater than stack top, the current value is the NGE for the popped index.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>Each index is pushed and popped at most once, so the algorithm runs in O(n) time and O(n) space.</span>
+          </li>
+        </ul>
+      </div>
+
+      {/* Practice Exercise */}
+      <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-8 border-2 border-yellow-300">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">💡 Practice Exercise</h2>
+        <p className="text-lg text-gray-700 mb-4">
           Trace Next Greater Element on <code className="bg-white px-2 py-1 rounded">[4, 2, 3, 1, 5]</code>. What is the result array?
         </p>
         <div className="bg-white rounded-lg p-4">

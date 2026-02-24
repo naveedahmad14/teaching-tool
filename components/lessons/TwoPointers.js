@@ -111,6 +111,18 @@ export default function TwoPointersLesson() {
         </p>
       </div>
 
+      {/* Learning objectives */}
+      <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-indigo-500">
+        <h2 className="text-2xl font-bold mb-3 text-gray-800">Learning objectives</h2>
+        <p className="text-gray-600 mb-3">By the end of this lesson you will be able to:</p>
+        <ul className="space-y-2 text-gray-700 list-disc list-inside">
+          <li>Remove duplicates in-place from a sorted array using read and write pointers in O(n) time</li>
+          <li>Explain the invariant: elements in indices 0..write are unique and sorted</li>
+          <li>Trace when to advance write and copy (only when arr[read] != arr[write])</li>
+          <li>Return the count of unique elements (write + 1) and know the valid result is in arr[0..write]</li>
+        </ul>
+      </div>
+
       {/* Try It First */}
       <div className="bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First!</h2>
@@ -346,10 +358,29 @@ export default function TwoPointersLesson() {
         </div>
       </div>
 
-      {/* Practice */}
-      <div className="bg-gradient-to-br from-[#625EC6]/10 to-indigo-50 rounded-xl shadow-lg p-8 border-2 border-[#625EC6]/30">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Practice</h2>
-        <p className="text-gray-700 mb-4">
+      {/* Key takeaways */}
+      <div className="bg-white rounded-xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">Key takeaways</h2>
+        <ul className="space-y-2 text-gray-700">
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>Use two pointers: <code>write</code> marks the end of the unique region; <code>read</code> scans the array. Only when arr[read] ≠ arr[write] do we advance write and copy.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>Requires a sorted array so duplicates are adjacent; one pass O(n) time, O(1) extra space.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>The number of unique elements is write + 1; the in-place result is in indices 0..write.</span>
+          </li>
+        </ul>
+      </div>
+
+      {/* Practice Exercise */}
+      <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-8 border-2 border-yellow-300">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">💡 Practice Exercise</h2>
+        <p className="text-lg text-gray-700 mb-4">
           Trace the algorithm on <code className="bg-white px-2 py-1 rounded">[1, 1, 1, 2, 2, 3]</code>. What is <code>write</code> after each step when we see a new value?
         </p>
         <div className="bg-white rounded-lg p-4">

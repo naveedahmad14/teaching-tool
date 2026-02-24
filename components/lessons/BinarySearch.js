@@ -140,6 +140,18 @@ export default function BinarySearchLesson() {
         <p className="text-xl opacity-90">Master the efficient search algorithm for sorted data</p>
       </div>
 
+      {/* Learning objectives */}
+      <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-purple-500">
+        <h2 className="text-2xl font-bold mb-3 text-gray-800">Learning objectives</h2>
+        <p className="text-gray-600 mb-3">By the end of this lesson you will be able to:</p>
+        <ul className="space-y-2 text-gray-700 list-disc list-inside">
+          <li>Explain why binary search requires sorted data and how it halves the search space</li>
+          <li>Trace binary search step-by-step using left, right, and mid indices</li>
+          <li>Explain why binary search is O(log n) in time and when to use the safe mid formula</li>
+          <li>Choose between linear and binary search for a given problem</li>
+        </ul>
+      </div>
+
       {/* Quick Visualizer Section */}
       <div className="bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First!</h2>
@@ -474,8 +486,31 @@ export default function BinarySearchLesson() {
         </div>
       </div>
 
+      {/* Key takeaways */}
+      <div className="bg-white rounded-xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">Key takeaways</h2>
+        <ul className="space-y-2 text-gray-700">
+          <li className="flex items-start gap-2">
+            <span className="text-purple-500 mt-1">•</span>
+            <span>Binary search only works on sorted arrays; it repeatedly compares with the middle and discards one half.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-purple-500 mt-1">•</span>
+            <span>Time complexity is O(log n) for average and worst case; space is O(1) for the iterative version.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-purple-500 mt-1">•</span>
+            <span>Use mid = left + (right - left) / 2 to avoid integer overflow in some languages.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-purple-500 mt-1">•</span>
+            <span>Prefer binary search for large sorted data and frequent lookups; use linear search for unsorted or small data.</span>
+          </li>
+        </ul>
+      </div>
+
       {/* Practice Exercise */}
-      <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl shadow-lg p-8 border-2 border-purple-300">
+      <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-8 border-2 border-yellow-300">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">💡 Practice Exercise</h2>
         <p className="text-lg text-gray-700 mb-4">
           Search for 67 in: <code className="bg-white px-2 py-1 rounded">[12, 23, 34, 45, 56, 67, 78, 89]</code>

@@ -113,6 +113,18 @@ export default function SlidingWindowLesson() {
         </p>
       </div>
 
+      {/* Learning objectives */}
+      <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-indigo-500">
+        <h2 className="text-2xl font-bold mb-3 text-gray-800">Learning objectives</h2>
+        <p className="text-gray-600 mb-3">By the end of this lesson you will be able to:</p>
+        <ul className="space-y-2 text-gray-700 list-disc list-inside">
+          <li>Solve &quot;max sum of a contiguous subarray of size k&quot; in O(n) using a sliding window</li>
+          <li>Compute the first window sum, then slide by subtracting the element that leaves and adding the one that enters</li>
+          <li>Track the maximum sum seen and handle edge cases (e.g. k &gt; n)</li>
+          <li>Recognise when a fixed-size sliding window avoids O(n²) brute force</li>
+        </ul>
+      </div>
+
       {/* Try It First */}
       <div className="bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First!</h2>
@@ -162,15 +174,15 @@ export default function SlidingWindowLesson() {
         <div className="bg-[#16213E] rounded-lg p-4 border border-[#625EC6]/50">
           <h3 className="font-semibold text-[#FFD700] mb-2">Big-O comparison</h3>
           <div className="overflow-x-auto">
-            <table className="w-full text-gray-200 text-sm">
+            <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#625EC6]/50">
-                  <th className="text-left py-2">Approach</th>
-                  <th className="text-left py-2">Time</th>
-                  <th className="text-left py-2">Space</th>
+                <tr className="bg-[#625EC6]/50 border-b border-[#625EC6]/50">
+                  <th className="text-left py-2 text-[#FFD700] font-semibold">Approach</th>
+                  <th className="text-left py-2 text-[#FFD700] font-semibold">Time</th>
+                  <th className="text-left py-2 text-[#FFD700] font-semibold">Space</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="text-gray-200">
                 <tr className="border-b border-gray-600">
                   <td className="py-2">Brute force (sum each window)</td>
                   <td className="py-2">O(n·k)</td>
@@ -352,10 +364,29 @@ export default function SlidingWindowLesson() {
         </div>
       </div>
 
-      {/* Practice */}
-      <div className="bg-gradient-to-br from-[#625EC6]/10 to-indigo-50 rounded-xl shadow-lg p-8 border-2 border-[#625EC6]/30">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Practice</h2>
-        <p className="text-gray-700 mb-4">
+      {/* Key takeaways */}
+      <div className="bg-white rounded-xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">Key takeaways</h2>
+        <ul className="space-y-2 text-gray-700">
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>Fixed-size sliding window: compute the sum of the first k elements, then for each new position update sum as sum - leftOut + rightIn and track the max.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>This gives O(n) time instead of O(n·k) or O(n²); use when the problem asks for a contiguous subarray of fixed length (or a length that can be tried for each k).</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-indigo-500 mt-1">•</span>
+            <span>Handle k &gt; arr.length (no valid window) and initialise max from the first window.</span>
+          </li>
+        </ul>
+      </div>
+
+      {/* Practice Exercise */}
+      <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-8 border-2 border-yellow-300">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">💡 Practice Exercise</h2>
+        <p className="text-lg text-gray-700 mb-4">
           For <code className="bg-white px-2 py-1 rounded">arr = [2, 1, 5, 1, 3, 2]</code> and <code className="bg-white px-2 py-1 rounded">k = 3</code>, write the sum after each slide and the final max.
         </p>
         <div className="bg-white rounded-lg p-4">
