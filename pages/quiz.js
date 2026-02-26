@@ -16,96 +16,16 @@ export default function Quiz() {
   const [selectedQuiz, setSelectedQuiz] = useState(null);
 
   const quizzes = [
-    {
-      id: "bubble",
-      name: "Bubble Sort",
-      description: "Test your understanding of the simplest sorting algorithm",
-      color: "from-blue-500 to-cyan-500",
-      hoverColor: "from-blue-600 to-cyan-600",
-      icon: "○",
-      component: BubbleQuiz
-    },
-    {
-      id: "quick",
-      name: "Quick Sort",
-      description: "Master the divide-and-conquer sorting technique",
-      color: "from-purple-500 to-pink-500",
-      hoverColor: "from-purple-600 to-pink-600",
-      icon: "◆",
-      component: QuickQuiz
-    },
-    {
-      id: "merge",
-      name: "Merge Sort",
-      description: "Challenge yourself with recursive merging concepts",
-      color: "from-indigo-500 to-purple-500",
-      hoverColor: "from-indigo-600 to-purple-600",
-      icon: "⊔",
-      component: MergeQuiz
-    },
-    {
-      id: "linear",
-      name: "Linear Search",
-      description: "Explore sequential search strategies",
-      color: "from-teal-500 to-blue-500",
-      hoverColor: "from-teal-600 to-blue-600",
-      icon: "⋯",
-      component: LinearQuiz
-    },
-    {
-      id: "binary",
-      name: "Binary Search",
-      description: "Master efficient searching in sorted arrays",
-      color: "from-violet-500 to-purple-500",
-      hoverColor: "from-violet-600 to-purple-600",
-      icon: "◉",
-      component: BinaryQuiz
-    },
-    {
-      id: "twopointers",
-      name: "Two Pointers",
-      description: "Remove duplicates in-place with read and write pointers",
-      color: "from-amber-500 to-orange-500",
-      hoverColor: "from-amber-600 to-orange-600",
-      icon: "↔",
-      component: TwoPointersQuiz
-    },
-    {
-      id: "slidingwindow",
-      name: "Sliding Window",
-      description: "Max sum subarray of size k in O(n)",
-      color: "from-emerald-500 to-teal-500",
-      hoverColor: "from-emerald-600 to-teal-600",
-      icon: "▬",
-      component: SlidingWindowQuiz
-    },
-    {
-      id: "hashmaps",
-      name: "Hash Maps",
-      description: "Two Sum and frequency counter with O(1) lookup",
-      color: "from-rose-500 to-pink-500",
-      hoverColor: "from-rose-600 to-pink-600",
-      icon: "#",
-      component: HashMapsQuiz
-    },
-    {
-      id: "linkedlists",
-      name: "Linked Lists",
-      description: "Reverse in-place and find middle with fast & slow",
-      color: "from-sky-500 to-blue-500",
-      hoverColor: "from-sky-600 to-blue-600",
-      icon: "→",
-      component: LinkedListsQuiz
-    },
-    {
-      id: "stacks",
-      name: "Stacks",
-      description: "Next Greater Element with monotonic stack",
-      color: "from-lime-500 to-green-500",
-      hoverColor: "from-lime-600 to-green-600",
-      icon: "▀",
-      component: StacksQuiz
-    }
+    { id: "bubble", name: "Bubble Sort", description: "Test your understanding of the simplest sorting algorithm", icon: "○", component: BubbleQuiz },
+    { id: "quick", name: "Quick Sort", description: "Master the divide-and-conquer sorting technique", icon: "◆", component: QuickQuiz },
+    { id: "merge", name: "Merge Sort", description: "Challenge yourself with recursive merging concepts", icon: "⊔", component: MergeQuiz },
+    { id: "linear", name: "Linear Search", description: "Explore sequential search strategies", icon: "⋯", component: LinearQuiz },
+    { id: "binary", name: "Binary Search", description: "Master efficient searching in sorted arrays", icon: "◉", component: BinaryQuiz },
+    { id: "twopointers", name: "Two Pointers", description: "Remove duplicates in-place with read and write pointers", icon: "↔", component: TwoPointersQuiz },
+    { id: "slidingwindow", name: "Sliding Window", description: "Max sum subarray of size k in O(n)", icon: "▬", component: SlidingWindowQuiz },
+    { id: "hashmaps", name: "Hash Maps", description: "Two Sum and frequency counter with O(1) lookup", icon: "#", component: HashMapsQuiz },
+    { id: "linkedlists", name: "Linked Lists", description: "Reverse in-place and find middle with fast & slow", icon: "→", component: LinkedListsQuiz },
+    { id: "stacks", name: "Stacks", description: "Next Greater Element with monotonic stack", icon: "▀", component: StacksQuiz }
   ];
 
   const handleQuizComplete = async (lessonId, scorePercentage, difficulty = "easy") => {
@@ -165,44 +85,60 @@ export default function Quiz() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {quizzes.map((quiz, index) => (
               <motion.div
                 key={quiz.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
+                transition={{ delay: index * 0.05 }}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.99 }}
                 onClick={() => setSelectedQuiz(quiz)}
                 className="cursor-pointer group"
               >
-                <div className="h-full bg-[#0F3460] border-2 border-[#625EC6] rounded-2xl shadow-lg hover:shadow-[#625EC6]/30 hover:border-[#FFD700]/50 transition-all overflow-hidden">
-                  <div className={`p-8 bg-gradient-to-br ${quiz.color} text-white`}>
-                    <div className="text-4xl mb-3">{quiz.icon}</div>
-                    <h3 className="text-xl font-bold mb-2">{quiz.name}</h3>
-                    <p className="text-white/90 text-sm">{quiz.description}</p>
+                <div className="h-full game-card p-6 border-l-4 border-l-[#FFD700] hover:border-l-[#FFD700] transition-colors overflow-hidden flex flex-col">
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span
+                        className="flex-shrink-0 w-10 h-10 flex items-center justify-center text-2xl font-bold text-[#FFD700] bg-[#16213E] rounded-lg border border-[#625EC6]/50 group-hover:border-[#625EC6] transition-colors leading-none overflow-hidden"
+                        aria-hidden
+                      >
+                        <span className={`inline-flex items-center justify-center leading-[0] w-full h-full ${quiz.icon === "▀" ? "translate-y-1 translate-x-0.5" : quiz.icon === "◆" ? "translate-y-0.5" : ""}`}>
+                          {quiz.icon}
+                        </span>
+                      </span>
+                      <div className="min-w-0">
+                        <span className="inline-block text-[10px] uppercase tracking-wider text-[#7B77E8] bg-[#16213E] border border-[#625EC6]/40 rounded px-2 py-0.5 mb-1">
+                          Quiz
+                        </span>
+                        <h3 className="text-lg font-bold text-[#E8E8E8] group-hover:text-[#FFD700] transition-colors leading-tight">
+                          {quiz.name}
+                        </h3>
+                      </div>
+                    </div>
                   </div>
-                  <div className="p-6">
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[#C0C0C0] text-sm">Questions:</span>
-                        <span className="text-[#E8E8E8] font-bold">15</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-[#C0C0C0] text-sm">Difficulty Levels:</span>
-                        <span className="text-[#E8E8E8] font-bold">3</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-[#C0C0C0] text-sm">Time:</span>
-                        <span className="text-[#E8E8E8] font-bold">~10 min</span>
-                      </div>
+                  <p className="text-sm text-[#C0C0C0] leading-relaxed mb-4 flex-grow">
+                    {quiz.description}
+                  </p>
+                  <div className="space-y-2 py-3 border-t border-[#625EC6]/30">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-[#C0C0C0]">Questions</span>
+                      <span className="text-[#E8E8E8] font-semibold">15</span>
                     </div>
-                    <div className="mt-6">
-                      <div className={`px-4 py-3 rounded-lg bg-gradient-to-r ${quiz.color} text-white font-bold text-center text-sm group-hover:shadow-lg transition-all`}>
-                        Start Quiz →
-                      </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-[#C0C0C0]">Levels</span>
+                      <span className="text-[#E8E8E8] font-semibold">Easy · Medium · Hard</span>
                     </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-[#C0C0C0]">Time</span>
+                      <span className="text-[#E8E8E8] font-semibold">~10 min</span>
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <span className="block w-full px-4 py-3 rounded-lg bg-[#625EC6] text-[#E8E8E8] font-semibold text-center text-sm border border-[#625EC6] group-hover:bg-[#4A46A8] group-hover:border-[#4A46A8] transition-colors">
+                      Start Quiz →
+                    </span>
                   </div>
                 </div>
               </motion.div>
