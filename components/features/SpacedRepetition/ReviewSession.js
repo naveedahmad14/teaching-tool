@@ -129,8 +129,24 @@ export default function ReviewSession() {
               Show answer
             </button>
           ) : (
-            <div className="bg-[#1A1A2E] p-4 rounded-lg mb-6 text-[#E8E8E8]">
-              <p>Review the lesson content in your mind, then rate how well you remembered below.</p>
+            <div className="space-y-4 mb-6">
+              {currentCard.lesson?.summary && (
+                <div className="bg-[#1A1A2E] p-4 rounded-lg border-l-4 border-[#625EC6]">
+                  <p className="text-sm font-semibold text-[#C0C0C0] mb-1">Summary</p>
+                  <p className="text-[#E8E8E8] leading-relaxed">{currentCard.lesson.summary}</p>
+                </div>
+              )}
+              {currentCard.lesson?.tip && (
+                <div className="bg-[#16213E] p-4 rounded-lg border-l-4 border-[#FFD700]">
+                  <p className="text-sm font-semibold text-[#FFD700] mb-1">Active recall tip</p>
+                  <p className="text-[#E8E8E8] leading-relaxed">{currentCard.lesson.tip}</p>
+                </div>
+              )}
+              {!currentCard.lesson?.summary && !currentCard.lesson?.tip && (
+                <div className="bg-[#1A1A2E] p-4 rounded-lg text-[#E8E8E8]">
+                  <p>Review the lesson content in your mind, then rate how well you remembered below.</p>
+                </div>
+              )}
             </div>
           )}
 

@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
 import { prisma } from "@/lib/prisma";
 import { getDueCards } from "@/lib/spacedRepetition";
+import { getReviewContent } from "@/lib/reviewContent";
 
 const LESSON_NAMES = {
   bubble: "Bubble Sort",
@@ -32,13 +33,18 @@ export default async function handler(req, res) {
     });
 
     const due = getDueCards(cards);
-    const withNames = due.map((card) => ({
-      ...card,
-      lesson: {
-        id: card.lessonId,
-        name: LESSON_NAMES[card.lessonId] || card.lessonId,
-      },
-    }));
+    const withNames = due.map((card) => {
+      const content = getReviewContent(card.lessonId);
+      return {
+        ...card,
+        lesson: {
+          id: card.lessonId,
+          name: LESSON_NAMES[card.lessonId] || card.lessonId,
+          summary: content?.summary ?? null,
+          tip: content?.tip ?? null,
+        },
+      };
+    });
 
     return res.status(200).json({ cards: withNames });
   } catch (error) {

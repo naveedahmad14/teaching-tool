@@ -1,9 +1,12 @@
 import Layout from "@/components/layout/Layout";
+import Logo from "@/components/ui/Logo";
 
 export default function About() {
   return (
     <Layout>
-      <h1 className="text-2xl font-bold mb-6 text-[#FFD700]">About AlgoQuest</h1>
+      <h1 className="text-2xl font-bold mb-6 text-[#E8E8E8] flex flex-wrap items-center gap-2">
+        About <Logo inline size="default" link={false} />
+      </h1>
       <div className="max-w-3xl">
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-4 text-[#E8E8E8]">Our Mission</h2>
@@ -22,7 +25,7 @@ export default function About() {
           </ul>
         </section>
 
-        <section>
+        {/* <section>
           <h2 className="text-xl font-semibold mb-4 text-[#E8E8E8]">Contact Us</h2>
           <p className="text-[#C0C0C0] text-base">
             Have questions or suggestions? Email us at{" "}
@@ -33,7 +36,7 @@ export default function About() {
               contact@csteachingtool.com
             </a>
           </p>
-        </section>
+        </section> */}
       </div>
     </Layout>
   );

@@ -2,6 +2,7 @@ import Layout from "@/components/layout/Layout";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import GameButton from "@/components/ui/GameButton";
+import Logo from "@/components/ui/Logo";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -9,8 +10,9 @@ export default function Home() {
   return (
     <Layout>
       <div className="text-center mb-12">
-        <h1 className="text-2xl font-bold mb-4 text-[#FFD700]">
-          Welcome to AlgoQuest
+        <h1 className="text-2xl font-bold mb-4 text-[#E8E8E8] flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-3">
+          <span>Welcome to</span>
+          <Logo size="hero" />
         </h1>
         <p className="text-base text-[#E8E8E8] leading-relaxed max-w-2xl mx-auto mb-8">
           An interactive teaching tool for learning data structures and algorithms through visualisation and gamification.

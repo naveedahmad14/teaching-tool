@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Layout from "@/components/layout/Layout";
 import GameButton from "@/components/ui/GameButton";
+import Logo from "@/components/ui/Logo";
 
 export default function Login() {
   const router = useRouter();
@@ -119,8 +120,8 @@ export default function Login() {
               </GameButton>
             </form>
 
-            <p className="mt-6 text-center text-sm text-[#C0C0C0]">
-              New to AlgoQuest?{" "}
+            <p className="mt-6 text-center text-sm text-[#C0C0C0] flex flex-wrap items-center justify-center gap-1">
+              New to <Logo inline size="nav" link={false} className="text-sm" />?{" "}
               <Link
                 href="/signup"
                 className="text-[#FFD700] hover:text-[#FFE55C] transition-colors focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
