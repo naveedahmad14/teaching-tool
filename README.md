@@ -2,7 +2,7 @@
 
 **An interactive web-based teaching tool for learning data structures and algorithms through visualisation and gamification.**
 
-This project was developed as part of a dissertation in Computer Science / Software Engineering. It demonstrates the design and implementation of a full-stack educational platform that combines algorithm visualisation, formative assessment (quizzes), progress tracking, and spaced repetition to support learning of fundamental CS topics.
+This project was developed as part of a dissertation in Computer Science. It demonstrates the design and implementation of a full-stack educational platform that combines algorithm visualisation, formative assessment (quizzes), progress tracking, and spaced repetition to support learning of fundamental CS topics.
 
 ---
 
