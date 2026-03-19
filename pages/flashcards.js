@@ -64,7 +64,7 @@ export default function FlashcardsPage() {
 
         {/* Topic filter */}
         <div className="mb-6">
-          <label htmlFor="topic-filter" className="block text-sm font-medium text-[#E8E8E8] mb-2">
+          <label htmlFor="topic-filter" className="block text-sm font-medium text-[#FFFFFF] mb-2">
             Topic
           </label>
           <select
@@ -75,12 +75,14 @@ export default function FlashcardsPage() {
               setIndex(0);
               setShowAnswer(false);
             }}
-            className="w-full max-w-xs px-4 py-2 bg-[#0F3460] border-2 border-[#625EC6] rounded-lg text-[#E8E8E8] focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
+            className="w-full max-w-xs px-4 py-2 bg-[#0F3460] border-2 border-[#625EC6] rounded-lg text-[#FFFFFF] focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
             aria-label="Filter by topic"
           >
-            <option value="all">All topics</option>
+            <option value="all" className="text-[#FFFFFF] bg-[#0F3460]">
+              All topics
+            </option>
             {flashcardsData.map((t) => (
-              <option key={t.id} value={t.id}>
+              <option key={t.id} value={t.id} className="text-[#FFFFFF] bg-[#0F3460]">
                 {t.name}
               </option>
             ))}

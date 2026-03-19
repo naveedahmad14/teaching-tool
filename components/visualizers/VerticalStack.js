@@ -23,7 +23,7 @@ export default function VerticalStack({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="text-gray-500 text-xs py-4"
+            className="text-gray-200 text-xs py-4"
           >
             {emptyLabel}
           </motion.div>

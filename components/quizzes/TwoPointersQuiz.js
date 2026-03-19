@@ -233,8 +233,7 @@ export default function TwoPointersQuiz({ lessonId, onQuizComplete }) {
       setShowExplanation(false);
     } else {
       setQuizComplete(true);
-      const percentage = currentQuestions.length ? (score / currentQuestions.length) * 100 : 0;
-      onQuizComplete?.(percentage, difficulty);
+      onQuizComplete?.(score, currentQuestions.length, difficulty);
     }
   };
 

@@ -53,6 +53,44 @@ p, span, div, label, input, textarea, select {
   font-family: 'Courier New', 'Monaco', monospace;
 }
 
+/* Many visualizer inputs sit on light backgrounds (e.g. white/gray-50).
+   Since body text is light, these inputs were inheriting too-light text.
+   Force darker text for plain form controls; explicitly styled inputs
+   (like `.game-input`) will override this. */
+input, textarea, select {
+  color: #111827; /* gray-900 */
+}
+
+input::placeholder, textarea::placeholder {
+  color: #6B7280; /* gray-500 */
+  opacity: 1;
+}
+
+/* Dark visualizers: keep input text light (white-ish) */
+div[class*="from-gray-900"] input,
+div[class*="from-gray-900"] textarea,
+div[class*="from-gray-900"] select {
+  color: #E8E8E8;
+}
+
+div[class*="from-gray-900"] input::placeholder,
+div[class*="from-gray-900"] textarea::placeholder {
+  color: #C0C0C0;
+  opacity: 1;
+}
+
+/* Flashcards: make sure the selected Topic text is readable (not black) */
+#topic-filter {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF;
+  background-color: #0F3460 !important;
+}
+
+#topic-filter option {
+  color: #FFFFFF !important;
+  background-color: #0F3460 !important;
+}
+
 /* Use pixelated font only for game UI elements */
 .game-font {
   font-family: 'Press Start 2P', 'Courier New', monospace;
@@ -213,8 +251,9 @@ p, span, div, label, input, textarea, select {
 }
 
 .game-input::placeholder {
-  color: var(--quest-text-dim);
-  opacity: 0.7;
+  /* Make placeholders readable on dark game inputs */
+  color: var(--quest-text);
+  opacity: 0.85;
 }
 
 /* Accessibility improvements */

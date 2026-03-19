@@ -28,16 +28,16 @@ export default function Quiz() {
     { id: "stacks", name: "Stacks", description: "Next Greater Element with monotonic stack", icon: "▀", component: StacksQuiz }
   ];
 
-  const handleQuizComplete = async (lessonId, scorePercentage, difficulty = "easy") => {
+  const handleQuizComplete = async (lessonId, correctCount, totalQuestions, difficulty = "easy") => {
     try {
       const res = await fetch("/api/progress/update", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           lessonId,
-          completed: true,
-          score: Math.round(scorePercentage),
-          incrementAttempts: true,
+          quizXpOnly: true,
+          correctCount: Math.round(correctCount),
+          totalQuestions: Math.round(totalQuestions),
           difficulty,
         }),
       });
@@ -62,7 +62,9 @@ export default function Quiz() {
         </button>
         <QuizComponent
           lessonId={selectedQuiz.id}
-          onQuizComplete={(scorePercentage, difficulty) => handleQuizComplete(selectedQuiz.id, scorePercentage, difficulty)}
+          onQuizComplete={(correctCount, totalQuestions, difficulty) =>
+            handleQuizComplete(selectedQuiz.id, correctCount, totalQuestions, difficulty)
+          }
         />
       </div>
     );

@@ -7,7 +7,7 @@ export default function Footer() {
       role="contentinfo"
     >
       <div className="flex flex-col items-center gap-2">
-        <Logo size="nav" link={true} className="mb-1" />
+        <Logo size="nav" link={true} alwaysShowRing className="mb-1" />
         <p className="text-sm text-[#C0C0C0]">
           © {new Date().getFullYear()} — Master algorithms through practice
         </p>

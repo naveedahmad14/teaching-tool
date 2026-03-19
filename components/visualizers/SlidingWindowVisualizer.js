@@ -185,7 +185,7 @@ export default function SlidingWindowVisualizer() {
   }, [k]);
 
   return (
-    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-6 sm:p-8 mb-8 border-2 border-[#625EC6]/50">
+    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-8 mb-8 border-2 border-[#625EC6]/50">
       <h2 className="text-2xl font-bold mb-4 text-gray-200">
         Sliding Window: Max Sum of Size k
       </h2>
@@ -221,7 +221,7 @@ export default function SlidingWindowVisualizer() {
                 >
                   {value}
                 </motion.div>
-                <span className="text-xs text-gray-500 mt-1">i={index}</span>
+                <span className="text-xs text-gray-200 mt-1">i={index}</span>
               </motion.div>
             ))}
           </AnimatePresence>
@@ -229,11 +229,11 @@ export default function SlidingWindowVisualizer() {
 
         <div className="mt-4 flex flex-wrap gap-6 justify-center text-sm">
           <div className="bg-[#16213E] rounded-lg px-4 py-2 border border-[#625EC6]/50">
-            <span className="text-gray-400">Current sum: </span>
+            <span className="text-gray-200">Current sum: </span>
             <span className="font-bold text-white">{currentSum ?? "—"}</span>
           </div>
           <div className="bg-[#16213E] rounded-lg px-4 py-2 border border-[#FFD700]/50">
-            <span className="text-gray-400">Max sum: </span>
+            <span className="text-gray-200">Max sum: </span>
             <span className="font-bold text-[#FFD700]">{maxSum ?? "—"}</span>
           </div>
         </div>

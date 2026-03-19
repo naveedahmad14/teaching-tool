@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import BinarySearchVisualizer from '../visualizers/BinarySearchVisualizer';
 
@@ -14,8 +14,19 @@ export default function BinarySearchLesson() {
   const [activeLine, setActiveLine] = useState(null);
   const [comparisons, setComparisons] = useState(0);
   const [speed, setSpeed] = useState(1000);
+  const cancelRef = useRef(false);
 
-  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  const sleep = (ms) =>
+    new Promise((resolve, reject) => {
+      if (cancelRef.current) {
+        reject(new Error("cancelled"));
+        return;
+      }
+      setTimeout(() => {
+        if (cancelRef.current) reject(new Error("cancelled"));
+        else resolve();
+      }, ms);
+    });
 
   const pseudocode = [
     { line: 1, code: "function binarySearch(arr, target):", indent: 0 },
@@ -32,85 +43,92 @@ export default function BinarySearchLesson() {
   ];
 
   const binarySearch = async () => {
+    cancelRef.current = false;
     const targetNum = parseInt(target);
     if (isNaN(targetNum)) {
       alert('Please enter a valid number');
       return;
     }
 
-    setSearching(true);
-    setFoundIndex(null);
-    setEliminated([]);
-    setComparisons(0);
+    try {
+      setSearching(true);
+      setFoundIndex(null);
+      setEliminated([]);
+      setComparisons(0);
 
-    setActiveLine(1);
-    await sleep(speed);
-
-    let l = 0;
-    let r = array.length - 1;
-    let compCount = 0;
-
-    setActiveLine(2);
-    setLeft(l);
-    setRight(r);
-    await sleep(speed);
-
-    while (l <= r) {
-      setActiveLine(3);
+      setActiveLine(1);
       await sleep(speed);
 
-      const mid = Math.floor((l + r) / 2);
-      setCurrentMid(mid);
-      setActiveLine(4);
+      let l = 0;
+      let r = array.length - 1;
+      let compCount = 0;
+
+      setActiveLine(2);
+      setLeft(l);
+      setRight(r);
       await sleep(speed);
 
-      compCount++;
-      setComparisons(compCount);
-      setActiveLine(5);
-      await sleep(speed);
+      while (l <= r) {
+        setActiveLine(3);
+        await sleep(speed);
 
-      if (array[mid] === targetNum) {
-        setFoundIndex(mid);
-        setActiveLine(6);
-        await sleep(speed * 1.5);
-        setActiveLine(null);
-        setSearching(false);
-        return;
+        const mid = Math.floor((l + r) / 2);
+        setCurrentMid(mid);
+        setActiveLine(4);
+        await sleep(speed);
+
+        compCount++;
+        setComparisons(compCount);
+        setActiveLine(5);
+        await sleep(speed);
+
+        if (array[mid] === targetNum) {
+          setFoundIndex(mid);
+          setActiveLine(6);
+          await sleep(speed * 1.5);
+          setActiveLine(null);
+          setSearching(false);
+          return;
+        }
+
+        setActiveLine(7);
+        await sleep(speed);
+
+        if (array[mid] < targetNum) {
+          // Eliminate left half
+          const newEliminated = Array.from({ length: mid - l + 1 }, (_, i) => l + i);
+          setEliminated((prev) => [...prev, ...newEliminated]);
+          l = mid + 1;
+          setLeft(l);
+          setActiveLine(8);
+          await sleep(speed);
+        } else {
+          // Eliminate right half
+          setActiveLine(9);
+          await sleep(speed);
+          const newEliminated = Array.from({ length: r - mid + 1 }, (_, i) => mid + i);
+          setEliminated((prev) => [...prev, ...newEliminated]);
+          r = mid - 1;
+          setRight(r);
+          setActiveLine(10);
+          await sleep(speed);
+        }
+
+        setCurrentMid(null);
       }
 
-      setActiveLine(7);
+      setActiveLine(11);
       await sleep(speed);
-
-      if (array[mid] < targetNum) {
-        // Eliminate left half
-        const newEliminated = Array.from({ length: mid - l + 1 }, (_, i) => l + i);
-        setEliminated(prev => [...prev, ...newEliminated]);
-        l = mid + 1;
-        setLeft(l);
-        setActiveLine(8);
-        await sleep(speed);
-      } else {
-        // Eliminate right half
-        setActiveLine(9);
-        await sleep(speed);
-        const newEliminated = Array.from({ length: r - mid + 1 }, (_, i) => mid + i);
-        setEliminated(prev => [...prev, ...newEliminated]);
-        r = mid - 1;
-        setRight(r);
-        setActiveLine(10);
-        await sleep(speed);
-      }
-
-      setCurrentMid(null);
+      setActiveLine(null);
+      setSearching(false);
+    } catch (e) {
+      if (e?.message === "cancelled") return;
+      throw e;
     }
-
-    setActiveLine(11);
-    await sleep(speed);
-    setActiveLine(null);
-    setSearching(false);
   };
 
   const handleReset = () => {
+    cancelRef.current = true;
     setTarget('');
     setCurrentMid(null);
     setLeft(null);
@@ -247,7 +265,7 @@ export default function BinarySearchLesson() {
 
       {/* Interactive Visualization */}
       <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800">Interactive Visualization</h2>
+        <h2 className="text-3xl font-bold mb-6 text-gray-800">Interactive Visualisation</h2>
 
         {/* Search Input */}
         <div className="bg-gray-50 rounded-lg p-4 mb-6">

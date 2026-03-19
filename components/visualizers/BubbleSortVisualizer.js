@@ -118,9 +118,9 @@ export default function BubbleSortVisualizer() {
   );
 
   return (
-    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-899 rounded-xl shadow-lg p-8 mb-8">
+    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-8 mb-8 border-2 border-[#625EC6]/50">
       <h2 className="text-2xl font-bold mb-6 text-gray-200">
-        Bubble Sort Visualizer
+        Bubble Sort Visualiser
       </h2>
 
       <div className="bg-gray-900 rounded-lg p-6 mb-6 shadow-inner">

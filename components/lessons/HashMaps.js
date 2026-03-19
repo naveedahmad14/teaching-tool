@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import HashMapVisualizer from "../visualizers/HashMapVisualizer";
 import FrequencyCounterVisualizer from "../visualizers/FrequencyCounterVisualizer";
@@ -19,8 +19,19 @@ export default function HashMapsLesson() {
   const [running, setRunning] = useState(false);
   const [speed, setSpeed] = useState(700);
   const [activeLine, setActiveLine] = useState(null);
+  const cancelRef = useRef(false);
 
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const sleep = (ms) =>
+    new Promise((resolve, reject) => {
+      if (cancelRef.current) {
+        reject(new Error("cancelled"));
+        return;
+      }
+      setTimeout(() => {
+        if (cancelRef.current) reject(new Error("cancelled"));
+        else resolve();
+      }, ms);
+    });
 
   const pseudocode = [
     { line: 1, code: "function twoSum(arr, target):", indent: 0 },
@@ -34,57 +45,64 @@ export default function HashMapsLesson() {
   ];
 
   const runAlgorithm = async () => {
+    cancelRef.current = false;
     setRunning(true);
     setResult(null);
-    const arr = array;
-    const map = new Map();
-    const entries = [];
+    try {
+      const arr = array;
+      const map = new Map();
+      const entries = [];
 
-    setMapEntries([]);
-    setActiveLine(1);
-    await sleep(speed);
-    setActiveLine(2);
-    await sleep(speed);
-    setActiveLine(3);
-
-    for (let i = 0; i < arr.length; i++) {
-      setCurrentIndex(i);
-      setActiveLine(4);
-      const need = target - arr[i];
-      setLookupKey(need);
-      setLookupFound(null);
+      setMapEntries([]);
+      setActiveLine(1);
       await sleep(speed);
+      setActiveLine(2);
+      await sleep(speed);
+      setActiveLine(3);
 
-      setActiveLine(5);
-      if (map.has(need)) {
-        setLookupFound(true);
-        setResult([map.get(need), i]);
-        setActiveLine(6);
+      for (let i = 0; i < arr.length; i++) {
+        setCurrentIndex(i);
+        setActiveLine(4);
+        const need = target - arr[i];
+        setLookupKey(need);
+        setLookupFound(null);
         await sleep(speed);
-        setActiveLine(null);
-        setRunning(false);
-        return;
+
+        setActiveLine(5);
+        if (map.has(need)) {
+          setLookupFound(true);
+          setResult([map.get(need), i]);
+          setActiveLine(6);
+          await sleep(speed);
+          setActiveLine(null);
+          setRunning(false);
+          return;
+        }
+
+        setLookupFound(false);
+        await sleep(speed);
+        setActiveLine(7);
+        setInsertKey(arr[i]);
+        map.set(arr[i], i);
+        entries.push({ key: arr[i], value: i });
+        setMapEntries([...entries]);
+        await sleep(speed);
+        setInsertKey(null);
+        await sleep(speed / 2);
       }
 
-      setLookupFound(false);
+      setActiveLine(8);
       await sleep(speed);
-      setActiveLine(7);
-      setInsertKey(arr[i]);
-      map.set(arr[i], i);
-      entries.push({ key: arr[i], value: i });
-      setMapEntries([...entries]);
-      await sleep(speed);
-      setInsertKey(null);
-      await sleep(speed / 2);
+      setActiveLine(null);
+      setRunning(false);
+    } catch (e) {
+      if (e?.message === "cancelled") return;
+      throw e;
     }
-
-    setActiveLine(8);
-    await sleep(speed);
-    setActiveLine(null);
-    setRunning(false);
   };
 
   const handleReset = () => {
+    cancelRef.current = true;
     setArray([...TWO_SUM_ARRAY]);
     setTarget(TWO_SUM_TARGET);
     setMapEntries([]);
@@ -238,7 +256,7 @@ export default function HashMapsLesson() {
               valueLabel="Index"
             />
             {lookupKey !== null && lookupFound === false && (
-              <p className="mt-2 text-sm text-gray-500">Lookup {lookupKey} → not found</p>
+              <p className="mt-2 text-sm text-gray-700">Lookup {lookupKey} → not found</p>
             )}
           </div>
         </div>

@@ -14,7 +14,17 @@ export default async function handler(req, res) {
   }
 
   const userId = session.user.id;
-  const { lessonId, completed, score, timeSpent, incrementAttempts, difficulty } = req.body;
+  const {
+    lessonId,
+    completed,
+    score,
+    correctCount,
+    totalQuestions,
+    timeSpent,
+    incrementAttempts,
+    difficulty,
+    quizXpOnly,
+  } = req.body;
 
   if (!lessonId) {
     return res.status(400).json({ error: "Lesson ID is required" });
@@ -23,6 +33,62 @@ export default async function handler(req, res) {
   const lessonIdStr = String(lessonId);
 
   try {
+    // XP-only mode (used by pages/quiz.js).
+    // Do not create/update lesson progress or review cards.
+    if (Boolean(quizXpOnly)) {
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+      });
+
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      const difficultyMultipliers = { easy: 1, medium: 1.25, hard: 1.5 };
+      const difficultyKey = String(difficulty || "easy").toLowerCase();
+      const difficultyMultiplier = difficultyMultipliers[difficultyKey] ?? 1;
+
+      const correctCountNum =
+        correctCount === undefined || correctCount === null ? null : Number(correctCount);
+      const totalQuestionsNum =
+        totalQuestions === undefined || totalQuestions === null ? null : Number(totalQuestions);
+      const scorePctNum = score === undefined || score === null ? null : Number(score);
+
+      let xpGain;
+      // New payload: XP per correct question.
+      if (
+        correctCountNum !== null &&
+        totalQuestionsNum !== null &&
+        Number.isFinite(correctCountNum) &&
+        Number.isFinite(totalQuestionsNum) &&
+        totalQuestionsNum > 0 &&
+        correctCountNum >= 0
+      ) {
+        const safeTotal = Math.floor(totalQuestionsNum);
+        const safeCorrect = Math.min(Math.floor(correctCountNum), safeTotal);
+
+        const xpPerCorrect = Math.round((150 * difficultyMultiplier) / safeTotal);
+        xpGain = safeCorrect * xpPerCorrect;
+      } else if (scorePctNum !== null && Number.isFinite(scorePctNum) && !Number.isNaN(scorePctNum)) {
+        // Backward compatibility: old payload used `score` as percent.
+        const clampedScorePct = Math.max(0, Math.min(100, scorePctNum));
+        const baseXP = 50 + clampedScorePct;
+        xpGain = Math.round(baseXP * difficultyMultiplier);
+      } else {
+        return res.status(400).json({ error: "Quiz XP requires correctCount/totalQuestions (or score)" });
+      }
+
+      const newXP = (user.xp || 0) + xpGain;
+      const newLevel = Math.floor(newXP / 500) + 1;
+
+      await prisma.user.update({
+        where: { id: userId },
+        data: { xp: newXP, level: newLevel },
+      });
+
+      return res.status(200).json({ progress: { xpGain, xp: newXP, level: newLevel } });
+    }
+
     const existingProgress = await prisma.lessonProgress.findUnique({
       where: {
         userId_lessonId: {
@@ -32,17 +98,28 @@ export default async function handler(req, res) {
       },
     });
 
+    const inputCompleted = completed !== undefined ? Boolean(completed) : undefined;
     const shouldIncrementAttempts =
-      Boolean(completed) ||
+      Boolean(inputCompleted) ||
       Boolean(incrementAttempts) ||
       (score !== undefined && Number(score) > 0);
+
+    // Preserve completed=true:
+    // If the user already completed the lesson, ignore incoming completed:false updates.
+    const finalCompleted = existingProgress
+      ? existingProgress.completed && inputCompleted === false
+        ? true
+        : inputCompleted !== undefined
+          ? inputCompleted
+          : existingProgress.completed
+      : Boolean(inputCompleted);
 
     let progress;
     if (existingProgress) {
       progress = await prisma.lessonProgress.update({
         where: { id: existingProgress.id },
         data: {
-          completed: completed !== undefined ? Boolean(completed) : existingProgress.completed,
+          completed: finalCompleted,
           score:
             score !== undefined
               ? Math.max(Number(score), existingProgress.score)
@@ -57,7 +134,7 @@ export default async function handler(req, res) {
         data: {
           userId,
           lessonId: lessonIdStr,
-          completed: Boolean(completed),
+          completed: finalCompleted,
           score: Math.max(0, Number(score) || 0),
           timeSpent: Number(timeSpent) || 0,
           attempts: shouldIncrementAttempts ? 1 : 0,
@@ -65,7 +142,7 @@ export default async function handler(req, res) {
       });
     }
 
-    if (completed && !existingProgress?.completed) {
+    if (inputCompleted === true && !existingProgress?.completed) {
       const user = await prisma.user.findUnique({
         where: { id: userId },
       });

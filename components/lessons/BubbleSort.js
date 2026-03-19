@@ -1,7 +1,7 @@
 // ==========================================
 // File: components/lessons/BubbleSort.js
 // ==========================================
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import BubbleSortVisualizer from '../visualizers/BubbleSortVisualizer';
 
@@ -15,8 +15,19 @@ export default function BubbleSortLesson() {
   const [passCount, setPassCount] = useState(0);
   const [swapCount, setSwapCount] = useState(0);
   const [speed, setSpeed] = useState(1000);
+  const cancelRef = useRef(false);
 
-  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  const sleep = (ms) =>
+    new Promise((resolve, reject) => {
+      if (cancelRef.current) {
+        reject(new Error("cancelled"));
+        return;
+      }
+      setTimeout(() => {
+        if (cancelRef.current) reject(new Error("cancelled"));
+        else resolve();
+      }, ms);
+    });
 
   const pseudocode = [
     { line: 1, code: "function bubbleSort(arr):", indent: 0 },
@@ -29,61 +40,68 @@ export default function BubbleSortLesson() {
   ];
 
   const bubbleSort = async () => {
+    cancelRef.current = false;
     setSorting(true);
-    const arr = [...array];
-    const n = arr.length;
-    let swaps = 0;
-    let passes = 0;
-    const newSortedIndices = [];
+    try {
+      const arr = [...array];
+      const n = arr.length;
+      let swaps = 0;
+      let passes = 0;
+      const newSortedIndices = [];
 
-    setActiveLine(1);
-    await sleep(speed);
-    setActiveLine(2);
-    await sleep(speed);
-
-    for (let i = 0; i < n - 1; i++) {
-      setActiveLine(3);
-      passes++;
-      setPassCount(passes);
+      setActiveLine(1);
+      await sleep(speed);
+      setActiveLine(2);
       await sleep(speed);
 
-      for (let j = 0; j < n - i - 1; j++) {
-        setActiveLine(4);
+      for (let i = 0; i < n - 1; i++) {
+        setActiveLine(3);
+        passes++;
+        setPassCount(passes);
         await sleep(speed);
 
-        setComparing([j, j + 1]);
-        setActiveLine(5);
-        await sleep(speed);
-
-        if (arr[j] > arr[j + 1]) {
-          setSwapping([j, j + 1]);
-          setActiveLine(6);
+        for (let j = 0; j < n - i - 1; j++) {
+          setActiveLine(4);
           await sleep(speed);
 
-          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
-          setArray([...arr]);
-          swaps++;
-          setSwapCount(swaps);
+          setComparing([j, j + 1]);
+          setActiveLine(5);
           await sleep(speed);
-          setSwapping([]);
+
+          if (arr[j] > arr[j + 1]) {
+            setSwapping([j, j + 1]);
+            setActiveLine(6);
+            await sleep(speed);
+
+            [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+            setArray([...arr]);
+            swaps++;
+            setSwapCount(swaps);
+            await sleep(speed);
+            setSwapping([]);
+          }
+
+          setComparing([]);
         }
 
-        setComparing([]);
+        setActiveLine(7);
+        newSortedIndices.push(n - i - 1);
+        setSortedIndices([...newSortedIndices]);
+        await sleep(speed);
       }
 
-      setActiveLine(7);
-      newSortedIndices.push(n - i - 1);
+      newSortedIndices.push(0);
       setSortedIndices([...newSortedIndices]);
-      await sleep(speed);
+      setActiveLine(null);
+      setSorting(false);
+    } catch (e) {
+      if (e?.message === "cancelled") return;
+      throw e;
     }
-
-    newSortedIndices.push(0);
-    setSortedIndices([...newSortedIndices]);
-    setActiveLine(null);
-    setSorting(false);
   };
 
   const handleReset = () => {
+    cancelRef.current = true;
     setArray([64, 34, 25, 12, 22, 11, 90]);
     setComparing([]);
     setSwapping([]);
@@ -211,7 +229,7 @@ export default function BubbleSortLesson() {
 
         {/* Interactive Visualization */}
         <div className="bg-white rounded-xl shadow-lg p-8">
-          <h2 className="text-3xl font-bold mb-6 text-gray-800">Interactive Visualization</h2>
+        <h2 className="text-3xl font-bold mb-6 text-gray-800">Interactive Visualisation</h2>
 
           {/* Controls */}
           <div className="flex flex-wrap gap-4 mb-6">
@@ -220,7 +238,7 @@ export default function BubbleSortLesson() {
               disabled={sorting}
               className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md"
             >
-              {sorting ? 'Sorting...' : 'Start Visualization'}
+              {sorting ? 'Sorting...' : 'Start Visualisation'}
             </button>
             <button
               onClick={handleReset}
@@ -346,7 +364,7 @@ export default function BubbleSortLesson() {
               <ul className="space-y-2 text-gray-700">
                 <li className="flex items-start gap-2">
                   <span className="text-green-500 mt-1">•</span>
-                  <span>Educational purposes - easy to understand and visualize</span>
+                  <span>Educational purposes - easy to understand and visualise</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-500 mt-1">•</span>

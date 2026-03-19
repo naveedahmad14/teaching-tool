@@ -136,14 +136,14 @@ export default function TwoPointersVisualizer() {
   );
 
   return (
-    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-6 sm:p-8 mb-8 border-2 border-[#625EC6]/50">
+    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-8 mb-8 border-2 border-[#625EC6]/50">
       <h2 className="text-2xl font-bold mb-4 text-gray-200">
         Two Pointers: Remove Duplicates
       </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <div className="bg-gray-900 rounded-lg p-4 sm:p-6 shadow-inner">
-          <p className="text-sm text-gray-400 mb-3">Array (sorted with duplicates)</p>
+          <p className="text-sm text-gray-200 mb-3">Array (sorted with duplicates)</p>
           <div className="flex flex-wrap justify-center gap-2 min-h-[80px] items-end">
             {array.map((value, index) => (
               <motion.div
@@ -167,7 +167,7 @@ export default function TwoPointersVisualizer() {
                 >
                   {value}
                 </motion.div>
-                <span className="text-xs text-gray-500 mt-1">i={index}</span>
+                <span className="text-xs text-gray-200 mt-1">i={index}</span>
                 {read === index && (
                   <span className="text-xs font-bold text-blue-400 mt-0.5">read</span>
                 )}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import TwoPointersVisualizer from "../visualizers/TwoPointersVisualizer";
 
@@ -14,8 +14,19 @@ export default function TwoPointersLesson() {
   const [running, setRunning] = useState(false);
   const [comparisonCount, setComparisonCount] = useState(0);
   const [speed, setSpeed] = useState(800);
+  const cancelRef = useRef(false);
 
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const cancellableSleep = (ms) =>
+    new Promise((resolve, reject) => {
+      if (cancelRef.current) {
+        reject(new Error("cancelled"));
+        return;
+      }
+      setTimeout(() => {
+        if (cancelRef.current) reject(new Error("cancelled"));
+        else resolve();
+      }, ms);
+    });
 
   const pseudocode = [
     { line: 1, code: "function removeDuplicates(arr):", indent: 0 },
@@ -31,6 +42,7 @@ export default function TwoPointersLesson() {
   const [activeLine, setActiveLine] = useState(null);
 
   const runAlgorithm = async () => {
+    cancelRef.current = false;
     setRunning(true);
     setUniqueCount(null);
     setComparisonCount(0);
@@ -38,49 +50,55 @@ export default function TwoPointersLesson() {
     let w = 0;
     let comparisons = 0;
 
-    setActiveLine(1);
-    await sleep(speed);
-    setActiveLine(2);
-    await sleep(speed);
-    setActiveLine(3);
-    setWrite(0);
-    setRead(1);
-    await sleep(speed);
-    setActiveLine(4);
-
-    for (let r = 1; r < arr.length; r++) {
-      setRead(r);
-      setComparing(true);
-      comparisons++;
-      setComparisonCount(comparisons);
-      setActiveLine(5);
-      await sleep(speed);
-
-      if (arr[r] !== arr[w]) {
-        setActiveLine(6);
-        w++;
-        setOverwrite(w);
-        await sleep(speed);
-        setActiveLine(7);
-        arr[w] = arr[r];
-        setArray([...arr]);
-        setWrite(w);
-        setOverwrite(null);
-        await sleep(speed);
-      }
-      setComparing(false);
+    try {
+      setActiveLine(1);
+      await cancellableSleep(speed);
+      setActiveLine(2);
+      await cancellableSleep(speed);
+      setActiveLine(3);
+      setWrite(0);
+      setRead(1);
+      await cancellableSleep(speed);
       setActiveLine(4);
-      await sleep(speed / 2);
-    }
 
-    setActiveLine(8);
-    setUniqueCount(w + 1);
-    await sleep(speed);
-    setActiveLine(null);
-    setRunning(false);
+      for (let r = 1; r < arr.length; r++) {
+        setRead(r);
+        setComparing(true);
+        comparisons++;
+        setComparisonCount(comparisons);
+        setActiveLine(5);
+        await cancellableSleep(speed);
+
+        if (arr[r] !== arr[w]) {
+          setActiveLine(6);
+          w++;
+          setOverwrite(w);
+          await cancellableSleep(speed);
+          setActiveLine(7);
+          arr[w] = arr[r];
+          setArray([...arr]);
+          setWrite(w);
+          setOverwrite(null);
+          await cancellableSleep(speed);
+        }
+        setComparing(false);
+        setActiveLine(4);
+        await cancellableSleep(speed / 2);
+      }
+
+      setActiveLine(8);
+      setUniqueCount(w + 1);
+      await cancellableSleep(speed);
+      setActiveLine(null);
+      setRunning(false);
+    } catch (e) {
+      if (e?.message === "cancelled") return;
+      throw e;
+    }
   };
 
   const handleReset = () => {
+    cancelRef.current = true;
     setArray([...INITIAL_ARRAY]);
     setRead(null);
     setWrite(null);

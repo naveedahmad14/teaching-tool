@@ -105,7 +105,7 @@ export default function StackVisualizer() {
   }));
 
   return (
-    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-6 sm:p-8 mb-8 border-2 border-[#625EC6]/50">
+    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-8 mb-8 border-2 border-[#625EC6]/50">
       <h2 className="text-2xl font-bold mb-4 text-gray-200">Next Greater Element (Monotonic Stack)</h2>
 
       <div className="mb-4 p-3 rounded bg-[#16213E] border border-[#625EC6]/50 text-gray-200 text-sm">
@@ -114,7 +114,7 @@ export default function StackVisualizer() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 items-end">
         <div>
-          <p className="text-gray-400 text-sm mb-2">Input array</p>
+          <p className="text-gray-200 text-sm mb-2">Input array</p>
           <div className="flex flex-wrap gap-2">
             {array.map((val, i) => (
               <motion.div
@@ -132,24 +132,24 @@ export default function StackVisualizer() {
         </div>
 
         <div className="flex flex-col items-center">
-          <p className="text-gray-400 text-sm mb-2">Stack (indices → values)</p>
+          <p className="text-gray-200 text-sm mb-2">Stack (indices → values)</p>
           <VerticalStack
             items={stackItems}
             highlightTop={stackItems.length > 0 && poppedStackPosition === null}
             highlightPopped={poppedStackPosition}
             emptyLabel="empty"
           />
-          <p className="text-gray-500 text-xs mt-2">↑ top</p>
+          <p className="text-gray-200 text-xs mt-2">↑ top</p>
         </div>
 
         <div>
-          <p className="text-gray-400 text-sm mb-2">Result (NGE)</p>
+          <p className="text-gray-200 text-sm mb-2">Result (NGE)</p>
           <div className="flex flex-wrap gap-2">
             {result.map((val, i) => (
               <motion.div
                 key={i}
                 className={`w-12 h-12 rounded-lg flex flex-col items-center justify-center font-bold text-sm shadow ${
-                  val !== -1 ? "bg-green-500 text-white" : "bg-gray-700 text-gray-400"
+                  val !== -1 ? "bg-green-500 text-white" : "bg-gray-700 text-gray-200"
                 }`}
                 transition={{ duration: 0.2 }}
               >

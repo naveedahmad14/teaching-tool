@@ -13,7 +13,6 @@ export default function ProgressTracker({ lessonId }) {
 
   const hasTrackedView = useRef(false);
   const [timeSpentDisplay, setTimeSpentDisplay] = useState(0);
-  const [markingComplete, setMarkingComplete] = useState(false);
   const [showSavedToast, setShowSavedToast] = useState(false);
 
   useEffect(() => {
@@ -58,17 +57,6 @@ export default function ProgressTracker({ lessonId }) {
     return () => clearTimeout(t);
   }, [showSavedToast]);
 
-  const handleMarkComplete = async () => {
-    if (!lessonId || !isAuthenticated) return;
-    setMarkingComplete(true);
-    const result = await updateProgress(lessonId, {
-      completed: true,
-      incrementAttempts: true,
-    });
-    setMarkingComplete(false);
-    if (result?.success) setShowSavedToast(true);
-  };
-
   if (!isAuthenticated) return null;
 
   const minutes = Math.floor(timeSpentDisplay / 60);
@@ -90,11 +78,11 @@ export default function ProgressTracker({ lessonId }) {
         </div>
         <button
           type="button"
-          onClick={handleMarkComplete}
-          disabled={markingComplete}
-          className="px-4 py-1.5 rounded-lg bg-[#625EC6] text-white font-medium hover:bg-[#7B75D4] disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-xs"
+          disabled
+          aria-disabled="true"
+          className="px-4 py-1.5 rounded-lg bg-[#16213E] text-[#C0C0C0] font-medium border border-[#625EC6]/60 transition-colors text-xs cursor-not-allowed"
         >
-          {markingComplete ? "Saving…" : "Mark as Complete"}
+          Complete via mini quiz →
         </button>
       </div>
 

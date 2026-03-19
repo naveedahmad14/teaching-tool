@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import QuickSortVisualizer from '../visualizers/QuickSortVisualizer';
 
@@ -12,8 +12,19 @@ export default function QuickSortLesson() {
   const [activeLine, setActiveLine] = useState(null);
   const [partitionCount, setPartitionCount] = useState(0);
   const [speed, setSpeed] = useState(1500);
+  const cancelRef = useRef(false);
 
-  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  const sleep = (ms) =>
+    new Promise((resolve, reject) => {
+      if (cancelRef.current) {
+        reject(new Error("cancelled"));
+        return;
+      }
+      setTimeout(() => {
+        if (cancelRef.current) reject(new Error("cancelled"));
+        else resolve();
+      }, ms);
+    });
 
   const pseudocode = [
     { line: 1, code: "function quickSort(arr, low, high):", indent: 0 },
@@ -34,94 +45,101 @@ export default function QuickSortLesson() {
   ];
 
   const quickSort = async () => {
+    cancelRef.current = false;
     setSorting(true);
-    const arr = [...array];
-    let partitions = 0;
+    try {
+      const arr = [...array];
+      let partitions = 0;
 
-    const partition = async (arr, low, high) => {
-      setActiveLine(7);
-      await sleep(speed);
-
-      const pivotValue = arr[high];
-      setPivot(high);
-      setPartitionRange([low, high]);
-      partitions++;
-      setPartitionCount(partitions);
-      
-      setActiveLine(8);
-      await sleep(speed);
-
-      let i = low - 1;
-      setActiveLine(9);
-      await sleep(speed);
-
-      setActiveLine(10);
-      for (let j = low; j < high; j++) {
-        setComparing([j, high]);
-        setActiveLine(11);
+      const partition = async (arr, low, high) => {
+        setActiveLine(7);
         await sleep(speed);
 
-        if (arr[j] < pivotValue) {
-          i++;
-          setActiveLine(12);
+        const pivotValue = arr[high];
+        setPivot(high);
+        setPartitionRange([low, high]);
+        partitions++;
+        setPartitionCount(partitions);
+
+        setActiveLine(8);
+        await sleep(speed);
+
+        let i = low - 1;
+        setActiveLine(9);
+        await sleep(speed);
+
+        setActiveLine(10);
+        for (let j = low; j < high; j++) {
+          setComparing([j, high]);
+          setActiveLine(11);
           await sleep(speed);
 
-          if (i !== j) {
-            setActiveLine(13);
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-            setArray([...arr]);
+          if (arr[j] < pivotValue) {
+            i++;
+            setActiveLine(12);
             await sleep(speed);
+
+            if (i !== j) {
+              setActiveLine(13);
+              [arr[i], arr[j]] = [arr[j], arr[i]];
+              setArray([...arr]);
+              await sleep(speed);
+            }
           }
+          setComparing([]);
         }
+
+        setActiveLine(14);
+        [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
+        setArray([...arr]);
+        await sleep(speed);
+
+        setSortedIndices((prev) => [...prev, i + 1]);
+        setPivot(null);
+        setPartitionRange([]);
         setComparing([]);
-      }
 
-      setActiveLine(14);
-      [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
-      setArray([...arr]);
-      await sleep(speed);
-
-      setSortedIndices(prev => [...prev, i + 1]);
-      setPivot(null);
-      setPartitionRange([]);
-      setComparing([]);
-      
-      setActiveLine(15);
-      await sleep(speed);
-
-      return i + 1;
-    };
-
-    const sort = async (arr, low, high) => {
-      setActiveLine(1);
-      await sleep(speed);
-
-      if (low < high) {
-        setActiveLine(2);
+        setActiveLine(15);
         await sleep(speed);
 
-        setActiveLine(3);
-        const pi = await partition(arr, low, high);
+        return i + 1;
+      };
 
-        setActiveLine(4);
+      const sort = async (arr, low, high) => {
+        setActiveLine(1);
         await sleep(speed);
-        await sort(arr, low, pi - 1);
 
-        setActiveLine(5);
-        await sleep(speed);
-        await sort(arr, pi + 1, high);
-      } else if (low === high) {
-        setSortedIndices(prev => [...prev, low]);
-      }
-    };
+        if (low < high) {
+          setActiveLine(2);
+          await sleep(speed);
 
-    await sort(arr, 0, arr.length - 1);
-    setSortedIndices(Array.from({ length: arr.length }, (_, i) => i));
-    setActiveLine(null);
-    setSorting(false);
+          setActiveLine(3);
+          const pi = await partition(arr, low, high);
+
+          setActiveLine(4);
+          await sleep(speed);
+          await sort(arr, low, pi - 1);
+
+          setActiveLine(5);
+          await sleep(speed);
+          await sort(arr, pi + 1, high);
+        } else if (low === high) {
+          setSortedIndices((prev) => [...prev, low]);
+        }
+      };
+
+      await sort(arr, 0, arr.length - 1);
+      setSortedIndices(Array.from({ length: arr.length }, (_, i) => i));
+      setActiveLine(null);
+      setSorting(false);
+    } catch (e) {
+      if (e?.message === "cancelled") return;
+      throw e;
+    }
   };
 
   const handleReset = () => {
+    cancelRef.current = true;
     setArray([10, 80, 30, 90, 40, 50, 70]);
     setPivot(null);
     setComparing([]);
@@ -252,7 +270,7 @@ export default function QuickSortLesson() {
 
       {/* Interactive Visualization */}
       <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800">Interactive Visualization</h2>
+        <h2 className="text-3xl font-bold mb-6 text-gray-800">Interactive Visualisation</h2>
 
         {/* Controls */}
         <div className="flex flex-wrap gap-4 mb-6">
@@ -261,7 +279,7 @@ export default function QuickSortLesson() {
             disabled={sorting}
             className="px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md"
           >
-            {sorting ? 'Sorting...' : 'Start Visualization'}
+            {sorting ? 'Sorting...' : 'Start Visualisation'}
           </button>
           <button
             onClick={handleReset}

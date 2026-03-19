@@ -85,6 +85,15 @@ export default function HashMapVisualizer() {
       setLookupKey(null);
       setLookupFound(null);
       setInsertKey(null);
+
+      // If the user clicked Reset, the algorithm may have already queued
+      // some state updates (e.g. mapEntries) before cancellation checks.
+      // Ensure the UI is clean when cancelled, but keep results when finished.
+      if (cancelRef.current) {
+        setMapEntries([]);
+        setResult(null);
+        setDone(false);
+      }
     }
   }, [array, target, speed, sleep, play, stop, cancelRef]);
 
@@ -119,7 +128,7 @@ export default function HashMapVisualizer() {
     insertKey !== null ? "insert" : lookupFound ? "lookup" : null;
 
   return (
-    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-6 sm:p-8 mb-8 border-2 border-[#625EC6]/50">
+    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-8 mb-8 border-2 border-[#625EC6]/50">
       <h2 className="text-2xl font-bold mb-4 text-gray-200">Two Sum: Hash Map</h2>
 
       <div className="mb-4 flex flex-wrap gap-4 items-center">
@@ -135,7 +144,7 @@ export default function HashMapVisualizer() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <div className="bg-gray-900 rounded-lg p-6 shadow-inner">
-          <p className="text-gray-400 text-sm mb-3">Array</p>
+          <p className="text-gray-200 text-sm mb-3">Array</p>
           <div className="flex flex-wrap gap-2">
             {array.map((value, index) => (
               <motion.div
@@ -148,7 +157,7 @@ export default function HashMapVisualizer() {
               </motion.div>
             ))}
           </div>
-          <p className="text-gray-500 text-xs mt-2">
+          <p className="text-gray-200 text-xs mt-2">
             Need: target − current = {target} − {currentIndex !== null ? array[currentIndex] : "?"} ={" "}
             {currentIndex !== null ? target - array[currentIndex] : "—"}
           </p>
@@ -166,7 +175,7 @@ export default function HashMapVisualizer() {
             valueLabel="Index"
           />
           {lookupKey !== null && lookupFound === false && (
-            <p className="mt-2 text-sm text-gray-400">
+            <p className="mt-2 text-sm text-gray-200">
               Lookup <span className="font-mono text-red-400">{lookupKey}</span> → not found
             </p>
           )}

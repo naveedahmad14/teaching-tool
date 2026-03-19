@@ -90,7 +90,7 @@ export default function QuickSortQuiz({ lessonId, onQuizComplete }) {
         ],
         correct: 2,
         explanation: "Worst case occurs when the pivot is always the extreme element (smallest or largest), creating maximally unbalanced partitions. This happens with sorted/reverse-sorted arrays using first/last element as pivot, requiring n levels of recursion.",
-        activeRecall: "Visualize: Unbalanced partitions (1 vs n-1) create n levels instead of log n levels!"
+        activeRecall: "Visualise: Unbalanced partitions (1 vs n-1) create n levels instead of log n levels!"
       },
       {
         id: 7,
@@ -242,8 +242,7 @@ export default function QuickSortQuiz({ lessonId, onQuizComplete }) {
       setShowExplanation(false);
     } else {
       setQuizComplete(true);
-      const percentage = currentQuestions.length ? (score / currentQuestions.length) * 100 : 0;
-      onQuizComplete?.(percentage, difficulty);
+      onQuizComplete?.(score, currentQuestions.length, difficulty);
     }
   };
 

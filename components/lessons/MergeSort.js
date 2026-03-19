@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MergeSortVisualizer from '../visualizers/MergeSortVisualizer';
 
@@ -17,8 +17,19 @@ export default function MergeSortLesson() {
     sorted: []
   });
   const [speed, setSpeed] = useState(2000);
+  const cancelRef = useRef(false);
 
-  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  const cancellableSleep = (ms) =>
+    new Promise((resolve, reject) => {
+      if (cancelRef.current) {
+        reject(new Error("cancelled"));
+        return;
+      }
+      setTimeout(() => {
+        if (cancelRef.current) reject(new Error("cancelled"));
+        else resolve();
+      }, ms);
+    });
 
   const pseudocode = [
     { line: 1, code: "function mergeSort(arr, left, right):", indent: 0 },
@@ -55,114 +66,121 @@ export default function MergeSortLesson() {
   ];
 
   const visualizeMergeSort = async () => {
+    cancelRef.current = false;
     setSorting(true);
     setCurrentStep(0);
     const arr = [...array];
 
-    const merge = async (arr, left, mid, right, depth = 0) => {
-      setActiveLine(8);
-      await sleep(speed);
+    try {
+      const merge = async (arr, left, mid, right, depth = 0) => {
+        setActiveLine(8);
+        await cancellableSleep(speed);
 
-      const leftArr = arr.slice(left, mid + 1);
-      const rightArr = arr.slice(mid + 1, right + 1);
+        const leftArr = arr.slice(left, mid + 1);
+        const rightArr = arr.slice(mid + 1, right + 1);
 
-      setVisualState({
-        left,
-        mid,
-        right,
-        leftArr: leftArr.map((val, idx) => ({ val, origIdx: left + idx })),
-        rightArr: rightArr.map((val, idx) => ({ val, origIdx: mid + 1 + idx })),
-        merging: true,
-        sorted: []
-      });
-      setActiveLine(9);
-      await sleep(speed);
-      setActiveLine(10);
-      await sleep(speed);
+        setVisualState({
+          left,
+          mid,
+          right,
+          leftArr: leftArr.map((val, idx) => ({ val, origIdx: left + idx })),
+          rightArr: rightArr.map((val, idx) => ({ val, origIdx: mid + 1 + idx })),
+          merging: true,
+          sorted: []
+        });
+        setActiveLine(9);
+        await cancellableSleep(speed);
+        setActiveLine(10);
+        await cancellableSleep(speed);
 
-      let i = 0, j = 0, k = left;
-      setActiveLine(11);
-      await sleep(speed);
+        let i = 0, j = 0, k = left;
+        setActiveLine(11);
+        await cancellableSleep(speed);
 
-      while (i < leftArr.length && j < rightArr.length) {
-        setActiveLine(12);
-        await sleep(speed);
+        while (i < leftArr.length && j < rightArr.length) {
+          setActiveLine(12);
+          await cancellableSleep(speed);
 
-        if (leftArr[i] <= rightArr[j]) {
-          setActiveLine(13);
-          await sleep(speed);
-          setActiveLine(14);
-          arr[k] = leftArr[i];
-          i++;
-        } else {
-          setActiveLine(15);
-          await sleep(speed);
-          setActiveLine(16);
-          arr[k] = rightArr[j];
-          j++;
+          if (leftArr[i] <= rightArr[j]) {
+            setActiveLine(13);
+            await cancellableSleep(speed);
+            setActiveLine(14);
+            arr[k] = leftArr[i];
+            i++;
+          } else {
+            setActiveLine(15);
+            await cancellableSleep(speed);
+            setActiveLine(16);
+            arr[k] = rightArr[j];
+            j++;
+          }
+          setArray([...arr]);
+          await cancellableSleep(speed);
+          setActiveLine(17);
+          k++;
+          await cancellableSleep(speed);
         }
-        setArray([...arr]);
-        await sleep(speed);
-        setActiveLine(17);
-        k++;
-        await sleep(speed);
-      }
 
-      while (i < leftArr.length) {
-        setActiveLine(18);
-        arr[k] = leftArr[i];
-        setArray([...arr]);
-        i++;
-        k++;
-        await sleep(speed / 2);
-      }
+        while (i < leftArr.length) {
+          setActiveLine(18);
+          arr[k] = leftArr[i];
+          setArray([...arr]);
+          i++;
+          k++;
+          await cancellableSleep(speed / 2);
+        }
 
-      while (j < rightArr.length) {
-        setActiveLine(18);
-        arr[k] = rightArr[j];
-        setArray([...arr]);
-        j++;
-        k++;
-        await sleep(speed / 2);
-      }
+        while (j < rightArr.length) {
+          setActiveLine(18);
+          arr[k] = rightArr[j];
+          setArray([...arr]);
+          j++;
+          k++;
+          await cancellableSleep(speed / 2);
+        }
 
-      setVisualState(prev => ({ ...prev, merging: false }));
-    };
+        setVisualState((prev) => ({ ...prev, merging: false }));
+      };
 
-    const sort = async (arr, left, right, depth = 0) => {
-      if (left < right) {
-        setActiveLine(2);
-        await sleep(speed);
+      const sort = async (arr, left, right, depth = 0) => {
+        if (left < right) {
+          setActiveLine(2);
+          await cancellableSleep(speed);
 
-        const mid = Math.floor((left + right) / 2);
-        setVisualState({ left, mid, right, leftArr: [], rightArr: [], merging: false, sorted: [] });
-        setActiveLine(3);
-        await sleep(speed);
+          const mid = Math.floor((left + right) / 2);
+          setVisualState({ left, mid, right, leftArr: [], rightArr: [], merging: false, sorted: [] });
+          setActiveLine(3);
+          await cancellableSleep(speed);
 
-        setActiveLine(4);
-        await sleep(speed);
-        await sort(arr, left, mid, depth + 1);
+          setActiveLine(4);
+          await cancellableSleep(speed);
+          await sort(arr, left, mid, depth + 1);
 
-        setActiveLine(5);
-        await sleep(speed);
-        await sort(arr, mid + 1, right, depth + 1);
+          setActiveLine(5);
+          await cancellableSleep(speed);
+          await sort(arr, mid + 1, right, depth + 1);
 
-        setActiveLine(6);
-        await sleep(speed);
-        await merge(arr, left, mid, right, depth);
-      }
-    };
+          setActiveLine(6);
+          await cancellableSleep(speed);
+          await merge(arr, left, mid, right, depth);
+        }
+      };
 
-    setActiveLine(1);
-    await sleep(speed);
-    await sort(arr, 0, arr.length - 1, 0);
-    
-    setVisualState({ left: null, mid: null, right: null, leftArr: [], rightArr: [], merging: false, sorted: arr.map((_, i) => i) });
-    setActiveLine(null);
-    setSorting(false);
+      setActiveLine(1);
+      await cancellableSleep(speed);
+      await sort(arr, 0, arr.length - 1, 0);
+
+      setVisualState({ left: null, mid: null, right: null, leftArr: [], rightArr: [], merging: false, sorted: arr.map((_, i) => i) });
+      setActiveLine(null);
+      setSorting(false);
+    } catch (e) {
+      if (e?.message === "cancelled") return;
+      throw e;
+    }
   };
 
   const handleReset = () => {
+    cancelRef.current = true;
     setArray([38, 27, 43, 3, 9, 82, 10]);
     setVisualState({ left: null, mid: null, right: null, leftArr: [], rightArr: [], merging: false, sorted: [] });
     setActiveLine(null);

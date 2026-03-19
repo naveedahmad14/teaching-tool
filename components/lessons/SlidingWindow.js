@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import SlidingWindowVisualizer from "../visualizers/SlidingWindowVisualizer";
 
@@ -16,8 +16,20 @@ export default function SlidingWindowLesson() {
   const [running, setRunning] = useState(false);
   const [speed, setSpeed] = useState(700);
   const [activeLine, setActiveLine] = useState(null);
+  const cancelRef = useRef(false);
 
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const sleep = (ms) =>
+    new Promise((resolve, reject) => {
+      if (cancelRef.current) {
+        reject(new Error("cancelled"));
+        return;
+      }
+
+      setTimeout(() => {
+        if (cancelRef.current) reject(new Error("cancelled"));
+        else resolve();
+      }, ms);
+    });
 
   const pseudocode = [
     { line: 1, code: "function maxSumSubarray(arr, k):", indent: 0 },
@@ -31,58 +43,67 @@ export default function SlidingWindowLesson() {
   ];
 
   const runAlgorithm = async () => {
+    cancelRef.current = false;
     setRunning(true);
-    const arr = array;
-    const n = arr.length;
-    if (k > n) {
-      setRunning(false);
-      return;
-    }
 
-    setActiveLine(1);
-    await sleep(speed);
-    setActiveLine(2);
-    await sleep(speed);
-    setActiveLine(3);
+    try {
+      const arr = array;
+      const n = arr.length;
+      if (k > n) {
+        setRunning(false);
+        return;
+      }
 
-    let left = 0;
-    let sum = arr.slice(0, k).reduce((a, b) => a + b, 0);
-    let max = sum;
-    setWindowLeft(0);
-    setCurrentSum(sum);
-    setMaxSum(max);
-    setActiveLine(4);
-    await sleep(speed);
-
-    for (left = 1; left <= n - k; left++) {
-      setActiveLine(5);
-      const leave = left - 1;
-      const enter = left + k - 1;
-      setRemoving(leave);
-      setAdding(enter);
+      setActiveLine(1);
       await sleep(speed);
+      setActiveLine(2);
+      await sleep(speed);
+      setActiveLine(3);
 
-      setActiveLine(6);
-      sum = sum - arr[leave] + arr[enter];
+      let left = 0;
+      let sum = arr.slice(0, k).reduce((a, b) => a + b, 0);
+      let max = sum;
+      setWindowLeft(0);
       setCurrentSum(sum);
-      setWindowLeft(left);
-      setRemoving(null);
-      setAdding(null);
-      await sleep(speed);
-
-      setActiveLine(7);
-      if (sum > max) max = sum;
       setMaxSum(max);
+      setActiveLine(4);
       await sleep(speed);
-    }
 
-    setActiveLine(8);
-    await sleep(speed);
-    setActiveLine(null);
-    setRunning(false);
+      for (left = 1; left <= n - k; left++) {
+        setActiveLine(5);
+        const leave = left - 1;
+        const enter = left + k - 1;
+        setRemoving(leave);
+        setAdding(enter);
+        await sleep(speed);
+
+        setActiveLine(6);
+        sum = sum - arr[leave] + arr[enter];
+        setCurrentSum(sum);
+        setWindowLeft(left);
+        setRemoving(null);
+        setAdding(null);
+        await sleep(speed);
+
+        setActiveLine(7);
+        if (sum > max) max = sum;
+        setMaxSum(max);
+        await sleep(speed);
+      }
+
+      setActiveLine(8);
+      await sleep(speed);
+      setActiveLine(null);
+      setRunning(false);
+    } catch (e) {
+      // Cancelled via Reset.
+      if (e?.message === "cancelled") return;
+      throw e;
+    }
   };
 
   const handleReset = () => {
+    cancelRef.current = true;
     setArray([...INITIAL_ARRAY]);
     setWindowLeft(null);
     setCurrentSum(null);

@@ -16,6 +16,7 @@ import SlidingWindowLesson from "../../components/lessons/SlidingWindow";
 import HashMapsLesson from "../../components/lessons/HashMaps";
 import LinkedListsLesson from "../../components/lessons/LinkedLists";
 import StacksLesson from "../../components/lessons/Stacks";
+import LessonMiniQuiz from "@/components/quizzes/LessonMiniQuiz";
 
 export default function Lesson() {
   const router = useRouter();
@@ -50,6 +51,7 @@ export default function Lesson() {
     <Layout>
       <ProgressTracker lessonId={id} />
       <LessonComponent />
+      <LessonMiniQuiz lessonId={id} />
     </Layout>
   );
 }

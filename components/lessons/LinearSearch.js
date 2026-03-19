@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import LinearSearchVisualizer from '../visualizers/LinearSearchVisualizer';
 
@@ -12,8 +12,19 @@ export default function LinearSearchLesson() {
   const [activeLine, setActiveLine] = useState(null);
   const [comparisons, setComparisons] = useState(0);
   const [speed, setSpeed] = useState(800);
+  const cancelRef = useRef(false);
 
-  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  const sleep = (ms) =>
+    new Promise((resolve, reject) => {
+      if (cancelRef.current) {
+        reject(new Error("cancelled"));
+        return;
+      }
+      setTimeout(() => {
+        if (cancelRef.current) reject(new Error("cancelled"));
+        else resolve();
+      }, ms);
+    });
 
   const pseudocode = [
     { line: 1, code: "function linearSearch(arr, target):", indent: 0 },
@@ -24,51 +35,58 @@ export default function LinearSearchLesson() {
   ];
 
   const linearSearch = async () => {
+    cancelRef.current = false;
     const targetNum = parseInt(target);
     if (isNaN(targetNum)) {
       alert('Please enter a valid number');
       return;
     }
 
-    setSearching(true);
-    setFoundIndex(null);
-    setVisited([]);
-    setComparisons(0);
-    setCurrentIndex(null);
+    try {
+      setSearching(true);
+      setFoundIndex(null);
+      setVisited([]);
+      setComparisons(0);
+      setCurrentIndex(null);
 
-    setActiveLine(1);
-    await sleep(speed);
-
-    for (let i = 0; i < array.length; i++) {
-      setActiveLine(2);
+      setActiveLine(1);
       await sleep(speed);
 
-      setCurrentIndex(i);
-      setActiveLine(3);
-      setComparisons(i + 1);
-      await sleep(speed);
+      for (let i = 0; i < array.length; i++) {
+        setActiveLine(2);
+        await sleep(speed);
 
-      if (array[i] === targetNum) {
-        setFoundIndex(i);
-        setActiveLine(4);
-        await sleep(speed * 1.5);
-        setActiveLine(null);
-        setSearching(false);
-        return;
+        setCurrentIndex(i);
+        setActiveLine(3);
+        setComparisons(i + 1);
+        await sleep(speed);
+
+        if (array[i] === targetNum) {
+          setFoundIndex(i);
+          setActiveLine(4);
+          await sleep(speed * 1.5);
+          setActiveLine(null);
+          setSearching(false);
+          return;
+        }
+
+        setVisited((prev) => [...prev, i]);
+        setCurrentIndex(null);
+        await sleep(speed / 2);
       }
 
-      setVisited(prev => [...prev, i]);
-      setCurrentIndex(null);
-      await sleep(speed / 2);
+      setActiveLine(5);
+      await sleep(speed);
+      setActiveLine(null);
+      setSearching(false);
+    } catch (e) {
+      if (e?.message === "cancelled") return;
+      throw e;
     }
-
-    setActiveLine(5);
-    await sleep(speed);
-    setActiveLine(null);
-    setSearching(false);
   };
 
   const handleReset = () => {
+    cancelRef.current = true;
     setTarget('');
     setCurrentIndex(null);
     setFoundIndex(null);
@@ -194,7 +212,7 @@ export default function LinearSearchLesson() {
 
       {/* Interactive Visualization */}
       <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800">Interactive Visualization</h2>
+        <h2 className="text-3xl font-bold mb-6 text-gray-800">Interactive Visualisation</h2>
 
         {/* Search Input */}
         <div className="bg-gray-50 rounded-lg p-4 mb-6">

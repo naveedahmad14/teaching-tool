@@ -44,7 +44,7 @@ export default function HashMapTable({
         <tbody>
           {entries.length === 0 ? (
             <tr>
-              <td colSpan={2} className="px-3 py-4 text-gray-500 italic">
+              <td colSpan={2} className="px-3 py-4 text-gray-200 italic">
                 (empty)
               </td>
             </tr>

@@ -52,7 +52,7 @@ export default function LinkedListsQuiz({ lessonId, onQuizComplete }) {
       setShowExplanation(false);
     } else {
       setQuizComplete(true);
-      onQuizComplete?.(currentQuestions.length ? (score / currentQuestions.length) * 100 : 0, difficulty);
+      onQuizComplete?.(score, currentQuestions.length, difficulty);
     }
   };
 

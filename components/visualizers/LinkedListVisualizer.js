@@ -138,11 +138,11 @@ export default function LinkedListVisualizer() {
   const totalWidth = n * SLOT + NODE_GAP + 52;
 
   return (
-    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-6 sm:p-8 mb-8 border-2 border-[#625EC6]/50">
+    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-8 mb-8 border-2 border-[#625EC6]/50">
       <h2 className="text-2xl font-bold mb-4 text-gray-200">Linked List</h2>
 
       <div className="flex flex-wrap gap-4 mb-4">
-        <span className="text-gray-400 text-sm font-medium">Mode:</span>
+        <span className="text-gray-200 text-sm font-medium">Mode:</span>
         <button
           type="button"
           onClick={() => { setMode("reverse"); reset(); }}
@@ -169,11 +169,11 @@ export default function LinkedListVisualizer() {
               const y2 = 40;
               return (
                 <g key={i}>
-                  <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth={2} className="text-gray-500" />
+                  <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth={2} className="text-gray-200" />
                   {to !== null ? (
-                    <polygon points={`${x2 - 6},${y2 - 4} ${x2 - 6},${y2 + 4} ${x2},${y2}`} fill="currentColor" className="text-gray-500" />
+                    <polygon points={`${x2 - 6},${y2 - 4} ${x2 - 6},${y2 + 4} ${x2},${y2}`} fill="currentColor" className="text-gray-200" />
                   ) : (
-                    <circle cx={x2} cy={y2} r={4} fill="currentColor" className="text-gray-500" />
+                    <circle cx={x2} cy={y2} r={4} fill="currentColor" className="text-gray-200" />
                   )}
                 </g>
               );
@@ -215,7 +215,7 @@ export default function LinkedListVisualizer() {
               </div>
             </motion.div>
           ))}
-          <div className="shrink-0 w-12 h-12 rounded-lg flex items-center justify-center font-mono text-xs bg-gray-800 text-gray-500 border-2 border-dashed border-gray-600" style={{ width: SLOT }}>
+          <div className="shrink-0 w-12 h-12 rounded-lg flex items-center justify-center font-mono text-xs bg-gray-800 text-gray-200 border-2 border-dashed border-gray-600" style={{ width: SLOT }}>
             null
           </div>
         </div>

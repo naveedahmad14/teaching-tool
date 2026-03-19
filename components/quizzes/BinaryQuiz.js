@@ -116,7 +116,7 @@ export default function BinarySearchQuiz({ lessonId, onQuizComplete }) {
         ],
         correct: 1,
         explanation: "On unsorted arrays, Binary Search may sometimes find elements by chance but is fundamentally unreliable. The elimination logic (left/right decision) assumes ordering. You might get lucky occasionally, but correctness isn't guaranteed.",
-        activeRecall: "Undefined behavior! May work sometimes, fail others. Never trust Binary Search on unsorted data."
+        activeRecall: "Undefined behaviour! May work sometimes, fail others. Never trust Binary Search on unsorted data."
       },
       {
         id: 9,
@@ -242,8 +242,7 @@ export default function BinarySearchQuiz({ lessonId, onQuizComplete }) {
       setShowExplanation(false);
     } else {
       setQuizComplete(true);
-      const percentage = currentQuestions.length ? (score / currentQuestions.length) * 100 : 0;
-      onQuizComplete?.(percentage, difficulty);
+      onQuizComplete?.(score, currentQuestions.length, difficulty);
     }
   };
 

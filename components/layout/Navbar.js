@@ -49,7 +49,7 @@ export default function Navbar() {
 
       <div className="container mx-auto px-3 sm:px-4">
         <div className="flex flex-wrap items-center justify-between gap-2 py-2 sm:py-3">
-          <Logo size="nav" />
+          <Logo size="nav" alwaysShowRing />
 
           {/* Main nav - quest menu style */}
           <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">

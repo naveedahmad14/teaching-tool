@@ -1,0 +1,516 @@
+{
+  "bubble": [
+    {
+      "id": 1,
+      "question": "Bubble Sort compares which elements in each step?",
+      "options": [
+        "First and last elements",
+        "Adjacent elements (neighbors)",
+        "Random elements",
+        "The middle element with all others"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bubble Sort works by repeatedly comparing adjacent elements and swapping if they are in the wrong order."
+    },
+    {
+      "id": 2,
+      "question": "After the first complete pass, where is the largest element?",
+      "options": [
+        "At the beginning",
+        "In the middle",
+        "At the end",
+        "It could be anywhere"
+      ],
+      "correctIndex": 2,
+      "explanation": "After one pass, the largest element bubbles up to the final position at the end."
+    },
+    {
+      "id": 3,
+      "question": "What is the space complexity of Bubble Sort?",
+      "options": ["O(n)", "O(n²)", "O(log n)", "O(1)"],
+      "correctIndex": 3
+    },
+    {
+      "id": 4,
+      "question": "In the optimized Bubble Sort, what does the swapped flag detect?",
+      "options": [
+        "When to reverse the array",
+        "Whether a full pass made any swaps",
+        "Which elements to compare next",
+        "The location of the pivot"
+      ],
+      "correctIndex": 1,
+      "explanation": "If a full pass makes zero swaps, the array must already be sorted (best-case becomes O(n))."
+    },
+    {
+      "id": 5,
+      "question": "Is Bubble Sort stable (keeps the relative order of equal values)?",
+      "options": [
+        "No, it always changes equal elements",
+        "Yes, equal elements keep their order",
+        "Only if the array is random",
+        "Stability does not apply"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 6,
+      "question": "In the best case for optimized Bubble Sort (already sorted), the time complexity is:",
+      "options": ["O(n²)", "O(n)", "O(log n)", "O(1)"],
+      "correctIndex": 1
+    }
+  ],
+  "quick": [
+    {
+      "id": 1,
+      "question": "In the Lomuto partition variant used in this lesson, which element is the pivot?",
+      "options": ["The first element", "The last element", "The middle element", "A random element"],
+      "correctIndex": 1
+    },
+    {
+      "id": 2,
+      "question": "Quick Sort partitions the array so that:",
+      "options": [
+        "All smaller elements go right",
+        "All larger elements go left",
+        "Smaller elements end up left of the pivot and larger elements right of it",
+        "Elements stay in their original positions"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 3,
+      "question": "What is Quick Sort’s average time complexity?",
+      "options": ["O(n²)", "O(n log n)", "O(log n)", "O(n)"],
+      "correctIndex": 1
+    },
+    {
+      "id": 4,
+      "question": "Quick Sort’s worst case occurs when:",
+      "options": [
+        "The array has all equal elements",
+        "The pivot repeatedly becomes the smallest or largest element",
+        "The array is nearly sorted",
+        "The array size is 1"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 5,
+      "question": "Is Quick Sort stable?",
+      "options": ["Yes", "No, it is not stable (unstable)", "Only stable with random pivots", "It depends on the data structure"],
+      "correctIndex": 1
+    },
+    {
+      "id": 6,
+      "question": "Quick Sort recursion stops when the sub-array satisfies:",
+      "options": ["low >= high", "low <= high", "low == high + 1", "low < high always"],
+      "correctIndex": 0
+    }
+  ],
+  "merge": [
+    {
+      "id": 1,
+      "question": "Merge Sort uses which high-level strategy?",
+      "options": ["Divide and conquer", "Greedy choice", "Dynamic programming memoization", "Backtracking only"],
+      "correctIndex": 0
+    },
+    {
+      "id": 2,
+      "question": "Merge Sort’s time complexity in all cases is:",
+      "options": ["O(n²)", "O(n log n)", "O(log n)", "O(n)"],
+      "correctIndex": 1
+    },
+    {
+      "id": 3,
+      "question": "Merge Sort is stable because during merge it:",
+      "options": [
+        "Picks from the right subarray first",
+        "Preserves relative order of equal elements",
+        "Always swaps equal elements",
+        "Sorts each half in-place without extra space"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 4,
+      "question": "What is Merge Sort’s space complexity (due to temporary arrays)?",
+      "options": ["O(1)", "O(n)", "O(n log n)", "O(n²)"],
+      "correctIndex": 1
+    },
+    {
+      "id": 5,
+      "question": "During the merge step, the algorithm repeatedly does:",
+      "options": [
+        "Picks the larger element first",
+        "Copies the remaining elements without comparisons",
+        "Compares the heads of left/right and copies the smaller one first",
+        "Sorts each subarray again"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 6,
+      "question": "Merge Sort is called divide and conquer because it:",
+      "options": [
+        "Sorts by repeatedly swapping adjacent values",
+        "Breaks the array into halves, sorts them, then merges them back",
+        "Uses one big loop to find the pivot",
+        "Only works for already sorted arrays"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "linear": [
+    {
+      "id": 1,
+      "question": "Linear Search checks array elements in what order?",
+      "options": ["From the middle outward", "Sequentially from start to end", "Only from the end to the start", "Random order"],
+      "correctIndex": 1
+    },
+    {
+      "id": 2,
+      "question": "If Linear Search finds the target, it returns:",
+      "options": ["-1 always", "The target value only", "The index of the target", "The number of comparisons only"],
+      "correctIndex": 2
+    },
+    {
+      "id": 3,
+      "question": "If the target is not in the array, Linear Search returns:",
+      "options": ["null", "0", "-1", "Infinity"],
+      "correctIndex": 2
+    },
+    {
+      "id": 4,
+      "question": "Linear Search works regardless of whether the array is:",
+      "options": ["Sorted", "Unsorted/unsorted or sorted", "Reverse-sorted only", "Only strictly increasing"],
+      "correctIndex": 1
+    },
+    {
+      "id": 5,
+      "question": "Time complexity of Linear Search in the worst case is:",
+      "options": ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+      "correctIndex": 2
+    },
+    {
+      "id": 6,
+      "question": "Best-case time complexity for Linear Search (target is first element) is:",
+      "options": ["O(n)", "O(1)", "O(log n)", "O(n²)"],
+      "correctIndex": 1
+    }
+  ],
+  "binary": [
+    {
+      "id": 1,
+      "question": "Binary Search requires the array to be:",
+      "options": ["Unsorted", "Random order", "Sorted", "Only even numbers"],
+      "correctIndex": 2
+    },
+    {
+      "id": 2,
+      "question": "Binary Search repeatedly reduces the search space by:",
+      "options": ["Sorting every iteration", "Dividing the remaining range in half", "Scanning linearly", "Using a hash map lookup"],
+      "correctIndex": 1
+    },
+    {
+      "id": 3,
+      "question": "Which boundary update matches Binary Search correctly?",
+      "options": [
+        "If arr[mid] < target, set right = mid - 1",
+        "If arr[mid] < target, set left = mid + 1",
+        "If arr[mid] > target, set left = mid + 1",
+        "Never change left/right"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 4,
+      "question": "Binary Search time complexity is:",
+      "options": ["O(n²)", "O(n)", "O(log n)", "O(1)"],
+      "correctIndex": 2
+    },
+    {
+      "id": 5,
+      "question": "What does Binary Search compare in each loop iteration?",
+      "options": ["The first element only", "The last element only", "The middle element (mid) to target", "The average of the array"],
+      "correctIndex": 2
+    },
+    {
+      "id": 6,
+      "question": "The loop typically continues while:",
+      "options": ["left > right", "left <= right", "left == right always", "left < 0"],
+      "correctIndex": 1
+    }
+  ],
+  "twopointers": [
+    {
+      "id": 1,
+      "question": "In the remove-duplicates two pointers method, the `read` pointer is used to:",
+      "options": [
+        "Write the next unique element",
+        "Scan through values to find candidates",
+        "Hold the array length",
+        "Mark the end of the unique region only"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 2,
+      "question": "Invariants: after some steps, the values in indices 0..`write` are:",
+      "options": [
+        "Not sorted and may contain duplicates",
+        "Unique and already in correct order",
+        "Always empty because write starts at 1",
+        "All duplicates of arr[0]"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 3,
+      "question": "When arr[read] !== arr[write], the algorithm should:",
+      "options": [
+        "Increment read only (don’t change array)",
+        "Increment write and overwrite arr[write] with arr[read]",
+        "Reset write to 0",
+        "Stop immediately"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 4,
+      "question": "Time complexity of this two pointers duplicate removal is:",
+      "options": ["O(n²)", "O(log n)", "O(n)", "O(1)"],
+      "correctIndex": 2
+    },
+    {
+      "id": 5,
+      "question": "The number of unique elements returned is:",
+      "options": ["write", "write + 1", "arr.length", "0 always"],
+      "correctIndex": 1
+    },
+    {
+      "id": 6,
+      "question": "Why can we do it in one pass?",
+      "options": [
+        "Because the array is sorted, duplicates are adjacent",
+        "Because the algorithm uses an extra hash map",
+        "Because the array is always random",
+        "Because it uses nested loops"
+      ],
+      "correctIndex": 0
+    }
+  ],
+  "slidingwindow": [
+    {
+      "id": 1,
+      "question": "For a fixed window size k, the sliding update computes:",
+      "options": [
+        "newSum = oldSum + leaving",
+        "newSum = oldSum - leaving + entering",
+        "newSum = oldSum * entering",
+        "newSum = oldSum - entering"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 2,
+      "question": "Time complexity of the optimized sliding window algorithm is:",
+      "options": ["O(n²)", "O(n log n)", "O(n)", "O(1)"],
+      "correctIndex": 2
+    },
+    {
+      "id": 3,
+      "question": "The first window sum is computed using:",
+      "options": [
+        "Brute force from i = 1 to k-1 only",
+        "Summing the first k elements (indices 0..k-1)",
+        "Summing elements from k..2k-1",
+        "No sum is needed"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 4,
+      "question": "The answer we want is the maximum of:",
+      "options": ["All individual elements", "All window sums of length k", "Only the first window sum", "Only the last window sum"],
+      "correctIndex": 1
+    },
+    {
+      "id": 5,
+      "question": "If k > arr.length, what should happen?",
+      "options": [
+        "Keep sliding anyway (it will wrap)",
+        "Compute a negative-size window",
+        "Return 0 / treat as invalid because no window of size k exists",
+        "Assume k = arr.length automatically"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 6,
+      "question": "Each slide corresponds to:",
+      "options": [
+        "Removing the element that leaves the window and adding the entering element at the right",
+        "Sorting the whole array",
+        "Recomputing the sum from scratch",
+        "Doubling the window size"
+      ],
+      "correctIndex": 0
+    }
+  ],
+  "hashmaps": [
+    {
+      "id": 1,
+      "question": "In Two Sum with a hash map, for each arr[i], we compute:",
+      "options": ["need = arr[i] - target", "need = target - arr[i]", "need = target + arr[i]", "need = arr[i]"],
+      "correctIndex": 1
+    },
+    {
+      "id": 2,
+      "question": "Why do we check the map for `need` before inserting the current element?",
+      "options": [
+        "So the map doesn’t grow",
+        "To avoid using the same element twice",
+        "Because insertion makes lookups impossible",
+        "It doesn’t matter"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 3,
+      "question": "What do we store in the map?",
+      "options": [
+        "Index -> value",
+        "Value -> index",
+        "Only values",
+        "Only indices"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 4,
+      "question": "Expected time complexity for lookups in a hash map is:",
+      "options": ["O(n)", "O(log n)", "O(1) average", "O(n log n)"],
+      "correctIndex": 2
+    },
+    {
+      "id": 5,
+      "question": "If we find the needed complement in the map, the output should be:",
+      "options": [
+        "[i, i]",
+        "[map[need], i] (the earlier index, then current index)",
+        "[i, map[need]] only",
+        "[] always"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 6,
+      "question": "If Two Sum finds no valid pair, it returns:",
+      "options": ["null", "[-1, -1]", "[]", "[0, 0]"],
+      "correctIndex": 2
+    }
+  ],
+  "linkedlists": [
+    {
+      "id": 1,
+      "question": "In iterative reverse of a linked list, which pointer tracks the reversed portion?",
+      "options": ["prev", "next", "curr", "head"],
+      "correctIndex": 0
+    },
+    {
+      "id": 2,
+      "question": "The core reversal step is usually:",
+      "options": [
+        "curr.next = next",
+        "curr.next = prev",
+        "prev.next = curr",
+        "next = prev"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 3,
+      "question": "Fast & slow pointers find the middle by:",
+      "options": [
+        "Moving both pointers at the same speed",
+        "Moving `fast` twice as fast as `slow`",
+        "Moving slow twice as fast as fast",
+        "Only moving slow"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 4,
+      "question": "Time complexity of reversing a linked list is:",
+      "options": ["O(1)", "O(log n)", "O(n)", "O(n²)"],
+      "correctIndex": 2
+    },
+    {
+      "id": 5,
+      "question": "To avoid losing the rest of the list while reversing, you must save:",
+      "options": ["curr", "prev", "next", "head only"],
+      "correctIndex": 2
+    },
+    {
+      "id": 6,
+      "question": "The fast/slow pointer method uses extra space:",
+      "options": ["O(1) extra space", "O(n) extra space", "O(log n) extra space", "No pointers needed"],
+      "correctIndex": 0
+    }
+  ],
+  "stacks": [
+    {
+      "id": 1,
+      "question": "For Next Greater Element (NGE), which structure is used?",
+      "options": ["A queue", "A monotonic stack", "A hash map only", "Breadth-first search"],
+      "correctIndex": 1
+    },
+    {
+      "id": 2,
+      "question": "In the NGE algorithm, when the current value is greater than the value at the stack top, we should:",
+      "options": [
+        "Do nothing",
+        "Pop while stack-top value is smaller, and assign their next greater",
+        "Always push without popping",
+        "Recompute all results from scratch"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 3,
+      "question": "We typically store indices in the stack because we need to:",
+      "options": [
+        "Sort the stack indices",
+        "Assign result[j] = arr[i] for the popped j",
+        "Avoid comparisons",
+        "Make the algorithm stable"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 4,
+      "question": "Time complexity of NGE using a monotonic stack is expected to be:",
+      "options": ["O(n)", "O(n²)", "O(log n)", "O(1)"],
+      "correctIndex": 0
+    },
+    {
+      "id": 5,
+      "question": "If an index remains in the stack after processing all elements, its next greater element is:",
+      "options": ["Undefined", "-1 (or no next greater)", "Always arr[0]", "Always the last element"],
+      "correctIndex": 1
+    },
+    {
+      "id": 6,
+      "question": "Which invariant best describes the stack in NGE?",
+      "options": [
+        "Values in the stack are always strictly increasing",
+        "Values in the stack are maintained in a monotonic order (commonly decreasing) so we can pop resolved indices",
+        "The stack is always empty except at the start",
+        "The stack order is random"
+      ],
+      "correctIndex": 1
+    }
+  ]
+}
+

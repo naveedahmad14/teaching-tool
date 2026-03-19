@@ -37,10 +37,10 @@ export default function BasicStackDemo() {
   return (
     <div className="w-full max-w-sm rounded-xl bg-gray-900 border-2 border-[#625EC6]/50 p-6">
       <h3 className="text-lg font-bold text-[#FFD700] mb-3">Basic Stack: Push, Pop, Peek</h3>
-      <p className="text-gray-400 text-sm mb-3">LIFO: Last In, First Out</p>
+      <p className="text-gray-200 text-sm mb-3">LIFO: Last In, First Out</p>
       <div className="flex flex-col items-center gap-4">
         <VerticalStack items={items} highlightTop={stack.length > 0} emptyLabel="empty" />
-        <p className="text-gray-500 text-xs">↑ top</p>
+        <p className="text-gray-200 text-xs">↑ top</p>
         <div className="flex flex-wrap gap-2 justify-center">
           <input
             type="number"

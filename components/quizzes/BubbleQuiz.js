@@ -36,7 +36,7 @@ export default function BubbleSortQuiz({ lessonId, onQuizComplete }) {
         ],
         correct: 2,
         explanation: "After one complete pass, the largest element 'bubbles up' to the end. This is guaranteed because we compare and swap adjacent elements, pushing the largest element to the right each time.",
-        activeRecall: "Visualize: [5,2,8,1] → After pass 1, 8 must be at the end: [?,?,?,8]"
+        activeRecall: "Visualise: [5,2,8,1] → After pass 1, 8 must be at the end: [?,?,?,8]"
       },
       {
         id: 3,
@@ -187,7 +187,7 @@ export default function BubbleSortQuiz({ lessonId, onQuizComplete }) {
       },
       {
         id: 14,
-        question: "Which statement about Bubble Sort's adaptive behavior is TRUE?",
+        question: "Which statement about Bubble Sort's adaptive behaviour is TRUE?",
         options: [
           "It's always adaptive regardless of implementation",
           "It's only adaptive with the 'swapped' flag optimization",
@@ -242,8 +242,7 @@ export default function BubbleSortQuiz({ lessonId, onQuizComplete }) {
       setShowExplanation(false);
     } else {
       setQuizComplete(true);
-      const percentage = currentQuestions.length ? (score / currentQuestions.length) * 100 : 0;
-      onQuizComplete?.(percentage, difficulty);
+      onQuizComplete?.(score, currentQuestions.length, difficulty);
     }
   };
 

@@ -99,12 +99,12 @@ export default function FrequencyCounterVisualizer() {
   }, [resetControl]);
 
   return (
-    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-6 sm:p-8 mb-8 border-2 border-[#625EC6]/50">
+    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-8 mb-8 border-2 border-[#625EC6]/50">
       <h2 className="text-2xl font-bold mb-4 text-gray-200">Valid Anagram: Frequency Counter</h2>
 
       <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="text-gray-400 text-sm">String 1</label>
+          <label className="text-gray-200 text-sm">String 1</label>
           <input
             type="text"
             value={s1}
@@ -115,7 +115,7 @@ export default function FrequencyCounterVisualizer() {
           />
         </div>
         <div>
-          <label className="text-gray-400 text-sm">String 2</label>
+          <label className="text-gray-200 text-sm">String 2</label>
           <input
             type="text"
             value={s2}
@@ -129,7 +129,7 @@ export default function FrequencyCounterVisualizer() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
-          <p className="text-gray-400 text-sm mb-2">Frequency map 1: &quot;{s1}&quot;</p>
+          <p className="text-gray-200 text-sm mb-2">Frequency map 1: &quot;{s1}&quot;</p>
           <HashMapTable
             entries={freq1}
             highlightedKey={currentChar && phase === "building1" ? currentChar : null}
@@ -140,7 +140,7 @@ export default function FrequencyCounterVisualizer() {
           />
         </div>
         <div>
-          <p className="text-gray-400 text-sm mb-2">Frequency map 2: &quot;{s2}&quot;</p>
+          <p className="text-gray-200 text-sm mb-2">Frequency map 2: &quot;{s2}&quot;</p>
           <HashMapTable
             entries={freq2}
             highlightedKey={currentChar && phase === "building2" ? currentChar : null}

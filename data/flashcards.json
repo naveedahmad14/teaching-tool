@@ -101,7 +101,7 @@
       },
       {
         "question": "What happens if you use Binary Search on an unsorted array?",
-        "tip": "Undefined behavior! May work sometimes, fail others. Never trust Binary Search on unsorted data."
+        "tip": "Undefined behaviour! May work sometimes, fail others. Never trust Binary Search on unsorted data."
       },
       {
         "question": "Why is Binary Search inefficient for linked lists?",
@@ -191,7 +191,7 @@
         "tip": "Smart optimization: If last swap was at position k, everything after k is sorted!"
       },
       {
-        "question": "Which statement about Bubble Sort's adaptive behavior is TRUE?",
+        "question": "Which statement about Bubble Sort's adaptive behaviour is TRUE?",
         "tip": "Adaptive = performs better on partially sorted data. Without optimization, Bubble Sort doesn't detect this!"
       },
       {

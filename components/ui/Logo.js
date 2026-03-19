@@ -16,9 +16,10 @@ const SIZES = {
  * @param {string} size - "nav" | "default" | "hero"
  * @param {boolean} link - wrap in Link to "/" (default true)
  * @param {boolean} inline - if true, render only "AlgoQuest" (no icon, same font/color) for use in headings/sentences
+ * @param {boolean} alwaysShowRing - if true, link always has the gold ring (e.g. navbar home button)
  * @param {string} className - extra classes
  */
-export default function Logo({ size = "default", link = true, inline = false, className = "" }) {
+export default function Logo({ size = "default", link = true, inline = false, alwaysShowRing = false, className = "" }) {
   const sizeClass = SIZES[size] ?? SIZES.default;
   const content = inline ? (
     <span className={`text-[#FFD700] font-bold ${sizeClass} ${className}`} style={LOGO_STYLE}>
@@ -31,10 +32,14 @@ export default function Logo({ size = "default", link = true, inline = false, cl
   );
 
   if (link && !inline) {
+    const linkClass = [
+      "inline-flex items-center py-1.5 px-2 -ml-2 rounded-sm focus:outline-none focus:ring-4 focus:ring-[#FFD700]",
+      alwaysShowRing ? "ring-4 ring-[#FFD700]" : "",
+    ].filter(Boolean).join(" ");
     return (
       <Link
         href="/"
-        className="inline-flex items-center py-1.5 px-2 -ml-2 focus:outline-none focus:ring-4 focus:ring-[#FFD700] rounded-sm"
+        className={linkClass}
         aria-label="AlgoQuest Home"
       >
         {content}
