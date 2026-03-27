@@ -1,11 +1,6 @@
-// ==========================================
-// File: pages/lesson/[id].js (SIMPLIFIED)
-// ==========================================
 import { useRouter } from "next/router";
 import Layout from "@/components/layout/Layout";
 import ProgressTracker from "@/components/progress/ProgressTracker";
-
-// Import consolidated lesson components
 import BubbleSortLesson from "../../components/lessons/BubbleSort";
 import QuickSortLesson from "../../components/lessons/QuickSort";
 import MergeSortLesson from "../../components/lessons/MergeSort";

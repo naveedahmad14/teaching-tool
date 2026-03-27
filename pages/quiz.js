@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
 import Layout from "@/components/layout/Layout";
 import BubbleQuiz from "../components/quizzes/BubbleQuiz";
@@ -13,6 +14,7 @@ import LinkedListsQuiz from "../components/quizzes/LinkedListsQuiz";
 import StacksQuiz from "../components/quizzes/StacksQuiz";
 
 export default function Quiz() {
+  const { update: updateSession } = useSession();
   const [selectedQuiz, setSelectedQuiz] = useState(null);
 
   const quizzes = [
@@ -44,6 +46,12 @@ export default function Quiz() {
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         console.error("Progress update failed:", res.status, data);
+        return;
+      }
+      try {
+        await updateSession();
+      } catch {
+        /* ignore */
       }
     } catch (err) {
       console.error("Progress update error:", err);

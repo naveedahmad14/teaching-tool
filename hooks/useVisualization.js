@@ -1,14 +1,5 @@
 import { useState, useRef, useCallback } from "react";
 
-/**
- * Shared animation control logic for algorithm visualizers.
- * Provides cancellable and pausable sleep, plus play/pause/reset for UI.
- * Algorithm-specific state (array, comparing, swapping, etc.) stays in the visualizer.
- *
- * @param {Object} options
- * @param {boolean} options.initialSpeed - Initial speed in ms (default 500)
- * @returns {Object} { speed, setSpeed, isPlaying, isPaused, sleep, play, pause, reset, cancelRef, pausedRef }
- */
 export function useVisualization(options = {}) {
   const { initialSpeed = 500 } = options;
 
@@ -20,10 +11,6 @@ export function useVisualization(options = {}) {
   const pausedRef = useRef(false);
   const pauseResumeRef = useRef(null);
 
-  /**
-   * Sleep for ms, respecting cancel and pause. Resolves immediately if cancelled.
-   * When paused, waits until resume or cancel.
-   */
   const sleep = useCallback(
     (ms) => {
       if (cancelRef.current) return Promise.resolve();

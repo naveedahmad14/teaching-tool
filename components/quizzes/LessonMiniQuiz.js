@@ -7,7 +7,7 @@ export default function LessonMiniQuiz({ lessonId }) {
 
   const questions = useMemo(() => {
     if (!lessonId) return [];
-    return lessonMiniQuizzes?.[lessonId] ?? [];
+    return lessonMiniQuizzes[lessonId] ?? [];
   }, [lessonId]);
 
   const total = questions.length;
@@ -39,9 +39,7 @@ export default function LessonMiniQuiz({ lessonId }) {
         const p = (data?.progress || []).find((x) => x.lessonId === lessonId);
         setAlreadyCompleted(Boolean(p?.completed));
       })
-      .catch(() => {
-        // If fetch fails, we still allow the quiz submission flow.
-      });
+      .catch(() => {});
 
     return () => {
       cancelled = true;
@@ -49,7 +47,6 @@ export default function LessonMiniQuiz({ lessonId }) {
   }, [isAuthenticated, lessonId]);
 
   useEffect(() => {
-    // Reset local quiz state if the lesson changes.
     setCurrentIndex(0);
     setSelectedIndex(null);
     setShowExplanation(false);
@@ -95,8 +92,6 @@ export default function LessonMiniQuiz({ lessonId }) {
     if (!showExplanation) return;
     if (!total) return;
 
-    // If user never answered the last question (shouldn't happen because finish button is only shown after selection),
-    // we treat it as incorrect.
     const answersFilled = questionResults.filter(Boolean).length >= total;
     if (!answersFilled) {
       setSubmissionError("Please answer all questions.");
@@ -105,28 +100,24 @@ export default function LessonMiniQuiz({ lessonId }) {
 
     setSubmitting(true);
     setSubmissionError(null);
-    try {
-      const isAllCorrect = correctCount === total;
-      const scorePctRounded = isAllCorrect ? 100 : Math.round((correctCount / total) * 100);
 
-      const result = await updateProgress(lessonId, {
-        completed: isAllCorrect,
-        score: scorePctRounded,
-        incrementAttempts: true,
-      });
+    const isAllCorrect = correctCount === total;
+    const scorePctRounded = isAllCorrect ? 100 : Math.round((correctCount / total) * 100);
 
-      if (result?.success) {
-        setQuizComplete(true);
-        setLessonMarkedComplete(isAllCorrect);
-        if (isAllCorrect) setAlreadyCompleted(true);
-      } else {
-        setSubmissionError(result?.error || "Mini quiz update failed.");
-      }
-    } catch (e) {
-      setSubmissionError("Mini quiz update failed. Please try again.");
-    } finally {
-      setSubmitting(false);
+    const result = await updateProgress(lessonId, {
+      completed: isAllCorrect,
+      score: scorePctRounded,
+      incrementAttempts: true,
+    });
+
+    if (result?.success) {
+      setQuizComplete(true);
+      setLessonMarkedComplete(isAllCorrect);
+      if (isAllCorrect) setAlreadyCompleted(true);
+    } else {
+      setSubmissionError(result?.error || "Mini quiz update failed.");
     }
+    setSubmitting(false);
   };
 
   const resetQuiz = () => {

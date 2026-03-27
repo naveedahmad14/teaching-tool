@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 import GameBadge from "@/components/ui/GameBadge";
+import LeaderboardSection from "@/components/progress/LeaderboardSection";
 
 const lessonNames = {
   bubble: "Bubble Sort",
@@ -22,6 +23,7 @@ export default function Progress() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [progressData, setProgressData] = useState(null);
+  const [leaderboardData, setLeaderboardData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,10 +39,19 @@ export default function Progress() {
 
   const fetchProgress = async () => {
     try {
-      const response = await fetch("/api/progress/get");
-      if (response.ok) {
-        const data = await response.json();
+      const [progressResponse, leaderboardResponse] = await Promise.all([
+        fetch("/api/progress/get"),
+        fetch("/api/leaderboard"),
+      ]);
+
+      if (progressResponse.ok) {
+        const data = await progressResponse.json();
         setProgressData(data);
+      }
+
+      if (leaderboardResponse.ok) {
+        const data = await leaderboardResponse.json();
+        setLeaderboardData(data);
       }
     } catch (error) {
       console.error("Error fetching progress:", error);
@@ -74,9 +85,11 @@ export default function Progress() {
   const completedLessons = progress.filter((p) => p.completed).length;
   const totalXP = user.xp || 0;
   const currentLevel = user.level || 1;
-  const xpForNextLevel = currentLevel * 500;
   const xpProgress = totalXP % 500;
   const xpPercentage = (xpProgress / 500) * 100;
+  const topUsers = leaderboardData?.topUsers || [];
+  const currentUserRank = leaderboardData?.currentUserRank;
+  const isCurrentUserInTop10 = leaderboardData?.isCurrentUserInTop10;
 
   return (
     <Layout>
@@ -130,6 +143,12 @@ export default function Progress() {
             </div>
           </div>
         </div>
+
+        <LeaderboardSection
+          topUsers={topUsers}
+          currentUserRank={currentUserRank}
+          isCurrentUserInTop10={isCurrentUserInTop10}
+        />
 
         {/* Lessons Progress */}
         <div className="mb-6">

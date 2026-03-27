@@ -49,7 +49,21 @@ export const authOptions = {
         token.username = user.username;
         token.level = user.level;
         token.xp = user.xp;
+        return token;
       }
+
+      if (token?.id) {
+        const u = await prisma.user.findUnique({
+          where: { id: token.id },
+          select: { username: true, level: true, xp: true },
+        });
+        if (u) {
+          token.username = u.username;
+          token.level = u.level;
+          token.xp = u.xp;
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {
