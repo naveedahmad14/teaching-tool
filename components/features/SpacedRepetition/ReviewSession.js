@@ -54,7 +54,7 @@ export default function ReviewSession() {
 
   if (loading) {
     return (
-      <div className="text-center p-8 text-[#E8E8E8]" role="status" aria-live="polite">
+      <div className="text-center p-4 sm:p-8 text-[#E8E8E8]" role="status" aria-live="polite">
         Loading reviews…
       </div>
     );
@@ -70,8 +70,8 @@ export default function ReviewSession() {
 
   if (dueCards.length === 0) {
     return (
-      <div className="text-center p-8">
-        <h2 className="text-2xl font-bold mb-4 text-[#FFD700]">All caught up</h2>
+      <div className="text-center p-4 sm:p-8">
+        <h2 className="text-xl sm:text-2xl font-bold mb-4 text-[#FFD700]">All caught up</h2>
         <p className="text-[#E8E8E8]">No reviews due today. Come back tomorrow.</p>
       </div>
     );
@@ -81,7 +81,7 @@ export default function ReviewSession() {
   const progress = ((currentIndex + 1) / dueCards.length) * 100;
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
+    <div className="max-w-2xl mx-auto w-full min-w-0 p-4 sm:p-6">
       <div className="mb-6">
         <div className="flex justify-between text-sm text-[#E8E8E8] mb-2">
           <span>Review progress</span>
@@ -109,13 +109,13 @@ export default function ReviewSession() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -100 }}
           transition={{ duration: 0.2 }}
-          className="bg-[#0F3460] rounded-xl shadow-lg p-8 border-2 border-[#625EC6]"
+          className="bg-[#0F3460] rounded-xl shadow-lg p-4 sm:p-8 border-2 border-[#625EC6]"
         >
           <h3 className="text-xl font-bold mb-4 text-[#FFD700]">
             Review: {currentCard.lesson?.name || currentCard.lessonId}
           </h3>
 
-          <p className="text-lg mb-4 text-[#E8E8E8]">
+          <p className="text-base sm:text-lg mb-4 text-[#E8E8E8]">
             Can you explain how {currentCard.lesson?.name || currentCard.lessonId} works?
           </p>
 
@@ -123,7 +123,7 @@ export default function ReviewSession() {
             <button
               type="button"
               onClick={() => setShowAnswer(true)}
-              className="px-6 py-3 bg-[#625EC6] text-white rounded-lg font-semibold hover:bg-[#4A46A8] focus:outline-none focus:ring-4 focus:ring-[#FFD700]"
+              className="w-full sm:w-auto px-6 py-3 bg-[#625EC6] text-white rounded-lg font-semibold hover:bg-[#4A46A8] focus:outline-none focus:ring-4 focus:ring-[#FFD700]"
               aria-label="Show answer"
             >
               Show answer
@@ -157,7 +157,7 @@ export default function ReviewSession() {
               className="mt-6"
             >
               <p className="font-semibold mb-3 text-[#E8E8E8]">How well did you remember?</p>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <button
                   type="button"
                   onClick={() => handleQualityRating(0)}

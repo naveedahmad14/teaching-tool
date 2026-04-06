@@ -40,8 +40,8 @@ export default function FlashcardsPage() {
   if (filteredCards.length === 0) {
     return (
       <Layout>
-        <div className="max-w-2xl mx-auto p-6">
-          <h1 className="text-2xl font-bold mb-6 text-[#FFD700]">
+        <div className="max-w-2xl mx-auto w-full min-w-0 px-0 py-4 sm:p-6">
+          <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-[#FFD700]">
             Active recall
           </h1>
           <p className="text-[#E8E8E8]">
@@ -54,8 +54,8 @@ export default function FlashcardsPage() {
 
   return (
     <Layout>
-      <div className="max-w-2xl mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-2 text-[#FFD700]">
+      <div className="max-w-2xl mx-auto w-full min-w-0 px-0 py-4 sm:p-6">
+        <h1 className="text-xl sm:text-2xl font-bold mb-2 text-[#FFD700]">
           Active recall
         </h1>
         <p className="text-[#C0C0C0] mb-6">
@@ -117,7 +117,7 @@ export default function FlashcardsPage() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -40 }}
             transition={{ duration: 0.2 }}
-            className="bg-[#0F3460] rounded-xl shadow-lg p-8 border-2 border-[#625EC6]"
+            className="bg-[#0F3460] rounded-xl shadow-lg p-4 sm:p-8 border-2 border-[#625EC6]"
           >
             <div className="mb-4">
               <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-[#625EC6]/40 text-[#E8E8E8]">
@@ -127,13 +127,13 @@ export default function FlashcardsPage() {
 
             {!showAnswer ? (
               <>
-                <p className="text-lg text-[#E8E8E8] mb-6 leading-relaxed">
+                <p className="text-base sm:text-lg text-[#E8E8E8] mb-6 leading-relaxed">
                   {currentCard.question}
                 </p>
                 <button
                   type="button"
                   onClick={() => setShowAnswer(true)}
-                  className="px-6 py-3 bg-[#625EC6] text-white rounded-lg font-semibold hover:bg-[#4A46A8] focus:outline-none focus:ring-4 focus:ring-[#FFD700] transition-colors"
+                  className="w-full sm:w-auto px-6 py-3 bg-[#625EC6] text-white rounded-lg font-semibold hover:bg-[#4A46A8] focus:outline-none focus:ring-4 focus:ring-[#FFD700] transition-colors"
                   aria-label="Show answer"
                 >
                   Show answer

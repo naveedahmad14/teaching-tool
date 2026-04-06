@@ -133,15 +133,15 @@ export default function LessonMiniQuiz({ lessonId }) {
   if (!total) return null;
 
   return (
-    <div className="mt-10 game-card p-6 border-2 border-[#625EC6] bg-[#0F3460]">
-      <div className="flex items-start justify-between gap-4 mb-4">
+    <div className="mt-10 game-card p-4 sm:p-6 border-2 border-[#625EC6] bg-[#0F3460]">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 mb-4">
         <div>
           <h3 className="text-xl font-bold text-[#E8E8E8] mb-1">Mini Quiz</h3>
           <p className="text-sm text-[#C0C0C0]">
             Answer {total} questions. Finish with 100% to complete the lesson.
           </p>
         </div>
-        <div className="text-sm text-[#C0C0C0] whitespace-nowrap">
+        <div className="text-sm text-[#C0C0C0] whitespace-nowrap sm:self-auto self-end">
           {currentIndex + 1} / {total}
         </div>
       </div>

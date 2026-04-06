@@ -122,7 +122,7 @@ export default function TwoPointersLesson() {
   return (
     <div className="w-full max-w-7xl mx-auto p-6 space-y-8">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#625EC6] to-indigo-700 rounded-xl p-8 text-white shadow-xl">
+      <div className="bg-gradient-to-r from-[#625EC6] to-indigo-700 rounded-xl p-4 sm:p-8 text-white shadow-xl">
         <h1 className="text-4xl font-bold mb-4">Two Pointers: Remove Duplicates</h1>
         <p className="text-xl opacity-90">
           In-place O(n) with a read and a write pointer
@@ -130,7 +130,7 @@ export default function TwoPointersLesson() {
       </div>
 
       {/* Learning objectives */}
-      <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-indigo-500">
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8 border-l-4 border-indigo-500">
         <h2 className="text-2xl font-bold mb-3 text-gray-800">Learning objectives</h2>
         <p className="text-gray-600 mb-3">By the end of this lesson you will be able to:</p>
         <ul className="space-y-2 text-gray-700 list-disc list-inside">
@@ -142,8 +142,8 @@ export default function TwoPointersLesson() {
       </div>
 
       {/* Try It First */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First!</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Try It First!</h2>
         <p className="text-gray-700 mb-6">
           Before diving into the details, play with this visualiser to see how the read and write pointers move and how duplicates are removed in one pass.
         </p>
@@ -156,8 +156,8 @@ export default function TwoPointersLesson() {
       </div>
 
       {/* The Problem */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">The Problem</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">The Problem</h2>
         <p className="text-lg text-gray-700 mb-4">
           <strong>Remove duplicates from sorted array:</strong> Given a sorted array in non-decreasing order, remove duplicates in-place so that each unique element appears only once. Return the number of unique elements <code className="bg-gray-100 px-1 rounded">k</code>, and the first <code className="bg-gray-100 px-1 rounded">k</code> elements of the array must be the unique values in order.
         </p>
@@ -168,8 +168,8 @@ export default function TwoPointersLesson() {
       </div>
 
       {/* Why Not Nested Loops? */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Why Not Nested Loops?</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Why Not Nested Loops?</h2>
         <p className="text-gray-700 mb-4">
           A brute-force idea: for each index, check if it’s a duplicate of something earlier and “shift” or build a new list. That usually leads to nested loops (e.g. for each element, scan backwards or use another loop to skip duplicates), which gives <strong>O(n²)</strong> time.
         </p>
@@ -182,8 +182,8 @@ export default function TwoPointersLesson() {
       </div>
 
       {/* Key Insight */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Key Insight: Two Pointers</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Key Insight: Two Pointers</h2>
         <p className="text-gray-700 mb-4">
           Because the array is <strong>sorted</strong>, equal values are adjacent. So we can do a single pass with two pointers:
         </p>
@@ -203,8 +203,8 @@ export default function TwoPointersLesson() {
       </div>
 
       {/* Step-by-step walkthrough */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Step-by-Step Walkthrough</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Step-by-Step Walkthrough</h2>
         <p className="text-gray-700 mb-4">
           Start with <code>write = 0</code> (first element is always unique). Then for <code>read = 1, 2, …</code>:
         </p>
@@ -220,20 +220,20 @@ export default function TwoPointersLesson() {
       </div>
 
       {/* Interactive Visualization + Pseudocode */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800">Interactive Visualisation</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Interactive Visualisation</h2>
 
-        <div className="flex flex-wrap gap-4 mb-6">
+        <div className="flex flex-wrap gap-3 sm:gap-4 mb-6">
           <button
             onClick={runAlgorithm}
             disabled={running}
-            className="px-6 py-3 bg-[#625EC6] text-white rounded-lg font-semibold hover:bg-[#7B75D4] disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md"
+            className="w-full sm:w-auto px-6 py-3 bg-[#625EC6] text-white rounded-lg font-semibold hover:bg-[#7B75D4] disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md"
           >
             {running ? "Running…" : "Start"}
           </button>
           <button
             onClick={handleReset}
-            className="px-6 py-3 bg-gray-600 text-white rounded-lg font-semibold hover:bg-gray-700 transition-colors shadow-md"
+            className="w-full sm:w-auto px-6 py-3 bg-gray-600 text-white rounded-lg font-semibold hover:bg-gray-700 transition-colors shadow-md"
           >
             Reset
           </button>
@@ -260,7 +260,7 @@ export default function TwoPointersLesson() {
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-          <div className="bg-gray-50 rounded-lg p-6">
+          <div className="bg-gray-50 rounded-lg p-4 sm:p-6">
             <p className="text-gray-700 font-medium mb-3">Array</p>
             <div className="flex flex-wrap gap-2">
               {array.map((value, index) => (
@@ -283,7 +283,7 @@ export default function TwoPointersLesson() {
             </div>
           </div>
 
-          <div className="bg-gray-900 rounded-lg p-6 overflow-x-auto">
+          <div className="bg-gray-900 rounded-lg p-4 sm:p-6 overflow-x-auto">
             <h3 className="font-semibold text-white mb-4">Pseudocode</h3>
             <div className="font-mono text-sm">
               {pseudocode.map((line) => (
@@ -304,8 +304,8 @@ export default function TwoPointersLesson() {
       </div>
 
       {/* Time & Space Complexity */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Time & Space Complexity</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Time & Space Complexity</h2>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
             <h3 className="font-bold text-blue-900 mb-2">Time: O(n)</h3>
@@ -329,8 +329,8 @@ export default function TwoPointersLesson() {
       </div>
 
       {/* Edge Cases */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Edge Cases</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Edge Cases</h2>
         <ul className="space-y-3 text-gray-700">
           <li className="flex items-start gap-2">
             <span className="text-[#625EC6] font-bold">•</span>
@@ -352,8 +352,8 @@ export default function TwoPointersLesson() {
       </div>
 
       {/* Common Mistakes */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Common Mistakes</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Common Mistakes</h2>
         <div className="space-y-4">
           <div className="border-l-4 border-red-500 pl-4">
             <h3 className="text-lg font-bold text-gray-800 mb-1">Starting write at 1</h3>
@@ -377,8 +377,8 @@ export default function TwoPointersLesson() {
       </div>
 
       {/* Key takeaways */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Key takeaways</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Key takeaways</h2>
         <ul className="space-y-2 text-gray-700">
           <li className="flex items-start gap-2">
             <span className="text-indigo-500 mt-1">•</span>
@@ -396,8 +396,8 @@ export default function TwoPointersLesson() {
       </div>
 
       {/* Practice Exercise */}
-      <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-8 border-2 border-yellow-300">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">💡 Practice Exercise</h2>
+      <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-4 sm:p-8 border-2 border-yellow-300">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">💡 Practice Exercise</h2>
         <p className="text-lg text-gray-700 mb-4">
           Trace the algorithm on <code className="bg-white px-2 py-1 rounded">[1, 1, 1, 2, 2, 3]</code>. What is <code>write</code> after each step when we see a new value?
         </p>

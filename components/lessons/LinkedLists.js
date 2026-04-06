@@ -4,7 +4,7 @@ export default function LinkedListsLesson() {
   return (
     <div className="w-full max-w-7xl mx-auto p-6 space-y-8">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#625EC6] to-indigo-700 rounded-xl p-8 text-white shadow-xl">
+      <div className="bg-gradient-to-r from-[#625EC6] to-indigo-700 rounded-xl p-4 sm:p-8 text-white shadow-xl">
         <h1 className="text-4xl font-bold mb-4">Linked Lists</h1>
         <p className="text-xl opacity-90">
           Reverse in-place with three pointers; find the middle with fast &amp; slow
@@ -12,7 +12,7 @@ export default function LinkedListsLesson() {
       </div>
 
       {/* Learning objectives */}
-      <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-indigo-500">
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8 border-l-4 border-indigo-500">
         <h2 className="text-2xl font-bold mb-3 text-gray-800">Learning objectives</h2>
         <p className="text-gray-600 mb-3">By the end of this lesson you will be able to:</p>
         <ul className="space-y-2 text-gray-700 list-disc list-inside">
@@ -24,8 +24,8 @@ export default function LinkedListsLesson() {
       </div>
 
       {/* Try It First */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First!</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Try It First!</h2>
         <p className="text-gray-700 mb-6">
           Use the visualiser to see the three-pointer reversal (prev, curr, next) and the fast &amp; slow pattern for finding the middle. Switch modes and run step-by-step.
         </p>
@@ -33,8 +33,8 @@ export default function LinkedListsLesson() {
       </div>
 
       {/* Problem: Reverse Linked List */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">The Problem: Reverse Linked List</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">The Problem: Reverse Linked List</h2>
         <p className="text-lg text-gray-700 mb-4">
           Given the head of a singly linked list, reverse the list in-place and return the new head. You must do it in O(1) extra space (aside from a few pointers).
         </p>
@@ -45,8 +45,8 @@ export default function LinkedListsLesson() {
       </div>
 
       {/* Brute force */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Brute Force: Store in Array, Rebuild</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Brute Force: Store in Array, Rebuild</h2>
         <p className="text-gray-700 mb-4">
           Traverse the list and push each value (or node) into an array. Then build a new list by iterating the array backwards and creating new nodes. This is O(n) time but <strong>O(n) extra space</strong> for the array and possibly new nodes.
         </p>
@@ -59,8 +59,8 @@ export default function LinkedListsLesson() {
       </div>
 
       {/* Key insight */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Key Insight: Three-Pointer In-Place Reversal</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Key Insight: Three-Pointer In-Place Reversal</h2>
         <p className="text-gray-700 mb-4">
           Use three references: <strong className="text-red-600">prev</strong> (reversed portion so far), <strong className="text-blue-600">curr</strong> (current node), <strong className="text-green-600">next</strong> (saved so we don’t lose the rest of the list). At each step: save <code>next = curr.next</code>, then <code>curr.next = prev</code>, then advance <code>prev = curr</code> and <code>curr = next</code>.
         </p>
@@ -73,8 +73,8 @@ export default function LinkedListsLesson() {
       </div>
 
       {/* Step-by-step */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Step-by-Step Pointer Manipulation</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Step-by-Step Pointer Manipulation</h2>
         <p className="text-gray-700 mb-4">
           Initially: <code>prev = null</code>, <code>curr = head</code>. While <code>curr</code> is not null: set <code>next = curr.next</code>, set <code>curr.next = prev</code>, set <code>prev = curr</code>, set <code>curr = next</code>. Return <code>prev</code> (new head).
         </p>
@@ -101,16 +101,16 @@ export default function LinkedListsLesson() {
       </div>
 
       {/* Iterative vs recursive */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Iterative vs Recursive</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Iterative vs Recursive</h2>
         <p className="text-gray-700 mb-4">
           <strong>Iterative:</strong> The three-pointer loop above. O(n) time, O(1) space. <strong>Recursive:</strong> Assume the rest of the list is already reversed; then point the next node back to current and set current’s next to null. O(n) time but O(n) stack space for the recursion. For in-place preference, iterative is standard.
         </p>
       </div>
 
       {/* Edge cases */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Edge Cases</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Edge Cases</h2>
         <ul className="space-y-2 text-gray-700">
           <li><strong>Empty list:</strong> head is null → return null.</li>
           <li><strong>Single node:</strong> one iteration; curr.next = null, prev = head, curr = null → return prev (same head).</li>
@@ -119,8 +119,8 @@ export default function LinkedListsLesson() {
       </div>
 
       {/* Common mistakes */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Common Mistakes</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Common Mistakes</h2>
         <div className="space-y-4">
           <div className="border-l-4 border-red-500 pl-4">
             <h3 className="text-lg font-bold text-gray-800 mb-1">Losing the rest of the list</h3>
@@ -138,8 +138,8 @@ export default function LinkedListsLesson() {
       </div>
 
       {/* Fast & Slow: Middle */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Second Pattern: Fast &amp; Slow Pointers (Middle of List)</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Second Pattern: Fast &amp; Slow Pointers (Middle of List)</h2>
         <p className="text-gray-700 mb-4">
           <strong>Problem:</strong> Given the head of a linked list, return the middle node. If two middles (even length), return the second one.
         </p>
@@ -155,8 +155,8 @@ export default function LinkedListsLesson() {
       </div>
 
       {/* Key takeaways */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Key takeaways</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Key takeaways</h2>
         <ul className="space-y-2 text-gray-700">
           <li className="flex items-start gap-2">
             <span className="text-indigo-500 mt-1">•</span>
@@ -174,8 +174,8 @@ export default function LinkedListsLesson() {
       </div>
 
       {/* Practice Exercise */}
-      <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-8 border-2 border-yellow-300">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">💡 Practice Exercise</h2>
+      <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-4 sm:p-8 border-2 border-yellow-300">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">💡 Practice Exercise</h2>
         <p className="text-lg text-gray-700 mb-4">
           <strong>Variations:</strong> Try these variations of the reverse pattern.
         </p>

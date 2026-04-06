@@ -99,7 +99,7 @@ export default function FrequencyCounterVisualizer() {
   }, [resetControl]);
 
   return (
-    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-8 mb-8 border-2 border-[#625EC6]/50">
+    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-4 sm:p-8 mb-6 sm:mb-8 border-2 border-[#625EC6]/50">
       <h2 className="text-2xl font-bold mb-4 text-gray-200">Valid Anagram: Frequency Counter</h2>
 
       <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-4">

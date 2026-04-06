@@ -43,7 +43,7 @@ export default function Login() {
     <Layout>
       <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-8 px-4">
         <div className="w-full max-w-md">
-          <div className="game-card p-8">
+          <div className="game-card p-4 sm:p-8">
             <div className="text-center mb-6">
               <h1 className="text-2xl font-bold mb-3 text-[#FFD700]">
                 Sign in

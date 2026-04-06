@@ -64,9 +64,11 @@ export default function Quiz() {
       <div className="min-h-screen bg-[#1A1A2E]">
         <button
           onClick={() => setSelectedQuiz(null)}
-          className="fixed top-4 left-4 z-50 px-6 py-3 bg-[#0F3460] text-[#E8E8E8] border-2 border-[#625EC6] rounded-lg font-semibold hover:bg-[#16213E] hover:text-[#FFD700] transition-all shadow-lg flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
+          className="fixed z-50 px-4 py-2 sm:px-6 sm:py-3 bg-[#0F3460] text-[#E8E8E8] border-2 border-[#625EC6] rounded-lg text-sm sm:text-base font-semibold hover:bg-[#16213E] hover:text-[#FFD700] transition-all shadow-lg flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-[#FFD700] top-[max(1rem,env(safe-area-inset-top))] left-[max(1rem,env(safe-area-inset-left))]"
         >
-          ← Back to Quizzes
+          <span aria-hidden>←</span>
+          <span className="sm:hidden">Back</span>
+          <span className="hidden sm:inline">Back to Quizzes</span>
         </button>
         <QuizComponent
           lessonId={selectedQuiz.id}
@@ -80,8 +82,8 @@ export default function Quiz() {
 
   return (
     <Layout>
-      <div className="min-h-screen py-12">
-        <div className="max-w-7xl mx-auto px-4">
+      <div className="min-h-screen py-8 sm:py-12">
+        <div className="max-w-7xl mx-auto w-full min-w-0 px-3 sm:px-4">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}

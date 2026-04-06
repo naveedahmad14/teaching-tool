@@ -5,7 +5,7 @@ export default function StacksLesson() {
   return (
     <div className="w-full max-w-7xl mx-auto p-6 space-y-8">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#625EC6] to-indigo-700 rounded-xl p-8 text-white shadow-xl">
+      <div className="bg-gradient-to-r from-[#625EC6] to-indigo-700 rounded-xl p-4 sm:p-8 text-white shadow-xl">
         <h1 className="text-4xl font-bold mb-4">Stacks &amp; Monotonic Stack</h1>
         <p className="text-xl opacity-90">
           LIFO, then Next Greater Element with a decreasing stack
@@ -13,7 +13,7 @@ export default function StacksLesson() {
       </div>
 
       {/* Learning objectives */}
-      <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-indigo-500">
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8 border-l-4 border-indigo-500">
         <h2 className="text-2xl font-bold mb-3 text-gray-800">Learning objectives</h2>
         <p className="text-gray-600 mb-3">By the end of this lesson you will be able to:</p>
         <ul className="space-y-2 text-gray-700 list-disc list-inside">
@@ -25,14 +25,14 @@ export default function StacksLesson() {
       </div>
 
       {/* Basic Stack Operations */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Basic Stack Operations</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Basic Stack Operations</h2>
         <p className="text-gray-700 mb-4">
           A <strong>stack</strong> is a LIFO (Last In, First Out) structure. You can only add (<strong>push</strong>) and remove (<strong>pop</strong>) from the <strong>top</strong>. <strong>Peek</strong> returns the top without removing it.
         </p>
         <div className="flex flex-wrap gap-6 items-start">
           <BasicStackDemo />
-          <div className="flex-1 min-w-[200px]">
+          <div className="flex-1 min-w-0 sm:min-w-[200px]">
             <h3 className="font-bold text-gray-800 mb-2">LIFO principle</h3>
             <p className="text-gray-700 text-sm mb-4">
               The last element pushed is the first one popped. Think of a stack of plates: you add and remove from the top only.
@@ -46,8 +46,8 @@ export default function StacksLesson() {
       </div>
 
       {/* Try It First: Next Greater */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First: Next Greater Element</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Try It First: Next Greater Element</h2>
         <p className="text-gray-700 mb-6">
           Use the visualiser to see how a <strong>monotonic decreasing</strong> stack is used: we pop when the current element is greater than the stack top and assign the result, then push the current index.
         </p>
@@ -55,8 +55,8 @@ export default function StacksLesson() {
       </div>
 
       {/* Problem */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">The Problem: Next Greater Element</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">The Problem: Next Greater Element</h2>
         <p className="text-lg text-gray-700 mb-4">
           Given an array, for each element find the <strong>next greater element</strong> (NGE): the first element to the right that is strictly larger. If none exists, use -1.
         </p>
@@ -67,16 +67,16 @@ export default function StacksLesson() {
       </div>
 
       {/* Brute force */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Brute Force: O(n²)</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Brute Force: O(n²)</h2>
         <p className="text-gray-700 mb-4">
           For each index <code>i</code>, scan right until you find the first <code>arr[j] &gt; arr[i]</code>. Two nested loops → O(n²).
         </p>
       </div>
 
       {/* Key insight */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Key Insight: Monotonic Decreasing Stack</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Key Insight: Monotonic Decreasing Stack</h2>
         <p className="text-gray-700 mb-4">
           We maintain a stack of <strong>indices</strong> such that the corresponding values are in <strong>decreasing order</strong> (bottom to top). When we process <code>arr[i]</code>, any stack top whose value is smaller than <code>arr[i]</code> has <code>arr[i]</code> as its next greater element — we pop them, assign the result, then push <code>i</code>.
         </p>
@@ -89,16 +89,16 @@ export default function StacksLesson() {
       </div>
 
       {/* Invariant */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Invariant Maintained</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Invariant Maintained</h2>
         <p className="text-gray-700 mb-4">
           At every step, the stack (from bottom to top) holds indices whose values are in <strong>strictly decreasing</strong> order. So when we compare the current element with the stack top, we either pop (current is greater) or push (current is smaller or equal).
         </p>
       </div>
 
       {/* Step-by-step */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Step-by-Step Stack Operations</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Step-by-Step Stack Operations</h2>
         <ol className="list-decimal list-inside text-gray-700 space-y-2">
           <li>For each index <code>i</code> from left to right:</li>
           <li>While stack not empty and <code>arr[stack.top] &lt; arr[i]</code>: pop the top index <code>j</code>, set <code>result[j] = arr[i]</code>.</li>
@@ -108,8 +108,8 @@ export default function StacksLesson() {
       </div>
 
       {/* Applications */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Common Applications</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Common Applications</h2>
         <ul className="space-y-2 text-gray-700">
           <li><strong>Daily Temperatures:</strong> For each day, find how many days until a warmer day — same pattern, store (value, index) and result is <code>index - popped_index</code>.</li>
           <li><strong>Stock Span:</strong> For each day, find the span (number of consecutive days with price ≤ today). Use a monotonic decreasing stack of (price, span).</li>
@@ -118,8 +118,8 @@ export default function StacksLesson() {
       </div>
 
       {/* Time complexity */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Time Complexity Comparison</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Time Complexity Comparison</h2>
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-sm">
             <thead>
@@ -146,8 +146,8 @@ export default function StacksLesson() {
       </div>
 
       {/* Key takeaways */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Key takeaways</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Key takeaways</h2>
         <ul className="space-y-2 text-gray-700">
           <li className="flex items-start gap-2">
             <span className="text-indigo-500 mt-1">•</span>
@@ -165,8 +165,8 @@ export default function StacksLesson() {
       </div>
 
       {/* Practice Exercise */}
-      <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-8 border-2 border-yellow-300">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">💡 Practice Exercise</h2>
+      <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-4 sm:p-8 border-2 border-yellow-300">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">💡 Practice Exercise</h2>
         <p className="text-lg text-gray-700 mb-4">
           Trace Next Greater Element on <code className="bg-white px-2 py-1 rounded">[4, 2, 3, 1, 5]</code>. What is the result array?
         </p>

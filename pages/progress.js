@@ -93,7 +93,7 @@ export default function Progress() {
 
   return (
     <Layout>
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto w-full min-w-0 px-0 sm:px-4">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold mb-2 text-[#FFD700]">
             Progress
@@ -104,7 +104,7 @@ export default function Progress() {
         </div>
 
         {/* User Stats Card */}
-        <div className="game-card game-border-gold p-6 mb-8">
+        <div className="game-card game-border-gold p-4 sm:p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <div className="text-center">
               <p className="text-sm text-[#C0C0C0] mb-2">Level</p>
@@ -166,7 +166,7 @@ export default function Progress() {
               return (
                 <div
                   key={lessonId}
-                  className={`game-card p-6 ${isCompleted ? 'game-border-gold' : ''}`}
+                  className={`game-card p-4 sm:p-6 ${isCompleted ? 'game-border-gold' : ''}`}
                   role="article"
                   aria-label={`${lessonName} lesson progress`}
                 >

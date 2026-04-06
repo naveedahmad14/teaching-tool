@@ -4,7 +4,7 @@ export default function LeaderboardSection({
   isCurrentUserInTop10 = false,
 }) {
   return (
-    <div className="game-card p-6 mb-8">
+    <div className="game-card p-4 sm:p-6 mb-8">
       <h2 className="text-lg font-bold mb-4 text-[#FFD700] text-center">
         Leaderboard
       </h2>

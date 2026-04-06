@@ -51,7 +51,7 @@ const pathSteps = [
 export default function About() {
   return (
     <Layout>
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto w-full min-w-0">
         <header className="mb-12 text-center sm:text-left">
           <h1 className="text-2xl sm:text-3xl font-bold mb-3 text-[#E8E8E8] flex flex-wrap items-center justify-center sm:justify-start gap-2">
             About <Logo inline size="default" link={false} />
@@ -66,7 +66,7 @@ export default function About() {
           <h2 id="about-mission" className="text-xl font-semibold mb-4 text-[#FFD700]">
             Why it exists
           </h2>
-          <div className="game-card p-6 border border-[#625EC6]/50 bg-[#0F3460]/60">
+          <div className="game-card p-4 sm:p-6 border border-[#625EC6]/50 bg-[#0F3460]/60">
             <p className="text-[#C0C0C0] text-base leading-relaxed">
               Textbooks and static diagrams help, but algorithms are really about{" "}
               <strong className="text-[#E8E8E8]">motion and invariants</strong>—what moves when, and what stays true.
@@ -88,7 +88,7 @@ export default function About() {
           <ol className="space-y-4">
             {pathSteps.map((step, i) => (
               <li key={step.title}>
-                <div className="game-card p-5 border border-[#625EC6]/40 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                <div className="game-card p-4 sm:p-5 border border-[#625EC6]/40 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                   <div className="flex gap-4 min-w-0">
                     <span
                       className="flex-shrink-0 w-9 h-9 rounded-lg bg-[#16213E] border border-[#625EC6] text-[#FFD700] font-bold flex items-center justify-center text-sm"
@@ -118,28 +118,28 @@ export default function About() {
             What you will find here
           </h2>
           <div className="grid sm:grid-cols-2 gap-4">
-            <div className="game-card p-5 border border-[#625EC6]/40">
+            <div className="game-card p-4 sm:p-5 border border-[#625EC6]/40">
               <h3 className="font-bold text-[#E8E8E8] mb-2">Progress and XP</h3>
               <p className="text-sm text-[#C0C0C0] leading-relaxed">
                 Signed-in learners get a progress dashboard, per-lesson stats, and levels driven by XP—so you can see
                 momentum, not just page views.
               </p>
             </div>
-            <div className="game-card p-5 border border-[#625EC6]/40">
+            <div className="game-card p-4 sm:p-5 border border-[#625EC6]/40">
               <h3 className="font-bold text-[#E8E8E8] mb-2">Two kinds of quizzes</h3>
               <p className="text-sm text-[#C0C0C0] leading-relaxed">
                 Mini quizzes tie to lesson completion. Standalone quizzes go deeper and award XP without mixing in
                 lesson-completion rules.
               </p>
             </div>
-            <div className="game-card p-5 border border-[#625EC6]/40">
+            <div className="game-card p-4 sm:p-5 border border-[#625EC6]/40">
               <h3 className="font-bold text-[#E8E8E8] mb-2">Accessible navigation</h3>
               <p className="text-sm text-[#C0C0C0] leading-relaxed">
                 Skip link, labelled controls, and focus styles are part of the layout so keyboard and screen-reader
                 users can move through the app predictably.
               </p>
             </div>
-            <div className="game-card p-5 border border-[#625EC6]/40">
+            <div className="game-card p-4 sm:p-5 border border-[#625EC6]/40">
               <h3 className="font-bold text-[#E8E8E8] mb-2">Your own pace</h3>
               <p className="text-sm text-[#C0C0C0] leading-relaxed">
                 Replay visualisers, retake quizzes, and let spaced review bring topics back when it is time—not on a

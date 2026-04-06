@@ -7,12 +7,16 @@ export default function Layout({ children }) {
   return (
     <div className="min-h-screen flex flex-col relative">
       <AnimatedBackground />
-      <div className="relative z-10 flex flex-col min-h-screen">
+      <div className="relative z-10 flex flex-col min-h-screen w-full min-w-0">
         <Link href="#main-content" className="skip-link">
           Skip to main content
         </Link>
         <Navbar />
-        <main id="main-content" className="flex-grow container mx-auto p-6" role="main">
+        <main
+          id="main-content"
+          className="flex-grow container mx-auto w-full min-w-0 px-3 sm:px-6 py-4 sm:py-6"
+          role="main"
+        >
           {children}
         </main>
         <Footer />

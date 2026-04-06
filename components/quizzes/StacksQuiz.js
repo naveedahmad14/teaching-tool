@@ -63,7 +63,7 @@ export default function StacksQuiz({ lessonId, onQuizComplete }) {
   if (quizComplete) {
     const percentage = (score / currentQuestions.length) * 100;
     return (
-      <div className="max-w-4xl mx-auto p-8 pt-20">
+      <div className="max-w-4xl mx-auto w-full min-w-0 px-4 sm:px-8 py-6 sm:py-8 pt-16 sm:pt-20">
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="bg-[#0F3460] border-2 border-[#625EC6] rounded-xl shadow-lg p-8">
           <h2 className="text-2xl font-bold text-center mb-6 text-[#FFD700]">Quiz Complete!</h2>
           <div className="text-center mb-8">
@@ -91,8 +91,8 @@ export default function StacksQuiz({ lessonId, onQuizComplete }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#1A1A2E] p-8 pt-20">
-      <div className="max-w-5xl mx-auto bg-[#0F3460] border-2 border-[#625EC6] rounded-2xl shadow-2xl p-8">
+    <div className="min-h-screen bg-[#1A1A2E] px-4 sm:px-8 py-6 sm:py-8 pt-16 sm:pt-20">
+      <div className="max-w-5xl mx-auto w-full min-w-0 bg-[#0F3460] border-2 border-[#625EC6] rounded-2xl shadow-2xl p-4 sm:p-8">
         <div className="mb-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold text-[#FFD700]">Stacks Quiz</h2>

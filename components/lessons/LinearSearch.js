@@ -106,13 +106,13 @@ export default function LinearSearchLesson() {
   return (
     <div className="w-full max-w-7xl mx-auto p-6 space-y-8">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-teal-600 rounded-xl p-8 text-white shadow-xl">
+      <div className="bg-gradient-to-r from-blue-600 to-teal-600 rounded-xl p-4 sm:p-8 text-white shadow-xl">
         <h1 className="text-4xl font-bold mb-4">Linear Search: The Basics</h1>
         <p className="text-xl opacity-90">Master the simplest search algorithm</p>
       </div>
 
       {/* Learning objectives */}
-      <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-blue-500">
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8 border-l-4 border-blue-500">
         <h2 className="text-2xl font-bold mb-3 text-gray-800">Learning objectives</h2>
         <p className="text-gray-600 mb-3">By the end of this lesson you will be able to:</p>
         <ul className="space-y-2 text-gray-700 list-disc list-inside">
@@ -124,8 +124,8 @@ export default function LinearSearchLesson() {
       </div>
 
         {/* Quick Visualizer Section */}
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First!</h2>
+        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+          <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Try It First!</h2>
           <p className="text-gray-700 mb-6">
             Before diving into the details, play with this visualiser to get an intuitive feel for how merge sort works:
           </p>
@@ -138,8 +138,8 @@ export default function LinearSearchLesson() {
         </div>
 
       {/* Introduction */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">What is Linear Search?</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">What is Linear Search?</h2>
         <p className="text-lg text-gray-700 mb-4">
           Linear Search (also called Sequential Search) is the simplest searching algorithm. It checks <strong>each element 
           in the array sequentially</strong> from start to finish until it finds the target value or reaches the end of the array.
@@ -164,8 +164,8 @@ export default function LinearSearchLesson() {
       </div>
 
       {/* How It Works */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800">How Does It Work?</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">How Does It Work?</h2>
 
         <div className="space-y-6">
           <div className="flex items-start gap-4">
@@ -211,8 +211,8 @@ export default function LinearSearchLesson() {
       </div>
 
       {/* Interactive Visualization */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800">Interactive Visualisation</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Interactive Visualisation</h2>
 
         {/* Search Input */}
         <div className="bg-gray-50 rounded-lg p-4 mb-6">
@@ -229,13 +229,13 @@ export default function LinearSearchLesson() {
             <button
               onClick={linearSearch}
               disabled={searching || !target}
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md"
+              className="w-full sm:w-auto px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md"
             >
               {searching ? 'Searching...' : 'Start Search'}
             </button>
             <button
               onClick={handleReset}
-              className="px-6 py-2 bg-gray-600 text-white rounded-lg font-semibold hover:bg-gray-700 transition-colors shadow-md"
+              className="w-full sm:w-auto px-6 py-2 bg-gray-600 text-white rounded-lg font-semibold hover:bg-gray-700 transition-colors shadow-md"
             >
               Reset
             </button>
@@ -270,12 +270,12 @@ export default function LinearSearchLesson() {
         </div>
 
         {/* Array Visualization */}
-        <div className="bg-gray-50 rounded-lg p-6 mb-6">
+        <div className="bg-gray-50 rounded-lg p-4 sm:p-6 mb-6">
           <div className="flex justify-center gap-2 flex-wrap">
             {array.map((value, index) => (
               <motion.div
                 key={`linear-${index}`}
-                className={`w-16 h-20 flex flex-col items-center justify-center rounded-lg font-bold text-lg shadow-md text-white ${getBarColor(index)}`}
+                className={`w-14 h-16 sm:w-16 sm:h-20 flex flex-col items-center justify-center rounded-lg font-bold text-base sm:text-lg shadow-md text-white ${getBarColor(index)}`}
                 animate={{
                   scale: currentIndex === index ? 1.2 : foundIndex === index ? 1.15 : 1,
                 }}
@@ -289,7 +289,7 @@ export default function LinearSearchLesson() {
         </div>
 
         {/* Pseudocode */}
-        <div className="bg-gray-900 rounded-lg p-6 overflow-x-auto">
+        <div className="bg-gray-900 rounded-lg p-4 sm:p-6 overflow-x-auto">
           <h3 className="font-semibold text-white mb-4">Pseudocode:</h3>
           <div className="font-mono text-sm">
             {pseudocode.map((line) => (
@@ -314,8 +314,8 @@ export default function LinearSearchLesson() {
       </div>
 
       {/* Key Concepts */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800">Key Concepts</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Key Concepts</h2>
 
         <div className="space-y-4">
           <div className="border-l-4 border-blue-500 pl-4">
@@ -354,8 +354,8 @@ export default function LinearSearchLesson() {
       </div>
 
       {/* When to Use */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800">When Should You Use Linear Search?</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">When Should You Use Linear Search?</h2>
 
         <div className="grid md:grid-cols-2 gap-6">
           <div>
@@ -413,8 +413,8 @@ export default function LinearSearchLesson() {
       </div>
 
       {/* Comparison */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800">Linear Search vs Binary Search</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Linear Search vs Binary Search</h2>
         
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-gray-900">
@@ -452,8 +452,8 @@ export default function LinearSearchLesson() {
       </div>
 
       {/* Key takeaways */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Key takeaways</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Key takeaways</h2>
         <ul className="space-y-2 text-gray-700">
           <li className="flex items-start gap-2">
             <span className="text-blue-500 mt-1">•</span>
@@ -475,8 +475,8 @@ export default function LinearSearchLesson() {
       </div>
 
       {/* Practice Exercise */}
-      <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-8 border-2 border-yellow-300">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">💡 Practice Exercise</h2>
+      <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-4 sm:p-8 border-2 border-yellow-300">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">💡 Practice Exercise</h2>
         <p className="text-lg text-gray-700 mb-4">
           Search for the value 42 in: <code className="bg-white px-2 py-1 rounded">[15, 8, 42, 23, 67, 12]</code>
         </p>

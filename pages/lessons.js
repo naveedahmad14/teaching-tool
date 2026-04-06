@@ -7,9 +7,9 @@ export default function Lessons() {
 
   return (
     <Layout>
-      <div className="max-w-2xl mx-auto">
-        <header className="text-center mb-10">
-          <h1 className="text-2xl font-bold mb-2 text-[#FFD700]">Quest Map</h1>
+      <div className="max-w-2xl mx-auto w-full min-w-0">
+        <header className="text-center mb-8 sm:mb-10">
+          <h1 className="text-xl sm:text-2xl font-bold mb-2 text-[#FFD700]">Quest Map</h1>
           <p className="text-base text-[#C0C0C0]">
             Follow the path. Each quest leads to the next. Recommended order below.
           </p>
@@ -44,7 +44,7 @@ export default function Lessons() {
                 <div className="flex-1 min-w-0">
                   <Link
                     href={quest.link}
-                    className="block game-card p-6 cursor-pointer group focus:outline-none focus:ring-4 focus:ring-[#FFD700] focus:ring-offset-2 focus:ring-offset-[#1A1A2E]"
+                    className="block game-card p-4 sm:p-6 cursor-pointer group focus:outline-none focus:ring-4 focus:ring-[#FFD700] focus:ring-offset-2 focus:ring-offset-[#1A1A2E]"
                     aria-label={`${quest.title} quest${quest.step === 1 ? " - Start here" : ""}`}
                   >
                     <div className="flex items-start justify-between gap-3 mb-2">

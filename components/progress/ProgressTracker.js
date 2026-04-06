@@ -65,7 +65,7 @@ export default function ProgressTracker({ lessonId }) {
 
   return (
     <>
-      <div className="flex flex-wrap items-center justify-between gap-2 py-2 px-4 bg-[#16213E]/80 border-b border-[#625EC6]/40 text-sm">
+      <div className="flex flex-wrap items-center justify-between gap-2 py-2 px-3 sm:px-4 bg-[#16213E]/80 border-b border-[#625EC6]/40 text-sm">
         <div className="flex items-center gap-4">
           <span className="text-[#C0C0C0]">
             Time on lesson: <strong className="text-[#E8E8E8]">{timeStr}</strong>
@@ -88,7 +88,7 @@ export default function ProgressTracker({ lessonId }) {
 
       {showSavedToast && (
         <div
-          className="fixed bottom-4 right-4 z-50 px-4 py-2 rounded-lg bg-[#4CAF50] text-white font-medium shadow-lg"
+          className="fixed z-50 px-4 py-2 rounded-lg bg-[#4CAF50] text-white font-medium shadow-lg bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))]"
           role="status"
           aria-live="polite"
         >

@@ -122,13 +122,13 @@ export default function BubbleSortLesson() {
   return (
     <div className="w-full max-w-7xl mx-auto p-6 space-y-8">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl p-8 text-white shadow-xl">
+      <div className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl p-4 sm:p-8 text-white shadow-xl">
         <h1 className="text-4xl font-bold mb-4">Bubble Sort: The Foundation</h1>
         <p className="text-xl opacity-90">Master the simplest sorting algorithm</p>
       </div>
 
       {/* Learning objectives */}
-      <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-blue-500">
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8 border-l-4 border-blue-500">
         <h2 className="text-2xl font-bold mb-3 text-gray-800">Learning objectives</h2>
         <p className="text-gray-600 mb-3">By the end of this lesson you will be able to:</p>
         <ul className="space-y-2 text-gray-700 list-disc list-inside">
@@ -140,8 +140,8 @@ export default function BubbleSortLesson() {
       </div>
 
       {/* Quick Visualizer Section */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">Try It First!</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Try It First!</h2>
         <p className="text-gray-700 mb-6">
           Before diving into the details, play with this visualiser to get an intuitive feel for how bubble sort works:
         </p>
@@ -154,8 +154,8 @@ export default function BubbleSortLesson() {
       </div>
 
       {/* Introduction */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800">What is Bubble Sort?</h2>
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">What is Bubble Sort?</h2>
           <p className="text-lg text-gray-700 mb-4">
             Bubble Sort is the simplest sorting algorithm that works by <strong>repeatedly comparing adjacent elements</strong> and 
             swapping them if they're in the wrong order. The name comes from the way larger elements "bubble up" to the end 
@@ -181,8 +181,8 @@ export default function BubbleSortLesson() {
         </div>
 
         {/* How It Works */}
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          <h2 className="text-3xl font-bold mb-6 text-gray-800">How Does It Work?</h2>
+        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+          <h2 className="text-xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">How Does It Work?</h2>
 
           <div className="space-y-6">
             <div className="flex items-start gap-4">
@@ -228,21 +228,21 @@ export default function BubbleSortLesson() {
         </div>
 
         {/* Interactive Visualization */}
-        <div className="bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800">Interactive Visualisation</h2>
+        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <h2 className="text-xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Interactive Visualisation</h2>
 
           {/* Controls */}
-          <div className="flex flex-wrap gap-4 mb-6">
+          <div className="flex flex-wrap gap-3 sm:gap-4 mb-6">
             <button
               onClick={bubbleSort}
               disabled={sorting}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md"
+              className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md"
             >
               {sorting ? 'Sorting...' : 'Start Visualisation'}
             </button>
             <button
               onClick={handleReset}
-              className="px-6 py-3 bg-gray-600 text-white rounded-lg font-semibold hover:bg-gray-700 transition-colors shadow-md"
+              className="w-full sm:w-auto px-6 py-3 bg-gray-600 text-white rounded-lg font-semibold hover:bg-gray-700 transition-colors shadow-md"
             >
               Reset
             </button>
@@ -273,12 +273,12 @@ export default function BubbleSortLesson() {
           </div>
 
           {/* Array Visualization */}
-          <div className="bg-gray-50 rounded-lg p-6 mb-6">
+          <div className="bg-gray-50 rounded-lg p-4 sm:p-6 mb-6">
             <div className="flex justify-center gap-2 flex-wrap">
               {array.map((value, index) => (
                 <motion.div
                   key={`bubble-${index}`}
-                  className={`w-16 h-16 flex items-center justify-center rounded-lg font-bold text-lg shadow-md text-white ${getBarColor(index)}`}
+                  className={`w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-lg font-bold text-sm sm:text-lg shadow-md text-white ${getBarColor(index)}`}
                   animate={{
                     scale: swapping.includes(index) ? 1.2 : comparing.includes(index) ? 1.1 : 1
                   }}
@@ -291,7 +291,7 @@ export default function BubbleSortLesson() {
           </div>
 
           {/* Pseudocode */}
-          <div className="bg-gray-900 rounded-lg p-6 overflow-x-auto">
+          <div className="bg-gray-900 rounded-lg p-4 sm:p-6 overflow-x-auto">
             <h3 className="font-semibold text-white mb-4">Pseudocode:</h3>
             <div className="font-mono text-sm">
               {pseudocode.map((line) => (
@@ -316,8 +316,8 @@ export default function BubbleSortLesson() {
         </div>
 
         {/* Key Concepts */}
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          <h2 className="text-3xl font-bold mb-6 text-gray-800">Key Concepts</h2>
+        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+          <h2 className="text-xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Key Concepts</h2>
 
           <div className="space-y-4">
             <div className="border-l-4 border-blue-500 pl-4">
@@ -355,8 +355,8 @@ export default function BubbleSortLesson() {
         </div>
 
         {/* When to Use */}
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          <h2 className="text-3xl font-bold mb-6 text-gray-800">When Should You Use Bubble Sort?</h2>
+        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+          <h2 className="text-xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">When Should You Use Bubble Sort?</h2>
 
           <div className="grid md:grid-cols-2 gap-6">
             <div>
@@ -410,8 +410,8 @@ export default function BubbleSortLesson() {
         </div>
 
         {/* Key takeaways */}
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          <h2 className="text-3xl font-bold mb-4 text-gray-800">Key takeaways</h2>
+        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+          <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Key takeaways</h2>
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-start gap-2">
               <span className="text-blue-500 mt-1">•</span>
@@ -429,8 +429,8 @@ export default function BubbleSortLesson() {
         </div>
 
         {/* Practice Exercise */}
-        <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-8 border-2 border-yellow-300">
-          <h2 className="text-3xl font-bold mb-4 text-gray-800">💡 Practice Exercise</h2>
+        <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-4 sm:p-8 border-2 border-yellow-300">
+          <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">💡 Practice Exercise</h2>
           <p className="text-lg text-gray-700 mb-4">
             Manually trace bubble sort on: <code className="bg-white px-2 py-1 rounded">[5, 2, 8, 1]</code>
           </p>

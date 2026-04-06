@@ -138,7 +138,7 @@ export default function LinkedListVisualizer() {
   const totalWidth = n * SLOT + NODE_GAP + 52;
 
   return (
-    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-8 mb-8 border-2 border-[#625EC6]/50">
+    <div className="w-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg p-4 sm:p-8 mb-6 sm:mb-8 border-2 border-[#625EC6]/50">
       <h2 className="text-2xl font-bold mb-4 text-gray-200">Linked List</h2>
 
       <div className="flex flex-wrap gap-4 mb-4">
